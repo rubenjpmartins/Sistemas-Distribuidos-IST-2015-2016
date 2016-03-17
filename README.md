@@ -12,11 +12,11 @@ Grupo de SD ... - Campus ...
 
 
 Repositório:
-[tecnico-distsys/C_XX-project](https://github.com/tecnico-distsys/C_XX-project/)
+[tecnico-softeng-distsys-2015/T_XX-project](https://github.com/tecnico-softeng-distsys-2015/T_XX-project/)
 
 -------------------------------------------------------------------------------
 
-## Instruções de instalação 
+## Instruções de instalação
 
 
 ### Ambiente
@@ -46,7 +46,7 @@ mkdir ...
 [3] Obter código fonte do projeto (versão entregue)
 
 ```
-git clone ... 
+git clone ...
 ```
 *(colocar aqui comandos git para obter a versão entregue a partir da tag e depois apagar esta linha)*
 
