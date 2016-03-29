@@ -1,7 +1,6 @@
 # Projeto de Sistemas Distribuídos 2015-2016 #
 
-Grupo de SD ... - Campus ...
-*(preencher com número do grupo de SD no Fénix e depois apagar esta linha)*
+Grupo de SD 38 - Campus Tagus-Park
 
 ... ... ...
 
@@ -23,8 +22,7 @@ Repositório:
 
 [0] Iniciar sistema operativo
 
-Indicar Windows ou Linux
-*(escolher um dos dois, que esteja disponível nos laboratórios, e depois apagar esta linha)*
+Linux
 
 
 [1] Iniciar servidores de apoio
