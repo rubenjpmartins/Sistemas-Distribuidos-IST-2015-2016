@@ -2,16 +2,14 @@
 
 Grupo de SD 38 - Campus Tagus-Park
 
-... ... ...
+Duarte Clara 76832 duartenvclara@gmail.com
 
-... ... ...
+Rúben Martins 79532 rubenjpmartins@gmail.com
 
-... ... ...
-*(preencher com nome, número e email de membro do grupo e depois apagar esta linha)*
-
+João Pires 76412 joao_pires_pires@hotmail.com 
 
 Repositório:
-[tecnico-softeng-distsys-2015/T_XX-project](https://github.com/tecnico-softeng-distsys-2015/T_XX-project/)
+[tecnico-softeng-distsys-2015/T_38-project](https://github.com/tecnico-softeng-distsys-2015/T_38-project/)
 
 -------------------------------------------------------------------------------
 
