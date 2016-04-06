@@ -19,6 +19,7 @@ public class ExampleTest {
     @BeforeClass
     public static void oneTimeSetUp() {
 
+    	
     }
 
     @AfterClass
@@ -46,6 +47,7 @@ public class ExampleTest {
     @Test
     public void test() {
 
+    	
         // assertEquals(expected, actual);
         // if the assert fails, the test fails
     }
