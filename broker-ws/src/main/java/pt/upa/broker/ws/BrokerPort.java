@@ -1,8 +1,11 @@
 package pt.upa.broker.ws;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.WebService;
+
+import pt.upa.transporter.ws.TransporterPortType;
 
 @WebService(
 		endpointInterface="pt.upa.broker.ws.BrokerPortType",
@@ -13,11 +16,19 @@ import javax.jws.WebService;
 		serviceName="BrokerService"
 )
 
-public class BrokerPort implements BrokerPortType{
+public class BrokerPort implements BrokerPortType{	
+	private Map<String,TransporterPortType> ports;
+	
+	public BrokerPort(Map<String,TransporterPortType> transporterPorts){
+		ports = transporterPorts;
+	}
 	
 	@Override
-	public String ping(String name) {			
-		return name;
+	public String ping(String name) {	
+		for (TransporterPortType value : ports.values()){
+			value.ping(name);
+		}
+		return "Server";
 	}
 
 	@Override

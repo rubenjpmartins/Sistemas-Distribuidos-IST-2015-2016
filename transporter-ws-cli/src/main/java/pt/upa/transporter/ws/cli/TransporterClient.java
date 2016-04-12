@@ -57,14 +57,17 @@ public class TransporterClient implements TransporterPortType {
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
 		requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
 
-		String result = port.ping("friend");
-		System.out.println(result);
 	}
 
 	@Override
 	public String ping(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		if (name == "UpaBroker"){
+			System.out.println("Correu bem");
+		}
+		else{
+			System.out.println("Erro");
+		}
+		return "bem sucedido";
 	}
 
 	@Override

@@ -10,9 +10,5 @@ public class BrokerApplication {
 		BrokerEndpointManager brokerServerConnect = new BrokerEndpointManager(args);
 		brokerServerConnect.serverConnect();
 		
-	
-		
-
-	}
-
-	}
+	}	
+}

@@ -15,10 +15,11 @@ import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
 
 public class BrokerEndpointManager {
-	String uddiURL;
-	String name;
-	String url;
-	String transporterServername="UpaTransporter";
+	private String uddiURL;
+	private String name;
+	private String url;
+	private String transporterServername="UpaTransporter";
+	Map<String, TransporterPortType> transporterPorts;
 	
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
@@ -30,11 +31,11 @@ public class BrokerEndpointManager {
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
 		
-		Map<String, TransporterPortType> transporterPorts;
-		transporterPorts = new HashMap<String,TransporterPortType >();
+		transporterPorts = new HashMap<String,TransporterPortType>();
 		
 		try {
-			endpoint = Endpoint.create(new BrokerPort());
+			BrokerPort teste = new BrokerPort(transporterPorts);
+			endpoint = Endpoint.create(teste);
 
 			// publish endpoint
 			System.out.printf("Starting %s%n", url);
@@ -50,74 +51,55 @@ public class BrokerEndpointManager {
 			int i;
 			Collection<String> urlTransporterEndpoint= new ArrayList<String>();
 			
-			
-			
+			System.out.println("Looking for Transporters...");
 			for (i=1; i < 10; i++){
-				String transporterName = transporterServername+Integer.toString(i) ;
-				System.out.println("Looking for : " + transporterName);
+				String transporterName = transporterServername+Integer.toString(i) ;				
 				String transporterURL = uddiNaming.lookup(transporterName);
-				if (transporterURL == null){
-					System.out.println(transporterName + " - Not Found ");
-				} else {
-					System.out.println(transporterName + " - Found ");
-					urlTransporterEndpoint.add(transporterURL);
-					System.out.println(transporterURL+"\n");
-					
-					
-					// Server stubs creation
-					
 				
-					
-					
-					//System.out.println("Creating stub ...");
+				// Transporter Found
+				if (transporterURL != null){		
+				
+					System.out.println(transporterName + " was Found at:");
+					urlTransporterEndpoint.add(transporterURL);
+					System.out.println(transporterURL);
+															
+					// stubs creation for Transporter
 					TransporterService service = new TransporterService();
 					TransporterPortType port = service.getTransporterPort();
 
-					//System.out.println("Setting endpoint address ...");
+					// endpoint setting for Transporter
 					BindingProvider bindingProvider = (BindingProvider) port;
 					Map<String, Object> requestContext = bindingProvider.getRequestContext();
 					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
-					
-					
-					
-					// Add Transporter ports to hashmap
-					transporterPorts.put(transporterName, port);				
-					
+										
+					// add Transporter name and port to map
+					transporterPorts.put(transporterName, port);						
 				}
-		
+				
+				/*
 				// Print de todos os transporter ports disponiveis
 				
 				for (String s : transporterPorts.keySet()){
 					System.out.println(s);
-				}
-				
-				
+				}*/				
 			}
-			
+			/*
 			// Show all Transporters found 
 			for(String elem: urlTransporterEndpoint){
 				System.out.println(elem + "      " + "234");
-			}	
+			}	*/
 			
 			
 			// ping de teste
-			
+			/*
 			String resposta = transporterPorts.get("UpaTransporter1").ping("larilas");
-			System.out.println(resposta);
-			
-			
-			
-			
-			
-			
-			
+			System.out.println(resposta);*/
+						
 			// wait
-			System.out.println("Awaiting connections");
+			System.out.println("Broker Server is awaiting connections");
 			System.out.println("Press enter to shutdown");
 			System.in.read();
-			
-			
-			
+						
 
 		} catch (Exception e) {
 			System.out.printf("Caught exception: %s%n", e);
