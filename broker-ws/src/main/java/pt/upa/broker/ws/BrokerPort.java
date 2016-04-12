@@ -14,11 +14,10 @@ import javax.jws.WebService;
 )
 
 public class BrokerPort implements BrokerPortType{
-
+	
 	@Override
-	public String ping(String name) {
-		String s = "ola broker ";
-		return s + name;
+	public String ping(String name) {			
+		return name;
 	}
 
 	@Override

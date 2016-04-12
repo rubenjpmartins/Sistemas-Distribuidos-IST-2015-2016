@@ -2,6 +2,7 @@ pt/upa/transporter/ws/Ping.class
 pt/upa/transporter/ws/ListJobs.class
 pt/upa/transporter/ws/ClearJobsResponse.class
 pt/upa/transporter/ws/ListJobsResponse.class
+pt/upa/transporter/TransporterClientApplication.class
 pt/upa/transporter/ws/ObjectFactory.class
 pt/upa/transporter/ws/DecideJob.class
 pt/upa/transporter/ws/ClearJobs.class
@@ -10,6 +11,7 @@ pt/upa/transporter/ws/BadPriceFault.class
 pt/upa/transporter/ws/TransporterPortType.class
 pt/upa/transporter/ws/BadJobFault.class
 pt/upa/transporter/ws/RequestJobResponse.class
+pt/upa/transporter/ws/cli/TransporterClient.class
 pt/upa/transporter/ws/BadLocationFault.class
 pt/upa/transporter/ws/BadJobFault_Exception.class
 pt/upa/transporter/ws/TransporterService.class

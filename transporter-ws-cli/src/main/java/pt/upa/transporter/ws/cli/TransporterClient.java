@@ -1,14 +1,21 @@
 package pt.upa.transporter.ws.cli;
 
+import static javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
+
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.WebService;
+import javax.xml.registry.JAXRException;
+import javax.xml.ws.BindingProvider;
 
+import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 import pt.upa.transporter.ws.BadJobFault_Exception;
 import pt.upa.transporter.ws.BadLocationFault_Exception;
 import pt.upa.transporter.ws.BadPriceFault_Exception;
 import pt.upa.transporter.ws.JobView;
 import pt.upa.transporter.ws.TransporterPortType;
+import pt.upa.transporter.ws.TransporterService;
 
 @WebService(
 		endpointInterface="pt.upa.transporter.ws.TransporterPortType",
@@ -20,6 +27,39 @@ import pt.upa.transporter.ws.TransporterPortType;
 )
 
 public class TransporterClient implements TransporterPortType {
+	
+	public TransporterClient(String[] args) throws JAXRException{
+		String id = args[0];
+		String uddiURL = args[1];
+		String name = args[2];
+		
+
+		System.out.printf("Contacting UDDI at %s%n", uddiURL);
+		UDDINaming uddiNaming = new UDDINaming(uddiURL);
+		
+		String targetServer = name + id;
+		System.out.printf("Looking for '%s'%n", targetServer);
+		String endpointAddress = uddiNaming.lookup(targetServer);
+
+		if (endpointAddress == null) {
+			System.out.println("Not found!");
+			return;
+		} else {
+			System.out.printf("Found %s%n", endpointAddress);
+		}
+
+		System.out.println("Creating stub ...");
+		TransporterService service = new TransporterService();
+		TransporterPortType port = service.getTransporterPort();
+
+		System.out.println("Setting endpoint address ...");
+		BindingProvider bindingProvider = (BindingProvider) port;
+		Map<String, Object> requestContext = bindingProvider.getRequestContext();
+		requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
+
+		String result = port.ping("friend");
+		System.out.println(result);
+	}
 
 	@Override
 	public String ping(String name) {
