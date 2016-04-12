@@ -13,9 +13,10 @@ public class TransporterEndpointManager {
 		
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
+		
 	
 		try {
-			endpoint = Endpoint.create(new TransporterPort());
+			endpoint = Endpoint.create(new TransporterPort(name));
 
 			// publish endpoint
 			System.out.printf("Starting %s%n", url);
@@ -30,7 +31,9 @@ public class TransporterEndpointManager {
 			System.out.println("Awaiting connections");
 			System.out.println("Press enter to shutdown");
 			System.in.read();
-
+			
+					
+			
 		} catch (Exception e) {
 			System.out.printf("Caught exception: %s%n", e);
 			e.printStackTrace();

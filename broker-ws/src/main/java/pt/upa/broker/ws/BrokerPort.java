@@ -25,10 +25,26 @@ public class BrokerPort implements BrokerPortType{
 	
 	@Override
 	public String ping(String name) {	
+		int tamanhoports = ports.size();
+		System.out.println(tamanhoports);
+		int numeroRespostasPing = 0;
+		System.out.println(name);
+		
 		for (TransporterPortType value : ports.values()){
-			value.ping(name);
+			
+			if (value.ping(name) != null){
+				numeroRespostasPing++;
+				
+			}
 		}
-		return "Server";
+		
+		if(numeroRespostasPing == tamanhoports){
+			return "All OK - Ping Sucessful";
+		}else{
+			return "Ping Fail ";
+		}
+		
+		
 	}
 
 	@Override

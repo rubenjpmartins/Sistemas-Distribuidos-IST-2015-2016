@@ -19,7 +19,7 @@ public class BrokerEndpointManager {
 	private String name;
 	private String url;
 	private String transporterServername="UpaTransporter";
-	Map<String, TransporterPortType> transporterPorts;
+	private static Map<String, TransporterPortType> transporterPorts;
 	
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
@@ -47,6 +47,7 @@ public class BrokerEndpointManager {
 			uddiNaming = new UDDINaming(uddiURL);
 			uddiNaming.rebind(name, url);
 			
+			
 			// searching for transporters
 			int i;
 			Collection<String> urlTransporterEndpoint= new ArrayList<String>();
@@ -58,7 +59,7 @@ public class BrokerEndpointManager {
 				
 				// Transporter Found
 				if (transporterURL != null){		
-				
+					
 					System.out.println(transporterName + " was Found at:");
 					urlTransporterEndpoint.add(transporterURL);
 					System.out.println(transporterURL);
@@ -76,6 +77,8 @@ public class BrokerEndpointManager {
 					transporterPorts.put(transporterName, port);						
 				}
 				
+				
+				
 				/*
 				// Print de todos os transporter ports disponiveis
 				
@@ -83,6 +86,15 @@ public class BrokerEndpointManager {
 					System.out.println(s);
 				}*/				
 			}
+			
+			if(transporterPorts.isEmpty()){
+				System.out.println("There are no active transporters");
+				return;
+			}
+			
+			// verifica se foi encontrado algum transporter
+			
+			
 			/*
 			// Show all Transporters found 
 			for(String elem: urlTransporterEndpoint){

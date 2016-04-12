@@ -56,8 +56,6 @@ public class BrokerClientApplication {
 		requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
 
 
-
-
 		// create a scanner so we can read the command-line input
 	    Scanner scanner = new Scanner(System.in);
 
@@ -71,18 +69,28 @@ public class BrokerClientApplication {
 	    	// user choice 
 	    	System.out.print("Enter your choice: ");
 	    	System.out.print("1 - Ping");
-	    	System.out.print("2 - Consult Status");
+	    	System.out.print("2 - Request Transport com preco referencia = 80");
 	    	System.out.print("3 - Consult Status");
 		    int userNumber = scanner.nextInt();
 
 
 	        switch (userNumber) {
 	            case 1:  userNumber = 1;
-	            		 String result = port.ping("broker friend");
+	            		 String result = port.ping("broker teste");
 						 System.out.println(result);
 	                     break;
 	            case 2:  userNumber = 2;
+	            
+	            		//Para apanhar os args
+	            		//int userNumber = scanner.nextInt();
+	            		//int userNumber = scanner.nextInt();
+	            		//int userNumber = scanner.nextInt();
+	            			String resposta;
+	                     resposta= port.requestTransport("Porto","Braga", 10);
+	                     System.out.println(resposta);
 	                     break;
+	                     
+	                     
 	            case 3:  userNumber = 3;
 	                     return;
 

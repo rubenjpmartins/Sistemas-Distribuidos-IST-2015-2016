@@ -1,8 +1,14 @@
 package pt.upa.transporter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import pt.upa.transporter.ws.TransporterEndpointManager;
 
 public class TransporterApplication {
+	
+	// Create map to store the transporters by region
+	//Map<String,String> transportersByRegion = new HashMap<String,String>();
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(TransporterApplication.class.getSimpleName() + " starting...");
@@ -16,6 +22,10 @@ public class TransporterApplication {
 		
 		TransporterEndpointManager transporterServerConnect = new TransporterEndpointManager();
 		transporterServerConnect.TransporterConnect(args);
+		
+		
+		
+		
 
 	}
 

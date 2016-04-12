@@ -20,7 +20,7 @@ public class PingTest {
     @BeforeClass
     public static void oneTimeSetUp() {
     	
-    	port = new TransporterPort();
+    	//port = new TransporterPort(); // name tem que ser UpaTransporter1
     }
 
     @AfterClass
