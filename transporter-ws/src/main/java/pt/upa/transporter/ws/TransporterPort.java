@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.jws.WebService;
 
 
@@ -22,6 +25,16 @@ public class TransporterPort implements TransporterPortType {
 	private int transporterRegionSelecion;
 	private String transporterName;
 	private int contadorID;
+	Random value = new Random();
+	
+	
+	//temporizador
+	private Timer timer1;
+	private Timer timer2;
+	private Timer timer3;
+
+
+
 	
 	private JobStateView estadoJob;
 	
@@ -63,19 +76,91 @@ public class TransporterPort implements TransporterPortType {
 		transportersByRegion.put("Beja","Zona Sul");
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// para alterar o estado!
+		class ChangeJobState extends TimerTask {
+			
+			JobView jobjob;
+			Timer timertimer;
+			
+			public ChangeJobState(JobView job, Timer timer){
+				
+				this.jobjob = job;
+				this.timertimer = timer;
+				
+			}
+			
+	        public void run() {
+  	
+	        	if ((jobjob.getJobState()).compareTo(JobStateView.ACCEPTED) == 0){
+	        		jobjob.setJobState(JobStateView.HEADING);
+	        		System.out.println("Estado mudado para HEADING");
+	        		timertimer.cancel(); //Terminate the timer thread
+	        		return; 
+	        	}
+	        		
+	        	if ((jobjob.getJobState()).compareTo(JobStateView.HEADING) == 0){
+	        		jobjob.setJobState(JobStateView.ONGOING);
+	        		System.out.println("Estado mudado para ONGOING");
+	        		timertimer.cancel(); //Terminate the timer thread
+	        		return;
+
+	        	}
+	        			
+	        	if ((jobjob.getJobState()).compareTo(JobStateView.ONGOING) == 0){
+	        		jobjob.setJobState(JobStateView.COMPLETED);
+	        		System.out.println("Estado mudado para COMPLETED");
+	        		timertimer.cancel(); //Terminate the timer thread
+	        		return;
+
+	        	}
+	        }
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public String ping(String name) {
 		return name;
 	}
-
+	
 	@Override
 	public JobView requestJob(String origin, String destination, int price)
 			throws BadLocationFault_Exception, BadPriceFault_Exception {
-		
-			
-			
-			
-		
+
 			
 			int precoProposto = 0;
 			String jobIdBuilder = transporterName.concat(":") ;
@@ -206,10 +291,37 @@ public class TransporterPort implements TransporterPortType {
 	public JobView decideJob(String id, boolean accept) throws BadJobFault_Exception {
 		// TODO Auto-generated method stub
 
+		/*
+		TimerTask task = new TimerTask() {
+			
+			@Override
+			public void run() {
+		}
+			
+		}; */
 
 		
+		JobView jobChoosen = jobStatus(id); //searchJobs - procura pelo job
+
+		if(jobChoosen == null){
+			BadJobFault job = new BadJobFault();
+			job.setId(id); // alterar isto -  esta a faltar algo
+			throw new BadJobFault_Exception("A job with that id is unavailable", job);
+		}
 		
-		return null;
+		else{
+			if(accept){
+				jobChoosen.setJobState(JobStateView.ACCEPTED);
+				timer(jobChoosen);
+				return jobChoosen;
+			}
+			else{
+				jobChoosen.setJobState(JobStateView.REJECTED);
+				return jobChoosen;
+			}
+		}
+
+		
 	}
 
 	@Override
@@ -243,6 +355,20 @@ public class TransporterPort implements TransporterPortType {
 	    return numeroresultado;
 	}
 	
+	public void timer(JobView job) {
+		
+		int duration1 = value.nextInt(1000-5000);
+		int duration2 = duration1 + value.nextInt(1000-5000);
+		int duration3 = duration2 + value.nextInt(1000-5000);
+        
+		timer1 = new Timer();
+        timer2 = new Timer();
+        timer3 = new Timer();
+        
+        timer1.schedule(new ChangeJobState(job, timer1), 1*duration1);
+        timer2.schedule(new ChangeJobState(job, timer2), 1*duration2);
+        timer3.schedule(new ChangeJobState(job, timer3), 1*duration3);
+    }
 	
 	
 	// TODO
