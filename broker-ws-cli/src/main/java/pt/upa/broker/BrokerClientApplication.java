@@ -86,7 +86,7 @@ public class BrokerClientApplication {
 	            		//int userNumber = scanner.nextInt();
 	            		//int userNumber = scanner.nextInt();
 	            			String resposta;
-	                     resposta= port.requestTransport("Porto","Braga", 10);
+	                     resposta= port.requestTransport("Faro","Faro", 80);
 	                     System.out.println(resposta);
 	                     break;
 	                     

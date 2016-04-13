@@ -141,10 +141,8 @@ public class TransporterPort implements TransporterPortType {
 			concreteJobView.setCompanyName(transporterName);
 			
 			//inicializa o estado e dá-lhe como requestd
-			estadoJob.valueOf("REQUESTED");
-			concreteJobView.setJobState(estadoJob); 
-			
-			
+			concreteJobView.setJobState(JobStateView.PROPOSED); 
+	
 			// Gera ID 
 		
 			String concatena= Integer.toString(contadorID);
@@ -233,6 +231,7 @@ public class TransporterPort implements TransporterPortType {
 	@Override
 	public void clearJobs() {
 		jobViewsList.clear();
+		contadorID=0;
 	}
 	
 	/////////////////////////////////////////METODO RAMDOM??

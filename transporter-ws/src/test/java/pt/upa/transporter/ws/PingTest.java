@@ -20,7 +20,7 @@ public class PingTest {
     @BeforeClass
     public static void oneTimeSetUp() {
     	
-    	//port = new TransporterPort(); // name tem que ser UpaTransporter1
+    	port = new TransporterPort("UpaTransporter1");
     }
 
     @AfterClass
@@ -48,10 +48,10 @@ public class PingTest {
     @Test
     public void testPing() {
     	
-    	String name = "ola";
+    	String name = "UpaTransporter1";
     
     	
-    	assertEquals("ola " + name, port.ping(name));
+    	assertEquals(name, port.ping(name));
         // if the assert fails, the test fails
     }
 

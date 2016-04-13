@@ -17,6 +17,9 @@ import pt.upa.transporter.ws.JobView;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
 
+
+
+
 @WebService(
 		endpointInterface="pt.upa.transporter.ws.TransporterPortType",
 		wsdlLocation="transporter.1_0.wsdl",
@@ -79,7 +82,26 @@ public class TransporterClient implements TransporterPortType {
 
 	@Override
 	public JobView decideJob(String id, boolean accept) throws BadJobFault_Exception {
-		// TODO Auto-generated method stub
+
+		/*JobView Job = searchJobs(id);
+		if(Job == null){
+			BadJobFault badJob = new BadJobFault();
+			badJob.setId(id);
+			throw new BadJobFault_Exception("A job with that id is unavailable", badJob);
+		}
+		else{
+			if(accept){
+				Job.setJobState(JobStateView.ACCEPTED);
+				timer(Job);
+				return Job;
+			}
+			else{
+				Job.setJobState(JobStateView.REJECTED);
+				timer(Job);
+				return Job;
+
+		*/
+
 		return null;
 	}
 
