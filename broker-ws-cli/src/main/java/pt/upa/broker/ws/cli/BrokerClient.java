@@ -32,25 +32,7 @@ public class BrokerClient implements BrokerPortType{
 	public String requestTransport(String origin, String destination, int price)
 			throws InvalidPriceFault_Exception, UnavailableTransportFault_Exception,
 			UnavailableTransportPriceFault_Exception, UnknownLocationFault_Exception {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// TODO Auto-generated method stub		
 		return null;
 	}
 
@@ -71,6 +53,4 @@ public class BrokerClient implements BrokerPortType{
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

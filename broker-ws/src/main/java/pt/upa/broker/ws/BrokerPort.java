@@ -11,8 +11,8 @@ import javax.jws.WebService;
 
 import pt.upa.transporter.ws.BadJobFault_Exception;
 import pt.upa.transporter.ws.BadLocationFault_Exception;
-import pt.upa.transporter.ws.BadPriceFault;
 import pt.upa.transporter.ws.BadPriceFault_Exception;
+import pt.upa.transporter.ws.JobStateView;
 import pt.upa.transporter.ws.JobView;
 import pt.upa.transporter.ws.TransporterPortType;
 
@@ -40,7 +40,7 @@ public class BrokerPort implements BrokerPortType{
 		ports = transporterPorts;
 				
 		// inicializa lista para guardar estados transportadoras
-		//transportersStates = new ArrayList<>();
+		associateIdentifiers = new HashMap<>();
 		transportersViews = new HashMap<>();
 		
 		int counterId = 0;
@@ -96,7 +96,7 @@ public class BrokerPort implements BrokerPortType{
 			transportersViews.put(Integer.toString(counterId), clientRequest);
 
 			int minValueProposed = 99999; // inicializa com valor grande para depois ser decrementado com o valor min
-			String nomeTransportadoraMin;
+			String nomeTransportadoraMin ="";
 			String idTransportadoraMin = "";
 			int contaNull = 0;
 			
@@ -130,6 +130,12 @@ public class BrokerPort implements BrokerPortType{
 								minValueProposed = respostaTrasportadora.getJobPrice();
 								nomeTransportadoraMin = respostaTrasportadora.getCompanyName();	
 								idTransportadoraMin = respostaTrasportadora.getJobIdentifier();
+								
+								
+								
+								
+								System.out.println("id traportadora");
+								System.out.println(idTransportadoraMin);
 
 
 								// SACA O ID DO VENCEDOR	
@@ -137,7 +143,7 @@ public class BrokerPort implements BrokerPortType{
 							
 							}
 
-
+						
 
 
 						else{ // caso seja retornado null from transporter server
@@ -154,13 +160,16 @@ public class BrokerPort implements BrokerPortType{
 					}// Fim ciclo for de requests
 					
 					
-					
-					
+					// mete o nomedotransporter no transporterview
+					clientRequest.setTransporterCompany(nomeTransportadoraMin);
 					
 					// verifica o caso se recebeu NULL de todos os transportes
 					if(contaNull==ports.size()){
 						
 						transportersViews.get(Integer.toString(counterId)).setState(TransportStateView.FAILED);
+						
+						// mete o nomedotransporter no transporterview
+						clientRequest.setTransporterCompany("NoTransporterCompany");
 						
 						// VER -- falta destino! - so envia origem no faultinfo
 						UnavailableTransportFault faultInfo = new UnavailableTransportFault();
@@ -172,8 +181,12 @@ public class BrokerPort implements BrokerPortType{
 			
 					if(minValueProposed>price){ // verifica se o valor minimo é cumprido
 						
+						System.out.println(minValueProposed);
+						System.out.println(price);
+						
 						//Actualiza o estado para FAILED
 						transportersViews.get(Integer.toString(counterId)).setState(TransportStateView.FAILED);
+						
 						
 						for (JobView jobRejected : jobStates){
 							
@@ -196,11 +209,7 @@ public class BrokerPort implements BrokerPortType{
 						throw new UnavailableTransportPriceFault_Exception("Max price proposed is:", faultInfo);
 						
 						//vai enviar fail para todas
-
-					
-						
-						
-						
+	
 					}
 					else{  // corresponde às condiçoes todas
 						
@@ -222,8 +231,18 @@ public class BrokerPort implements BrokerPortType{
 							if(idTransportadoraMin.equals(jobId)){ // envia decide para a unica tranportadora winner
 								
 								// adiciona na lista ID - ID --> ex ( 1 , UPAtransporter1:3 )
-								associateIdentifiers.put(Integer.toString(counterId), idTransportadoraMin);
 								
+								// DAVA ERRO AQUI
+								String contador2 = Integer.toString(counterId);
+								
+								System.out.println("aqui esta");
+								System.out.println(contador2);
+								
+								System.out.println(idTransportadoraMin);
+								
+								
+								associateIdentifiers.put(contador2, idTransportadoraMin);
+							    
 								
 								try{
 									portAccepted.decideJob(jobId, true); // envia accepted para o trasportr winner
@@ -250,6 +269,9 @@ public class BrokerPort implements BrokerPortType{
 				} catch (BadPriceFault_Exception e) {
 				    System.err.println("BadPriceFault Exception: " + e.getMessage());
 				    // Retorna erro de preço inferior a 0
+				    transportersViews.get(Integer.toString(counterId)).setState(TransportStateView.FAILED);
+				 // mete o nomedotransporter no transporterview
+					clientRequest.setTransporterCompany("NoTransporterCompanyFailed");
 					
 					InvalidPriceFault faultInfo = new InvalidPriceFault();
 					faultInfo.setPrice(e.getFaultInfo().getPrice());
@@ -257,6 +279,9 @@ public class BrokerPort implements BrokerPortType{
 				    
 				} catch (BadLocationFault_Exception e) {
 				    System.err.println("BadLocationFault Exception: " + e.getMessage());
+				    transportersViews.get(Integer.toString(counterId)).setState(TransportStateView.FAILED);
+				 // mete o nomedotransporter no transporterview
+					clientRequest.setTransporterCompany("NoTransporterCompanyFailed");
 
 				    // Retorna erro de cidade inválida 
 				    UnknownLocationFault faultInfo = new UnknownLocationFault();
@@ -269,25 +294,87 @@ public class BrokerPort implements BrokerPortType{
 
 	@Override
 	public TransportView viewTransport(String id) throws UnknownTransportFault_Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(transportersViews.containsKey(id)){
+			// Actualiza o estado 
+			actualizaEstado(id);
+			return transportersViews.get(id);	
+		}else{
+			// Retorna erro de id não presente
+			UnknownTransportFault faultInfo = new UnknownTransportFault();
+			faultInfo.setId(id);
+			throw new UnknownTransportFault_Exception("Unknown TransportID:", faultInfo);		
+		}	
 	}
 
+	
 	@Override
 	public List<TransportView> listTransports() {
-		return null;
+		
+		List<TransportView> listaTransportViews = new ArrayList<>();
+		
+		for (TransportView value : transportersViews.values()){	
+			
+			// saca o ID contador ( 1 , 2 , 3 ... )
+			String IDvalue = value.getId();
+			
+			// se for diferente dos estados que não precisam de ser actualizados --> ele vai buscar os estados mais recentes ao transporter
+			if((value.getState().compareTo(TransportStateView.REQUESTED) != 0 ) ||  (value.getState().compareTo(TransportStateView.BUDGETED) != 0 ) || (value.getState().compareTo(TransportStateView.FAILED) != 0 ) ){
+
+				actualizaEstado(IDvalue);
+				
+			}
+			// adiciona na lista o transportView
+			listaTransportViews.add(value);	
+		}
+		return listaTransportViews;
 	}
 
+	
 	@Override
 	public void clearTransports() {
-		//transportersStates.clear();	
-		//jobStates.clear();
+
+		transportersViews.clear();	
+		associateIdentifiers.clear();	
+		counterId=0;
 		
 		// for para fazer clear a cada uma
-		
-		
-		
+		for (TransporterPortType value : ports.values()){
+			value.clearJobs();	
+			}
 	}
+	
+	//funcao para actualizar o estado no broker
+	public void actualizaEstado (String IDBroker){
+		
+		String IDtransporter= associateIdentifiers.get(IDBroker); //saca algo tipo: UPATRANSPORTER1:32 
+		System.out.println("IDtransporter sacado da associateIdentifiers ");
+		System.out.println(IDtransporter);
+		
+		String[] parts = IDtransporter.split(":");
+		String part1 = parts[0]; // ex:UPATRANSPORTER1
+		
+		// vai buscar o port do respectivo upa tranporter
+		TransporterPortType portConnect = ports.get(part1);
+		
+		//Recebe um jobView
+		JobView recebido = portConnect.jobStatus(IDtransporter);
+		
+		
+		//verifica os states e altera na lista do broker
+		if (recebido.getJobState().compareTo(JobStateView.HEADING) == 0){
+			transportersViews.get(IDBroker).setState(TransportStateView.HEADING);
+		}
+		
+		if (recebido.getJobState().compareTo(JobStateView.ONGOING) == 0){
+			transportersViews.get(IDBroker).setState(TransportStateView.ONGOING);
+		}
+		
+		if (recebido.getJobState().compareTo(JobStateView.COMPLETED) == 0){
+			transportersViews.get(IDBroker).setState(TransportStateView.COMPLETED);
+		}	
+		
+	};
 
 	// TO DO
 

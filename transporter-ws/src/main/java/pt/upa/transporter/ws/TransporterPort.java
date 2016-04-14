@@ -26,17 +26,13 @@ public class TransporterPort implements TransporterPortType {
 	private String transporterName;
 	private int contadorID;
 	Random value = new Random();
-	
-	
+
 	//temporizador
 	private Timer timer1;
 	private Timer timer2;
 	private Timer timer3;
-
-
-
 	
-	private JobStateView estadoJob;
+	//private JobStateView estadoJob;
 	
 		
 	public TransporterPort(String name){
@@ -75,23 +71,6 @@ public class TransporterPort implements TransporterPortType {
 		transportersByRegion.put("Faro","Zona Sul");
 		transportersByRegion.put("Beja","Zona Sul");
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// para alterar o estado!
 		class ChangeJobState extends TimerTask {
@@ -202,10 +181,10 @@ public class TransporterPort implements TransporterPortType {
 				
 				if(price%2==1){	
 					if(transporterRegionSelecion%2==1 ){ // preco impar e transportadora impar
-					precoProposto = geradorPrecoRandom(price, 0);
+						precoProposto = geradorPrecoRandom(price, 0);
 					}
 					else{
-						precoProposto = geradorPrecoRandom(100, price+1); // limite maximo de uma proposta é 100???=???????????
+						precoProposto = geradorPrecoRandom(100, price); // limite maximo de uma proposta é 100???=???????????
 					}	
 				}
 				
@@ -215,7 +194,7 @@ public class TransporterPort implements TransporterPortType {
 						}
 					
 					else{
-						precoProposto = geradorPrecoRandom(100, price+1); // limite maximo de uma proposta é 100???=???????????
+						precoProposto = geradorPrecoRandom(100, price); // limite maximo de uma proposta é 100???=???????????
 					}	
 				}
 			}
@@ -231,7 +210,9 @@ public class TransporterPort implements TransporterPortType {
 			// Gera ID 
 		
 			String concatena= Integer.toString(contadorID);
-			jobIdBuilder.concat(concatena);
+			jobIdBuilder = jobIdBuilder.concat(concatena);
+			System.out.println("ID");
+			System.out.println(jobIdBuilder);
 			contadorID++;
 			concreteJobView.setJobIdentifier(jobIdBuilder);
 						
@@ -290,16 +271,6 @@ public class TransporterPort implements TransporterPortType {
 	@Override
 	public JobView decideJob(String id, boolean accept) throws BadJobFault_Exception {
 		// TODO Auto-generated method stub
-
-		/*
-		TimerTask task = new TimerTask() {
-			
-			@Override
-			public void run() {
-		}
-			
-		}; */
-
 		
 		JobView jobChoosen = jobStatus(id); //searchJobs - procura pelo job
 
@@ -323,6 +294,11 @@ public class TransporterPort implements TransporterPortType {
 
 		
 	}
+	
+	
+	
+	
+	
 
 	@Override
 	public JobView jobStatus(String id) {
@@ -346,20 +322,35 @@ public class TransporterPort implements TransporterPortType {
 		contadorID=0;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/////////////////////////////////////////METODO RAMDOM??
 	
 	private int geradorPrecoRandom(int max, int min){
 		Random gerador = new Random();
 	    int numeroresultado; 
+	    int soma = max - min;
+	    if(soma < 0){
+	    	System.out.println("peido              peido ");
+	    }
 	    numeroresultado= gerador.nextInt(max-min)+min;
 	    return numeroresultado;
 	}
 	
 	public void timer(JobView job) {
 		
-		int duration1 = value.nextInt(1000-5000);
-		int duration2 = duration1 + value.nextInt(1000-5000);
-		int duration3 = duration2 + value.nextInt(1000-5000);
+		int duration1 = geradorPrecoRandom(5000,1000);
+		int duration2 = duration1 + geradorPrecoRandom(5000,1000);
+		int duration3 = duration2 + geradorPrecoRandom(5000,1000);
         
 		timer1 = new Timer();
         timer2 = new Timer();
@@ -370,7 +361,5 @@ public class TransporterPort implements TransporterPortType {
         timer3.schedule(new ChangeJobState(job, timer3), 1*duration3);
     }
 	
-	
-	// TODO
-
 }
+

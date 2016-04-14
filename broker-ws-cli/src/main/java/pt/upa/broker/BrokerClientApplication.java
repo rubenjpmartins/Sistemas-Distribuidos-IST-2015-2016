@@ -5,12 +5,16 @@ import java.util.Scanner;
 import pt.upa.broker.ws.cli.BrokerClient;
 
 import static javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 import pt.upa.broker.ws.BrokerPortType;
 import pt.upa.broker.ws.BrokerService;
+import pt.upa.broker.ws.TransportView;
 
 public class BrokerClientApplication {
 
@@ -67,10 +71,13 @@ public class BrokerClientApplication {
 	    while(true){
 
 	    	// user choice 
-	    	System.out.print("Enter your choice: ");
-	    	System.out.print("1 - Ping");
-	    	System.out.print("2 - Request Transport com preco referencia = 80");
-	    	System.out.print("3 - Consult Status");
+	    	System.out.print("Enter your choice:\n");
+	    	System.out.print("1 - Ping\n");
+	    	System.out.print("2 - Request Transport\n");
+	    	System.out.print("3 - Consult All Transport Status\n");
+	    	System.out.print("4 - Consult Transport by ID\n");
+	    	System.out.print("5 - Clear Transports\n");
+	    	System.out.print("6 - Exit\n\n\n");
 		    int userNumber = scanner.nextInt();
 
 
@@ -81,21 +88,46 @@ public class BrokerClientApplication {
 	                     break;
 	            case 2:  userNumber = 2;
 	            
-	            		//Para apanhar os args
-	            		//int userNumber = scanner.nextInt();
-	            		//int userNumber = scanner.nextInt();
-	            		//int userNumber = scanner.nextInt();
-	            			String resposta;
-	                     resposta= port.requestTransport("Faro","Faro", 80);
+	            		 //Para apanhar os args
+	            		 System.out.print("1 - Insira a origem\n");
+	            		 String escolha1 = scanner.next();
+	            		 System.out.print("2 - Insira o destino\n");
+	            		 String escolha2 = scanner.next();
+	            		 System.out.print("3 - Insira o preco\n");
+	            	     int escolhapreco3 = scanner.nextInt();
+	            		 String resposta;
+	                     resposta= port.requestTransport(escolha1,escolha2, escolhapreco3);
 	                     System.out.println(resposta);
 	                     break;
 	                     
 	                     
 	            case 3:  userNumber = 3;
-	                     return;
+	            		 List<TransportView> listaTransportViewsRecebida = new ArrayList<>();
+	            		 listaTransportViewsRecebida = port.listTransports();
+	            		 
+	            		 for (TransportView value : listaTransportViewsRecebida){	
+	            				// Imprime o Status do TransportView
 
-	            case 4:  userNumber = 4;
+	            			 	System.out.println("O estado do Transporte " + value.getTransporterCompany() +" com o ID " +value.getId()+ " é : " + value.getState());
+	            			}
+	            		 
 	                     break;
+	                     
+	            case 4:  userNumber = 4;
+	            		 System.out.print("1 - Insira o ID\n");
+	            		 String escolhaid = scanner.next();
+	            		 TransportView transportrecebido = port.viewTransport(escolhaid);	 
+	            		 System.out.println("O estado do Transporte " + transportrecebido.getTransporterCompany() +" com o ID " +transportrecebido.getId()+ " é : " + transportrecebido.getState());
+	            		 
+       		 			 break;
+       		 			 
+	            case 5:  userNumber = 5;
+	            		 port.clearTransports();
+	            		 System.out.println("All Cleaned");
+	                     break;
+	            
+	            case 6:  userNumber = 6;
+                		 return;         
 
 	            default: 
 	            	System.out.println("Invalid choice");
