@@ -37,6 +37,11 @@ Para lançar o servidor, basta executar o seguinte comando na pasta
 juddi-3.3.2_tomcat-7.0.64_9090/bin:
 
 ./startup.sh
+
+Para confirmar funcionamento, aceder à página de índice do jUDDI, que dá também acesso à interface de administração
+http://localhost:9090/juddiv3/
+
+utilizador:senha uddiadmin:da_password1
 ```
 
 
@@ -61,14 +66,12 @@ git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 [4] Instalar módulos de bibliotecas auxiliares
 
 ```
-adicionar a biblioteca uddi naming????
-
 cd uddi-naming
 mvn clean install
 ```
 
 ```
-cd transporter-ws ??
+cd transporter-ws
 mvn clean install
 ```
 
