@@ -19,9 +19,9 @@ Repositório:
 ### Ambiente
 
 [0] Iniciar sistema operativo
-
+```
 Linux
-
+```
 
 [1] Iniciar servidores de apoio
 
