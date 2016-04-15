@@ -27,7 +27,6 @@ Linux
 
 JUDDI:
 ```
-
 É usado o Servidor de nomes para Web Services que segue a norma UDDI 
 ->jUDDI 3.3.2 (configured for port 9090)
 
@@ -38,8 +37,6 @@ Para lançar o servidor, basta executar o seguinte comando na pasta
 juddi-3.3.2_tomcat-7.0.64_9090/bin:
 
 ./startup.sh
-
-
 ```
 
 
@@ -49,7 +46,6 @@ juddi-3.3.2_tomcat-7.0.64_9090/bin:
 cd Documents
 mkdir SDProj
 cd SDProj
-
 ```
 
 
@@ -65,12 +61,14 @@ git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 [4] Instalar módulos de bibliotecas auxiliares
 
 ```
+adicionar a biblioteca uddi naming????
+
 cd uddi-naming
 mvn clean install
 ```
 
 ```
-cd ...
+cd transporter-ws ??
 mvn clean install
 ```
 
@@ -82,7 +80,7 @@ mvn clean install
 [1] Construir e executar **servidor**
 
 ```
-cd ...-ws
+cd transporter-ws
 mvn clean install
 mvn exec:java
 ```
@@ -90,8 +88,9 @@ mvn exec:java
 [2] Construir **cliente** e executar testes
 
 ```
-cd ...-ws-cli
+cd transporter-ws-cli
 mvn clean install
+mvn test ??
 ```
 
 ...
@@ -104,7 +103,7 @@ mvn clean install
 [1] Construir e executar **servidor**
 
 ```
-cd ...-ws
+cd broker-ws
 mvn clean install
 mvn exec:java
 ```
@@ -113,8 +112,9 @@ mvn exec:java
 [2] Construir **cliente** e executar testes
 
 ```
-cd ...-ws-cli
+cd broker-ws-cli
 mvn clean install
+mvn test ??
 ```
 
 ...
