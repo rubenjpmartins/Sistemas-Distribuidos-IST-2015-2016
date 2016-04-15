@@ -27,24 +27,39 @@ Linux
 
 JUDDI:
 ```
-...
+
+É usado o Servidor de nomes para Web Services que segue a norma UDDI 
+->jUDDI 3.3.2 (configured for port 9090)
+
+Tornar os scripts de lançamento executáveis:
+chmod +x juddi-3.3.2_tomcat-7.0.64_9090/bin/*.sh
+
+Para lançar o servidor, basta executar o seguinte comando na pasta 
+juddi-3.3.2_tomcat-7.0.64_9090/bin:
+
+./startup.sh
+
+
 ```
 
 
 [2] Criar pasta temporária
 
 ```
-cd ...
-mkdir ...
+cd Documents
+mkdir SDProj
+cd SDProj
+
 ```
 
 
 [3] Obter código fonte do projeto (versão entregue)
 
 ```
-git clone ...
+Versão da entrega da 1ª parte
+
+git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 ```
-*(colocar aqui comandos git para obter a versão entregue a partir da tag e depois apagar esta linha)*
 
 
 [4] Instalar módulos de bibliotecas auxiliares
