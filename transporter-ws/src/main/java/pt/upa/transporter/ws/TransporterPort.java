@@ -10,7 +10,6 @@ import java.util.TimerTask;
 
 import javax.jws.WebService;
 
-
 @WebService(
 		endpointInterface="pt.upa.transporter.ws.TransporterPortType",
 		wsdlLocation="transporter.1_0.wsdl",
@@ -19,9 +18,16 @@ import javax.jws.WebService;
 		targetNamespace="http://ws.transporter.upa.pt/",
 		serviceName="TransporterService"
 )
+
+
 public class TransporterPort implements TransporterPortType {
+	
+	// Estrutura que contem as Regioes todas sobre as quais as Transportadoras Operam
 	private static HashMap<String,String> transportersByRegion;	
+	
+	// Estrutura que contem os Jobs Realizados
 	private List<JobView> jobViewsList;
+	
 	private int transporterRegionSelecion;
 	private String transporterName;
 	private int contadorID;
@@ -32,13 +38,12 @@ public class TransporterPort implements TransporterPortType {
 	private Timer timer2;
 	private Timer timer3;
 	
-	//private JobStateView estadoJob;
+
 	
-		
+	// Contrutor
 	public TransporterPort(String name){
 		
-		//relativo ao ID
-		
+		//Inicializa o contador a 1
 		contadorID= 1;
 
 		// create list to store the jobViews
@@ -72,78 +77,61 @@ public class TransporterPort implements TransporterPortType {
 		transportersByRegion.put("Beja","Zona Sul");
 	}
 	
-	// para alterar o estado!
-		class ChangeJobState extends TimerTask {
+	
+	// Changes the state of the job 
+	class ChangeJobState extends TimerTask {
+		
+		JobView jobjob;
+		Timer timertimer;
+		
+		public ChangeJobState(JobView job, Timer timer){
 			
-			JobView jobjob;
-			Timer timertimer;
+			this.jobjob = job;
+			this.timertimer = timer;
 			
-			public ChangeJobState(JobView job, Timer timer){
-				
-				this.jobjob = job;
-				this.timertimer = timer;
-				
-			}
-			
-	        public void run() {
-  	
-	        	if ((jobjob.getJobState()).compareTo(JobStateView.ACCEPTED) == 0){
-	        		jobjob.setJobState(JobStateView.HEADING);
-	        		System.out.println("Estado mudado para HEADING");
-	        		timertimer.cancel(); //Terminate the timer thread
-	        		return; 
-	        	}
-	        		
-	        	if ((jobjob.getJobState()).compareTo(JobStateView.HEADING) == 0){
-	        		jobjob.setJobState(JobStateView.ONGOING);
-	        		System.out.println("Estado mudado para ONGOING");
-	        		timertimer.cancel(); //Terminate the timer thread
-	        		return;
+		}
+		
+        public void run() {
 
-	        	}
-	        			
-	        	if ((jobjob.getJobState()).compareTo(JobStateView.ONGOING) == 0){
-	        		jobjob.setJobState(JobStateView.COMPLETED);
-	        		System.out.println("Estado mudado para COMPLETED");
-	        		timertimer.cancel(); //Terminate the timer thread
-	        		return;
+        	if ((jobjob.getJobState()).compareTo(JobStateView.ACCEPTED) == 0){
+        		jobjob.setJobState(JobStateView.HEADING);
+        		System.out.println("State changed to HEADING");
+        		timertimer.cancel(); //Terminate the timer thread
+        		return; 
+        	}
+        		
+        	if ((jobjob.getJobState()).compareTo(JobStateView.HEADING) == 0){
+        		jobjob.setJobState(JobStateView.ONGOING);
+        		System.out.println("State changed to ONGOING");
+        		timertimer.cancel(); //Terminate the timer thread
+        		return;
+        	}
+        			
+        	if ((jobjob.getJobState()).compareTo(JobStateView.ONGOING) == 0){
+        		jobjob.setJobState(JobStateView.COMPLETED);
+        		System.out.println("State changed to COMPLETED");
+        		timertimer.cancel(); //Terminate the timer thread
+        		return;
+        	}
+        }
+    }
 
-	        	}
-	        }
-	    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public String ping(String name) {
-		return name;
+		String retorno = name + " ok";
+		return retorno;
 	}
+	
 	
 	@Override
 	public JobView requestJob(String origin, String destination, int price)
 			throws BadLocationFault_Exception, BadPriceFault_Exception {
 
-			
 			int precoProposto = 0;
 			String jobIdBuilder = transporterName.concat(":") ;
-			 
+			
+			
 			// Tratamento de erros 
 			if(price<0){
 				BadPriceFault faultInfo = new BadPriceFault();
@@ -164,38 +152,41 @@ public class TransporterPort implements TransporterPortType {
 			}
 			
 			
+			
 			// Analisa o Preco e faz a proposta
 			
 			if(price>100){
+				System.out.println("Didn't send any Deal Proposal");
 				return null;
-			}else if(price<=10){
+			}
+			
+			if(price<=10){
 				if(price <=1){
 					precoProposto = 0;
 				}
 				else{
-					precoProposto = geradorPrecoRandom(price, 0);  ////////////// random para preço < 10 ??????''	
+					precoProposto = geradorPrecoRandom(price, 0);  ////////////// random para preco < 10
 				}
-      
-			}
-			else{ // (price>10 || price <= 100)
+				
+				
+			}else
+				{ // (price>10 || price <= 100)
 				
 				if(price%2==1){	
 					if(transporterRegionSelecion%2==1 ){ // preco impar e transportadora impar
 						precoProposto = geradorPrecoRandom(price, 0);
 					}
 					else{
-						precoProposto = geradorPrecoRandom(100, price); // limite maximo de uma proposta é 100???=???????????
+						precoProposto = geradorPrecoRandom(120, price); // limite maximo de uma proposta é 120
 					}	
 				}
-				
 				if(price%2==0) {
 					if(transporterRegionSelecion%2==0 ){ // preco par e transportadora par
 						precoProposto = geradorPrecoRandom(price, 0);
 						}
-					
 					else{
-						precoProposto = geradorPrecoRandom(100, price); // limite maximo de uma proposta é 100???=???????????
-					}	
+						precoProposto = geradorPrecoRandom(120, price); // limite maximo de uma proposta é 120			
+						}	
 				}
 			}
 			
@@ -204,22 +195,20 @@ public class TransporterPort implements TransporterPortType {
 			JobView concreteJobView = new JobView();
 			concreteJobView.setCompanyName(transporterName);
 			
-			//inicializa o estado e dá-lhe como requestd
+			
+			
+			//inicializa o estado e dá-lhe como PROPOSED
 			concreteJobView.setJobState(JobStateView.PROPOSED); 
 	
 			// Gera ID 
-		
 			String concatena= Integer.toString(contadorID);
 			jobIdBuilder = jobIdBuilder.concat(concatena);
-			System.out.println("ID");
-			System.out.println(jobIdBuilder);
+			
+			System.out.println("\nReceived a transport request - ID: " + jobIdBuilder);
+			
 			contadorID++;
 			concreteJobView.setJobIdentifier(jobIdBuilder);
 						
-			
-			
-			
-			
 			// Escolha de zona ( PAR ou IMPAR)
 			// Empresas Norte
 			if(transporterRegionSelecion%2==0 ){ // se o transporter for PAR -> Norte
@@ -231,6 +220,8 @@ public class TransporterPort implements TransporterPortType {
 						
 						// Preenche concrete job
 						concreteJobView.setJobPrice(precoProposto);
+						
+						System.out.println("Proposed Price: " + (precoProposto));
 						
 						//addiciona na lista de jobviews
 						jobViewsList.add(concreteJobView);
@@ -252,6 +243,8 @@ public class TransporterPort implements TransporterPortType {
 						
 						// Preenche concrete job
 						concreteJobView.setJobPrice(precoProposto);
+						System.out.println("Proposed Price: " + (precoProposto));
+						
 						
 						//addiciona na lista de jobviews
 						jobViewsList.add(concreteJobView);
@@ -263,43 +256,41 @@ public class TransporterPort implements TransporterPortType {
 				}	
 			}
 		
-		// caso seja do norte para o sul vai retornar null
-		
+		// caso seja do norte para o sul vai retornar null ou BadLocationFault_Exception??
+	    System.out.println("Didn't send any Deal Proposal");
 		return null;
 	}
 
+	
 	@Override
 	public JobView decideJob(String id, boolean accept) throws BadJobFault_Exception {
-		// TODO Auto-generated method stub
-		
+
 		JobView jobChoosen = jobStatus(id); //searchJobs - procura pelo job
 
 		if(jobChoosen == null){
-			BadJobFault job = new BadJobFault();
+			BadJobFault job = new BadJobFault();			
 			job.setId(id); // alterar isto -  esta a faltar algo
-			throw new BadJobFault_Exception("A job with that id is unavailable", job);
+			throw new BadJobFault_Exception("A job is not present", job);
 		}
 		
 		else{
 			if(accept){
 				jobChoosen.setJobState(JobStateView.ACCEPTED);
+				System.out.println("Got the Deal - Working");
 				timer(jobChoosen);
 				return jobChoosen;
 			}
 			else{
 				jobChoosen.setJobState(JobStateView.REJECTED);
+				System.out.println("Deal Rejected");
 				return jobChoosen;
 			}
-		}
-
-		
+		}	
 	}
 	
 	
 	
-	
-	
-
+	// retorna um Job para que o broker depois veja o seu estado
 	@Override
 	public JobView jobStatus(String id) {
 		
@@ -322,29 +313,18 @@ public class TransporterPort implements TransporterPortType {
 		contadorID=0;
 	}
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/////////////////////////////////////////METODO RAMDOM??
-	
+
+	// METODO RAMDOM
 	private int geradorPrecoRandom(int max, int min){
 		Random gerador = new Random();
 	    int numeroresultado; 
-	    int soma = max - min;
-	    if(soma < 0){
-	    	System.out.println("peido              peido ");
-	    }
+	  
 	    numeroresultado= gerador.nextInt(max-min)+min;
 	    return numeroresultado;
 	}
+	
 	
 	public void timer(JobView job) {
 		
