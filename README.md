@@ -71,7 +71,7 @@ mvn clean install
 ```
 
 ```
-cd transporter-ws
+cd transporter-ws-cli
 mvn clean install
 ```
 
