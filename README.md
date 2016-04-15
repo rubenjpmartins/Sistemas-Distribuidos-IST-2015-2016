@@ -38,10 +38,12 @@ juddi-3.3.2_tomcat-7.0.64_9090/bin:
 
 ./startup.sh
 
-Para confirmar funcionamento, aceder à página de índice do jUDDI, que dá também acesso à interface de administração
+Para confirmar funcionamento, aceder à página de índice do jUDDI, que dá também acesso à 
+interface de administração:
 http://localhost:9090/juddiv3/
 
-utilizador:senha uddiadmin:da_password1
+utilizador: uddiadmin
+senha: da_password1
 ```
 
 
@@ -84,7 +86,8 @@ mvn clean install
 
 ```
 cd transporter-ws
-mvn clean install
+mvn clean 
+mvn generate-sources
 mvn exec:java
 ```
 
@@ -92,11 +95,10 @@ mvn exec:java
 
 ```
 cd transporter-ws-cli
-mvn clean install
-mvn test ??
+mvn clean 
+mvn generate-sources
+mvn test
 ```
-
-...
 
 
 -------------------------------------------------------------------------------
@@ -107,7 +109,8 @@ mvn test ??
 
 ```
 cd broker-ws
-mvn clean install
+mvn clean 
+mvn generate-sources
 mvn exec:java
 ```
 
@@ -116,11 +119,9 @@ mvn exec:java
 
 ```
 cd broker-ws-cli
-mvn clean install
-mvn test ??
+mvn clean
+mvn generate-sources
+mvn test
 ```
-
-...
-
 -------------------------------------------------------------------------------
 **FIM**
