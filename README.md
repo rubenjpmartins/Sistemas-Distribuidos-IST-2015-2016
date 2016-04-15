@@ -62,6 +62,8 @@ cd SDProj
 Versão da entrega da 1ª parte
 
 git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
+
+cd T_38-project
 ```
 
 
@@ -88,6 +90,7 @@ mvn clean install
 cd transporter-ws
 mvn clean 
 mvn generate-sources
+mvn compile
 mvn exec:java
 ```
 
@@ -97,6 +100,7 @@ mvn exec:java
 cd transporter-ws-cli
 mvn clean 
 mvn generate-sources
+mvn compile
 mvn test
 ```
 
@@ -111,6 +115,7 @@ mvn test
 cd broker-ws
 mvn clean 
 mvn generate-sources
+mvn compile
 mvn exec:java
 ```
 
@@ -121,6 +126,7 @@ mvn exec:java
 cd broker-ws-cli
 mvn clean
 mvn generate-sources
+mvn compile
 mvn test
 ```
 -------------------------------------------------------------------------------
