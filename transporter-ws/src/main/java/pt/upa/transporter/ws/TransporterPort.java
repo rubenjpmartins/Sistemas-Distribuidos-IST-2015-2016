@@ -310,7 +310,7 @@ public class TransporterPort implements TransporterPortType {
 	@Override
 	public void clearJobs() {
 		jobViewsList.clear();
-		contadorID=0;
+		contadorID=1;
 	}
 	
 

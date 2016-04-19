@@ -118,6 +118,8 @@ public class BrokerPort implements BrokerPortType{
 							
 							//Actualiza o estado para BUDGETED
 							transportersViews.get(Integer.toString(counterId)).setState(TransportStateView.BUDGETED);
+							transportersViews.get(Integer.toString(counterId)).setPrice(respostaTrasportadora.getJobPrice());
+							
 							
 							
 							// Escolhe o valor minimo do preco para adjudicar o servico
@@ -239,7 +241,7 @@ public class BrokerPort implements BrokerPortType{
 							}
 						}// fim for para 1 e fail para o resto
 					}//acaba o ciclo for
-				
+					
 					
 					return "TransportRequest Sucessful";
 					

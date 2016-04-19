@@ -1,2 +1,7 @@
-/afs/.ist.utl.pt/users/3/2/ist176832/Documents/SDis/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/PingClientTest.java
-/afs/.ist.utl.pt/users/3/2/ist176832/Documents/SDis/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/ExampleIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/BaseTransporterIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/JobStatusIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/RequestJobIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/ListJobsIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/ClearJobsIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/PingClientIT.java
+/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/java/pt/upa/transporter/ws/it/DecideJobIT.java

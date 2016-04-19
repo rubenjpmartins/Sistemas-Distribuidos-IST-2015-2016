@@ -15,8 +15,8 @@ pt/upa/transporter/ws/TransporterPort.class
 pt/upa/transporter/ws/BadLocationFault.class
 pt/upa/transporter/ws/BadJobFault_Exception.class
 pt/upa/transporter/ws/TransporterService.class
-pt/upa/transporter/ws/TransporterEndpointManager.class
 pt/upa/transporter/ws/JobView.class
+pt/upa/transporter/ws/TransporterEndpointManager.class
 pt/upa/transporter/ws/RequestJob.class
 pt/upa/transporter/ws/package-info.class
 pt/upa/transporter/ws/PingResponse.class

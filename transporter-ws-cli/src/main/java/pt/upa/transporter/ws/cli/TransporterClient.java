@@ -18,8 +18,6 @@ import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
 
 
-
-
 @WebService(
 		endpointInterface="pt.upa.transporter.ws.TransporterPortType",
 		wsdlLocation="transporter.1_0.wsdl",

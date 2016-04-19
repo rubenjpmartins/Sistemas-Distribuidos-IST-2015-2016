@@ -15,7 +15,6 @@ Repositório:
 
 ## Instruções de instalação
 
-
 ### Ambiente
 
 [0] Iniciar sistema operativo
@@ -46,7 +45,6 @@ utilizador: uddiadmin
 senha: da_password1
 ```
 
-
 [2] Criar pasta temporária
 
 ```
@@ -54,7 +52,6 @@ cd Documents
 mkdir SDProj
 cd SDProj
 ```
-
 
 [3] Obter código fonte do projeto (versão entregue)
 
@@ -66,7 +63,6 @@ git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 cd T_38-project
 ```
 
-
 [4] Instalar módulos de bibliotecas auxiliares
 
 ```
@@ -76,9 +72,8 @@ mvn clean install
 
 ```
 cd transporter-ws-cli
-mvn clean install
+mvn clean install -DskipTests
 ```
-
 
 -------------------------------------------------------------------------------
 
@@ -91,7 +86,11 @@ cd transporter-ws
 mvn clean 
 mvn generate-sources
 mvn compile
+mvn test
 mvn exec:java
+
+Para correr instâncias diferentes do serviço Transporter:
+mvn -Dws.i=2 exec:java onde 2 representa o número da transportadora a lançar
 ```
 
 [2] Construir **cliente** e executar testes
@@ -102,8 +101,8 @@ mvn clean
 mvn generate-sources
 mvn compile
 mvn test
+mvn verify
 ```
-
 
 -------------------------------------------------------------------------------
 
@@ -119,7 +118,6 @@ mvn compile
 mvn exec:java
 ```
 
-
 [2] Construir **cliente** e executar testes
 
 ```
@@ -128,6 +126,7 @@ mvn clean
 mvn generate-sources
 mvn compile
 mvn test
+mvn verify
 ```
 -------------------------------------------------------------------------------
 **FIM**

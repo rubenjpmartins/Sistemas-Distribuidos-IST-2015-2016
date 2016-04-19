@@ -43,7 +43,7 @@ public class TransporterPortTest {
         localOddPort = null;
         localEvenPort = null;     
         jobViewTest = null;
-        jobViewTest = null;
+        jobViewTest2 = null;
         allJobs = null;
     }
 
@@ -294,11 +294,7 @@ public class TransporterPortTest {
 
 		
 	}
-	
-
-	
-	
-	
+		
 	
 	@Test(expected=BadJobFault_Exception.class)
     public void testDecideNoJobID() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
@@ -345,19 +341,19 @@ public class TransporterPortTest {
     public void testDecideJobNo() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
     	
     	jobViewTest2 = localEvenPort.requestJob("Lisboa", "Braga", 60);
-    	JobView alterado2 = null;
+    	JobView changed2 = null;
     	allJobs.add(jobViewTest2);
     	
     	jobViewTest = localOddPort.requestJob("Lisboa", "Beja", 51);
-    	JobView alterado = null;
+    	JobView changed = null;
     	allJobs.add(jobViewTest);
     	    	
     	for(JobView j: allJobs){
     		if(j.getJobIdentifier().equals("UpaTransporter1:1")){
-    			alterado = localOddPort.decideJob("UpaTransporter1:1", false);
+    			changed = localOddPort.decideJob("UpaTransporter1:1", false);
     		}
     	}
-    	assertEquals(JobStateView.REJECTED,alterado.getJobState());
+    	assertEquals(JobStateView.REJECTED,changed.getJobState());
 
         // if the assert fails, the test fails
     }
