@@ -90,7 +90,7 @@ mvn test
 mvn exec:java
 
 Para correr instâncias diferentes do serviço Transporter:
-mvn -Dws.i=2 exec:java onde 2 representa o número da transportadora a lançar
+mvn -Dws.i=2 exec:java   (onde **2** representa o número da transportadora a lançar)
 ```
 
 [2] Construir **cliente** e executar testes

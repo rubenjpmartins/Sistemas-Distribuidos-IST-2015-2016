@@ -1,8 +1,0 @@
-pt/upa/transporter/ws/it/PingClientIT.class
-pt/upa/transporter/ws/it/BaseTransporterIT.class
-pt/upa/transporter/ws/it/ClearJobsIT$ListJobsIT.class
-pt/upa/transporter/ws/it/ClearJobsIT.class
-pt/upa/transporter/ws/it/DecideJobIT.class
-pt/upa/transporter/ws/it/ListJobsIT.class
-pt/upa/transporter/ws/it/RequestJobIT.class
-pt/upa/transporter/ws/it/JobStatusIT.class
