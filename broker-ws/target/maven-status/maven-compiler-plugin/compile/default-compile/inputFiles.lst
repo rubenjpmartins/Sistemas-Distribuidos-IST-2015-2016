@@ -1,3 +1,34 @@
+<<<<<<< HEAD
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnavailableTransportFault.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnavailableTransportFault_Exception.java
+/Users/rubenmartins/T_38-project/broker-ws/src/main/java/pt/upa/broker/BrokerApplication.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ObjectFactory.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/TransportStateView.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/RequestTransport.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ListTransports.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ListTransportsResponse.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/Ping.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ViewTransportResponse.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ClearTransportsResponse.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/TransportView.java
+/Users/rubenmartins/T_38-project/broker-ws/src/main/java/pt/upa/broker/ws/BrokerPort.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnavailableTransportPriceFault_Exception.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ViewTransport.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/package-info.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnavailableTransportPriceFault.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnknownLocationFault_Exception.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/InvalidPriceFault.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/InvalidPriceFault_Exception.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/BrokerService.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/BrokerPortType.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ClearTransports.java
+/Users/rubenmartins/T_38-project/broker-ws/src/main/java/pt/upa/broker/ws/BrokerEndpointManager.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/PingResponse.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/RequestTransportResponse.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnknownTransportFault_Exception.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnknownTransportFault.java
+/Users/rubenmartins/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnknownLocationFault.java
+=======
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnavailableTransportFault.java
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/ViewTransport.java
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/BrokerPortType.java
@@ -27,3 +58,4 @@
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/RequestTransportResponse.java
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/UnknownTransportFault.java
 /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport/pt/upa/broker/ws/TransportStateView.java
+>>>>>>> 1eb862dfc05769d71742057225d20e2198a47128

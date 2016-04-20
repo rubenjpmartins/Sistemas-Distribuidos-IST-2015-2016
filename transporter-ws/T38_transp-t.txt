@@ -1,0 +1,151 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building transporter-ws 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ transporter-ws ---
+[INFO] 
+[INFO] --- jaxws-maven-plugin:2.3:wsimport (default) @ transporter-ws ---
+[INFO] Processing: file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/src/main/resources/transporter.1_0.wsdl
+[INFO] jaxws:wsimport args: [-keep, -s, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/target/generated-sources/wsimport, -d, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/target/classes, -encoding, UTF-8, -Xnocompile, "file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/src/main/resources/transporter.1_0.wsdl"]
+parsing WSDL...
+
+
+
+Generating code...
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:resources (default-resources) @ transporter-ws ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ transporter-ws ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 27 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:testResources (default-testResources) @ transporter-ws ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ transporter-ws ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.17:test (default-test) @ transporter-ws ---
+[INFO] Surefire report directory: /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running pt.upa.transporter.ws.TransporterPortTest
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 8
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 81
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 112
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 0
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 19
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 1
+Deal Rejected
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 48
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 10
+
+Received a transport request - ID: UpaTransporter1:2
+Proposed Price: 18
+
+Received a transport request - ID: UpaTransporter2:2
+Proposed Price: 113
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 0
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 0
+
+Received a transport request - ID: UpaTransporter1:2
+Proposed Price: 0
+
+Received a transport request - ID: UpaTransporter2:2
+Proposed Price: 0
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 57
+
+Received a transport request - ID: UpaTransporter1:2
+Proposed Price: 115
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 102
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 1
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 24
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 3
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 2
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 5
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 29
+Got the Deal - Working
+Didn't send any Deal Proposal
+Didn't send any Deal Proposal
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 52
+
+Received a transport request - ID: UpaTransporter1:2
+Proposed Price: 105
+
+Received a transport request - ID: UpaTransporter1:3
+Proposed Price: 86
+
+Received a transport request - ID: UpaTransporter2:1
+Proposed Price: 12
+
+Received a transport request - ID: UpaTransporter2:2
+Proposed Price: 46
+
+Received a transport request - ID: UpaTransporter2:3
+Proposed Price: 21
+
+Received a transport request - ID: UpaTransporter1:1
+Proposed Price: 57
+
+Received a transport request - ID: UpaTransporter1:2
+Proposed Price: 114
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.463 sec - in pt.upa.transporter.ws.TransporterPortTest
+
+Results :
+
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10.700 s
+[INFO] Finished at: 2016-04-20T11:18:00+01:00
+[INFO] Final Memory: 18M/137M
+[INFO] ------------------------------------------------------------------------

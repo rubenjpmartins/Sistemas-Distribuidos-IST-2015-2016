@@ -241,10 +241,22 @@ public class BrokerPort implements BrokerPortType{
 							}
 						}// fim for para 1 e fail para o resto
 					}//acaba o ciclo for
+<<<<<<< HEAD
+=======
+					
+>>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 					
 					
-					return "TransportRequest Sucessful";
-					
+
+
+
+					//Alterado após entrega Part1
+
+					//return "TransportRequest Sucessful";
+					return Integer.toString(counterId);
+
+
+
 				} catch (BadPriceFault_Exception e) {
 					// Retorna erro de preço inferior a 0
 				    System.err.println("BadPriceFault Exception: " + e.getMessage());

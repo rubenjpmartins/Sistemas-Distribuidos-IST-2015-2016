@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+pt/upa/broker/ws/TransportStateView.class
+pt/upa/broker/ws/UnavailableTransportPriceFault_Exception.class
+=======
 pt/upa/broker/ws/UnavailableTransportPriceFault_Exception.class
 pt/upa/broker/ws/TransportStateView.class
+>>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 pt/upa/broker/ws/ViewTransportResponse.class
 pt/upa/broker/ws/RequestTransport.class
 pt/upa/broker/ws/InvalidPriceFault_Exception.class
@@ -15,9 +20,15 @@ pt/upa/broker/ws/InvalidPriceFault.class
 pt/upa/broker/ws/Ping.class
 pt/upa/broker/ws/UnknownTransportFault.class
 pt/upa/broker/ws/BrokerPortType.class
+<<<<<<< HEAD
+pt/upa/broker/ws/ListTransportsResponse.class
+pt/upa/broker/ws/PingResponse.class
+pt/upa/broker/ws/ViewTransport.class
+=======
 pt/upa/broker/ws/ViewTransport.class
 pt/upa/broker/ws/PingResponse.class
 pt/upa/broker/ws/ListTransportsResponse.class
+>>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 pt/upa/broker/ws/package-info.class
 pt/upa/broker/ws/UnknownTransportFault_Exception.class
 pt/upa/broker/ws/UnavailableTransportFault.class

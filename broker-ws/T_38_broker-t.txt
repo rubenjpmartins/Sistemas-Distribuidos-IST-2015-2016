@@ -1,0 +1,54 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building broker-ws 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ broker-ws ---
+[INFO] 
+[INFO] --- jaxws-maven-plugin:2.3:wsimport (default) @ broker-ws ---
+[INFO] Processing: file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/src/main/resources/broker.1_0.wsdl
+[INFO] jaxws:wsimport args: [-keep, -s, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/generated-sources/wsimport, -d, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/classes, -encoding, UTF-8, -Xnocompile, "file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/src/main/resources/broker.1_0.wsdl"]
+parsing WSDL...
+
+
+
+Generating code...
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:resources (default-resources) @ broker-ws ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ broker-ws ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 29 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:testResources (default-testResources) @ broker-ws ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ broker-ws ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.17:test (default-test) @ broker-ws ---
+[INFO] Surefire report directory: /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running pt.upa.broker.ws.ExampleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.365 sec - in pt.upa.broker.ws.ExampleTest
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.817 s
+[INFO] Finished at: 2016-04-20T11:50:07+01:00
+[INFO] Final Memory: 22M/274M
+[INFO] ------------------------------------------------------------------------

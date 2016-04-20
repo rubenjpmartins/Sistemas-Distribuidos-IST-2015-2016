@@ -43,8 +43,72 @@ public class DecideJobIT extends BaseTransporterIT {
 		    }
 
 
+<<<<<<< HEAD
+		    // Adicionado depois da entrega da 1ª Parte
+
+
+		    @Test(expected=BadJobFault_Exception.class)
+		    public void testDecideJobAlreadyFailed() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
+		    	
+		    	jobViewTest2 = port2.requestJob("Lisboa", "Braga", 25);
+		    	JobView changed2 = null;
+		    	allJobs.add(jobViewTest2);
+		    	
+		    	for(JobView j2: allJobs){
+		    		if(j2.getJobIdentifier().equals("UpaTransporter2:1")){
+		    			changed2 = port2.decideJob("UpaTransporter2:1", false);
+		    		}
+		    	}
+
+		    	// envia o decide outravez mas retorna BadJobFault_Exception
+
+		    	for(JobView j2: allJobs){
+		    		if(j2.getJobIdentifier().equals("UpaTransporter2:1")){
+		    			changed2 = port2.decideJob("UpaTransporter2:1", false);
+		    		}
+		    	}
+
+		    }
+
+
+		    @Test(expected=BadJobFault_Exception.class)
+		    public void testDecideJobAlreadyAccepted() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
+		    	
+		    	int x = 1;
+		    	
+		    	jobViewTest2 = port2.requestJob("Lisboa", "Braga", 75);
+		    	JobView changed2 = null;
+		    	allJobs.add(jobViewTest2);
+		    	
+		    	jobViewTest = port.requestJob("Lisboa", "Faro", 56);
+		    	JobView changed = null;
+		    	allJobs.add(jobViewTest);
+		    	    	
+		    	for(JobView j: allJobs){
+		    		if(j.getJobIdentifier().equals("UpaTransporter1:1")){
+		    			changed = port.decideJob("UpaTransporter1:1", true);
+		    		}
+		    	
+		    	}
+
+				// envia o decide outravez mas retorna BadJobFault_Exception
+
+		    	for(JobView j: allJobs){
+		    		if(j.getJobIdentifier().equals("UpaTransporter1:1")){
+		    			changed = port.decideJob("UpaTransporter1:1", true);
+		    		}
+		    	
+		    	}
+		    	
+		    }
+
+
+		    // tests
+		
+=======
 		    // tests
 			
+>>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 			@Test(expected=BadJobFault_Exception.class)
 		    public void testDecideNoJobID() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
 		    	

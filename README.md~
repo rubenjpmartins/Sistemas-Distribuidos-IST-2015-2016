@@ -15,53 +15,37 @@ Repositório:
 
 ## Instruções de instalação
 
+
 ### Ambiente
 
 [0] Iniciar sistema operativo
-```
+
 Linux
-```
+
 
 [1] Iniciar servidores de apoio
 
 JUDDI:
 ```
-É usado o Servidor de nomes para Web Services que segue a norma UDDI 
-->jUDDI 3.3.2 (configured for port 9090)
-
-Tornar os scripts de lançamento executáveis:
-chmod +x juddi-3.3.2_tomcat-7.0.64_9090/bin/*.sh
-
-Para lançar o servidor, basta executar o seguinte comando na pasta 
-juddi-3.3.2_tomcat-7.0.64_9090/bin:
-
-./startup.sh
-
-Para confirmar funcionamento, aceder à página de índice do jUDDI, que dá também acesso à 
-interface de administração:
-http://localhost:9090/juddiv3/
-
-utilizador: uddiadmin
-senha: da_password1
+...
 ```
+
 
 [2] Criar pasta temporária
 
 ```
-cd Documents
-mkdir SDProj
-cd SDProj
+cd ...
+mkdir ...
 ```
+
 
 [3] Obter código fonte do projeto (versão entregue)
 
 ```
-Versão da entrega da 1ª parte
-
-git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
-
-cd T_38-project
+git clone ...
 ```
+*(colocar aqui comandos git para obter a versão entregue a partir da tag e depois apagar esta linha)*
+
 
 [4] Instalar módulos de bibliotecas auxiliares
 
@@ -71,13 +55,10 @@ mvn clean install
 ```
 
 ```
-cd transporter-ws-cli
-<<<<<<< HEAD
+cd ...
 mvn clean install
-=======
-mvn clean install -DskipTests
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 ```
+
 
 -------------------------------------------------------------------------------
 
@@ -86,27 +67,20 @@ mvn clean install -DskipTests
 [1] Construir e executar **servidor**
 
 ```
-cd transporter-ws
-mvn clean 
-mvn generate-sources
-mvn compile
-mvn test
+cd ...-ws
+mvn clean install
 mvn exec:java
-
-Para correr instâncias diferentes do serviço Transporter:
-mvn -Dws.i=2 exec:java   (onde **2** representa o número da transportadora a lançar)
 ```
 
 [2] Construir **cliente** e executar testes
 
 ```
-cd transporter-ws-cli
-mvn clean 
-mvn generate-sources
-mvn compile
-mvn test
-mvn verify
+cd ...-ws-cli
+mvn clean install
 ```
+
+...
+
 
 -------------------------------------------------------------------------------
 
@@ -115,22 +89,20 @@ mvn verify
 [1] Construir e executar **servidor**
 
 ```
-cd broker-ws
-mvn clean 
-mvn generate-sources
-mvn compile
+cd ...-ws
+mvn clean install
 mvn exec:java
 ```
+
 
 [2] Construir **cliente** e executar testes
 
 ```
-cd broker-ws-cli
-mvn clean
-mvn generate-sources
-mvn compile
-mvn test
-mvn verify
+cd ...-ws-cli
+mvn clean install
 ```
+
+...
+
 -------------------------------------------------------------------------------
 **FIM**

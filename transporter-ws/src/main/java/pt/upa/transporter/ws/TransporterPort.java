@@ -269,10 +269,23 @@ public class TransporterPort implements TransporterPortType {
 
 		if(jobChoosen == null){
 			BadJobFault job = new BadJobFault();			
-			job.setId(id); // alterar isto -  esta a faltar algo
-			throw new BadJobFault_Exception("A job is not present", job);
+			job.setId(id); 
+			throw new BadJobFault_Exception("The job is not present", job);
 		}
 		
+
+
+		//	Adicionado depois da entrega Part 1 : A função não pode 
+		if( jobChoosen.getJobState().equals(JobStateView.ACCEPTED) || jobChoosen.getJobState().equals(JobStateView.REJECTED)) {
+
+			BadJobFault job = new BadJobFault();			
+			job.setId(id); 
+			throw new BadJobFault_Exception("The job was already ACCEPTED/REJECTED", job);
+
+		}
+
+
+
 		else{
 			if(accept){
 				jobChoosen.setJobState(JobStateView.ACCEPTED);

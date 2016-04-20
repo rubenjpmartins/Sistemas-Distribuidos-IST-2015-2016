@@ -1,0 +1,78 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building broker-ws-cli 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ broker-ws-cli ---
+[INFO] 
+[INFO] --- jaxws-maven-plugin:2.3:wsimport (default) @ broker-ws-cli ---
+[INFO] Processing: file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/../broker-ws/src/main/resources/broker.1_0.wsdl
+[INFO] jaxws:wsimport args: [-keep, -s, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/target/generated-sources/wsimport, -d, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/target/classes, -encoding, UTF-8, -Xnocompile, "file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/../broker-ws/src/main/resources/broker.1_0.wsdl"]
+parsing WSDL...
+
+
+
+Generating code...
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:resources (default-resources) @ broker-ws-cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ broker-ws-cli ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 28 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:testResources (default-testResources) @ broker-ws-cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ broker-ws-cli ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 6 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.17:test (default-test) @ broker-ws-cli ---
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ broker-ws-cli ---
+[INFO] Building jar: /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/broker-ws-cli/target/broker-ws-cli-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.19.1:integration-test (default) @ broker-ws-cli ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running pt.upa.broker.ws.it.BrokerPingIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaBroker'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.887 sec - in pt.upa.broker.ws.it.BrokerPingIT
+Running pt.upa.broker.ws.it.RequestTransportIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaBroker'
+Setting endpoint address ...
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.002 sec - in pt.upa.broker.ws.it.RequestTransportIT
+Running pt.upa.broker.ws.it.ClearBrokerIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaBroker'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.692 sec - in pt.upa.broker.ws.it.ClearBrokerIT
+Running pt.upa.broker.ws.it.ListTransportsIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaBroker'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.766 sec - in pt.upa.broker.ws.it.ListTransportsIT
+
+Results :
+
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.19.1:verify (default) @ broker-ws-cli ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 9.780 s
+[INFO] Finished at: 2016-04-20T11:51:03+01:00
+[INFO] Final Memory: 24M/265M
+[INFO] ------------------------------------------------------------------------

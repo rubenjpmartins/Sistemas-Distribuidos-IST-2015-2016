@@ -1,0 +1,125 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building transporter-ws-cli 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ transporter-ws-cli ---
+[INFO] 
+[INFO] --- jaxws-maven-plugin:2.3:wsimport (default) @ transporter-ws-cli ---
+[INFO] Processing: file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/../transporter-ws/src/main/resources/transporter.1_0.wsdl
+[INFO] jaxws:wsimport args: [-keep, -s, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/generated-sources/wsimport, -d, /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/classes, -encoding, UTF-8, -Xnocompile, "file:/afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/../transporter-ws/src/main/resources/transporter.1_0.wsdl"]
+parsing WSDL...
+
+
+
+Generating code...
+
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:resources (default-resources) @ transporter-ws-cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ transporter-ws-cli ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 26 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.3:testResources (default-testResources) @ transporter-ws-cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ transporter-ws-cli ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 7 source files to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.17:test (default-test) @ transporter-ws-cli ---
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ transporter-ws-cli ---
+[INFO] Building jar: /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/transporter-ws-cli-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.19.1:integration-test (default) @ transporter-ws-cli ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running pt.upa.transporter.ws.it.JobStatusIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaTransporter1'
+Setting endpoint address ...
+Looking for 'UpaTransporter2'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.359 sec <<< FAILURE! - in pt.upa.transporter.ws.it.JobStatusIT
+pt.upa.transporter.ws.it.JobStatusIT  Time elapsed: 2.358 sec  <<< ERROR!
+java.lang.IllegalArgumentException
+
+Running pt.upa.transporter.ws.it.ListJobsIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaTransporter1'
+Setting endpoint address ...
+Looking for 'UpaTransporter2'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.553 sec <<< FAILURE! - in pt.upa.transporter.ws.it.ListJobsIT
+pt.upa.transporter.ws.it.ListJobsIT  Time elapsed: 0.553 sec  <<< ERROR!
+java.lang.IllegalArgumentException
+
+Running pt.upa.transporter.ws.it.RequestJobIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaTransporter1'
+Setting endpoint address ...
+Looking for 'UpaTransporter2'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.529 sec <<< FAILURE! - in pt.upa.transporter.ws.it.RequestJobIT
+pt.upa.transporter.ws.it.RequestJobIT  Time elapsed: 0.529 sec  <<< ERROR!
+java.lang.IllegalArgumentException
+
+Running pt.upa.transporter.ws.it.PingClientIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaTransporter1'
+Setting endpoint address ...
+Looking for 'UpaTransporter2'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.515 sec <<< FAILURE! - in pt.upa.transporter.ws.it.PingClientIT
+pt.upa.transporter.ws.it.PingClientIT  Time elapsed: 0.515 sec  <<< ERROR!
+java.lang.IllegalArgumentException
+
+Running pt.upa.transporter.ws.it.DecideJobIT
+Contacting UDDI at http://localhost:9090/
+Looking for 'UpaTransporter1'
+Setting endpoint address ...
+Looking for 'UpaTransporter2'
+Setting endpoint address ...
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.48 sec <<< FAILURE! - in pt.upa.transporter.ws.it.DecideJobIT
+pt.upa.transporter.ws.it.DecideJobIT  Time elapsed: 0.48 sec  <<< ERROR!
+java.lang.IllegalArgumentException
+
+
+Results :
+
+Tests in error: 
+  DecideJobIT>BaseTransporterIT.oneTimeSetup:63 » IllegalArgument
+  JobStatusIT>BaseTransporterIT.oneTimeSetup:63 » IllegalArgument
+  ListJobsIT>BaseTransporterIT.oneTimeSetup:63 » IllegalArgument
+  PingClientIT>BaseTransporterIT.oneTimeSetup:63 » IllegalArgument
+  RequestJobIT>BaseTransporterIT.oneTimeSetup:63 » IllegalArgument
+
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-failsafe-plugin:2.19.1:verify (default) @ transporter-ws-cli ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 9.258 s
+[INFO] Finished at: 2016-04-20T11:48:49+01:00
+[INFO] Final Memory: 25M/270M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-failsafe-plugin:2.19.1:verify (default) on project transporter-ws-cli: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /afs/.ist.utl.pt/users/3/2/ist176832/Desktop/T_38-project/transporter-ws-cli/target/failsafe-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
