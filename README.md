@@ -72,11 +72,7 @@ mvn clean install
 
 ```
 cd transporter-ws-cli
-<<<<<<< HEAD
-mvn clean install
-=======
 mvn clean install -DskipTests
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 ```
 
 -------------------------------------------------------------------------------
@@ -94,7 +90,7 @@ mvn test
 mvn exec:java
 
 Para correr instâncias diferentes do serviço Transporter:
-mvn -Dws.i=2 exec:java   (onde **2** representa o número da transportadora a lançar)
+mvn -Dws.i=2 exec:java   (onde 2representa o número da transportadora a lançar)
 ```
 
 [2] Construir **cliente** e executar testes

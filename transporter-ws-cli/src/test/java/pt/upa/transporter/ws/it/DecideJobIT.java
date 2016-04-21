@@ -42,8 +42,6 @@ public class DecideJobIT extends BaseTransporterIT {
 		        allJobs = null;
 		    }
 
-
-<<<<<<< HEAD
 		    // Adicionado depois da entrega da 1ª Parte
 
 
@@ -105,10 +103,9 @@ public class DecideJobIT extends BaseTransporterIT {
 
 		    // tests
 		
-=======
+
 		    // tests
 			
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 			@Test(expected=BadJobFault_Exception.class)
 		    public void testDecideNoJobID() throws BadJobFault_Exception, BadLocationFault_Exception, BadPriceFault_Exception{
 		    	

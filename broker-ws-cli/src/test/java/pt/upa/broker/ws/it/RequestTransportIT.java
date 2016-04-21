@@ -95,11 +95,8 @@ public class RequestTransportIT extends BaseBrokerIT {
     	
     	final String result = port.requestTransport("Lisboa","Faro", 11); 
     	
-<<<<<<< HEAD
     	assertEquals("1", result);
-=======
-    	assertEquals("TransportRequest Sucessful", result);
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
+
     }
     
     @Test (expected = UnavailableTransportFault_Exception.class)
@@ -115,11 +112,8 @@ public class RequestTransportIT extends BaseBrokerIT {
     	
     	final String result = port.requestTransport("Porto","Braga", 50); 
     	
-<<<<<<< HEAD
+
     	assertEquals("1", result);
-=======
-    	assertEquals("TransportRequest Sucessful", result);
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
     }
     
     @Test
@@ -128,11 +122,10 @@ public class RequestTransportIT extends BaseBrokerIT {
     	
     	final String result = port.requestTransport("Porto","Braga", 8); 
     	
-<<<<<<< HEAD
+
     	assertEquals("1", result);
-=======
-    	assertEquals("TransportRequest Sucessful", result);
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
+
+
     }
     
     @Test
@@ -140,11 +133,8 @@ public class RequestTransportIT extends BaseBrokerIT {
     		throws InvalidPriceFault_Exception, UnavailableTransportFault_Exception, UnavailableTransportPriceFault_Exception, UnknownLocationFault_Exception {
     	
     	final String result = port.requestTransport("Porto","Braga", 1);    	
-<<<<<<< HEAD
+
     	assertEquals("1", result);
-=======
-    	assertEquals("TransportRequest Sucessful", result);
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
 
     }
     

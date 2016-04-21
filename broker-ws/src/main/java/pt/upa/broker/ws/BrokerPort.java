@@ -241,18 +241,8 @@ public class BrokerPort implements BrokerPortType{
 							}
 						}// fim for para 1 e fail para o resto
 					}//acaba o ciclo for
-<<<<<<< HEAD
-=======
-					
->>>>>>> 1eb862dfc05769d71742057225d20e2198a47128
-					
-					
 
-
-
-					//Alterado após entrega Part1
-
-					//return "TransportRequest Sucessful";
+					//return "TransportRequest Sucessful"
 					return Integer.toString(counterId);
 
 
