@@ -10,6 +10,9 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 
+
+
+import pt.upa.cripto.*;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
@@ -30,6 +33,7 @@ public class BrokerEndpointManager {
 	public void serverConnect() {
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
+		DigitalSignatureX509 assinatura = null;
 		
 		transporterPorts = new HashMap<String,TransporterPortType>();
 		
@@ -91,25 +95,41 @@ public class BrokerEndpointManager {
 				System.out.println("There are no active transporters");
 				return;
 			}
-			
-			// verifica se foi encontrado algum transporter
-			
-			
-			/*
-			// Show all Transporters found 
-			for(String elem: urlTransporterEndpoint){
-				System.out.println(elem + "      " + "234");
-			}	*/
-			
-			
-			// ping de teste
-			/*
-			String resposta = transporterPorts.get("UpaTransporter1").ping("larilas");
-			System.out.println(resposta);*/
 						
 			// wait
 			System.out.println("Broker Server is awaiting connections");
 			System.out.println("Press enter to shutdown");
+			
+			
+			
+			
+			
+			
+			
+			
+			// adicionado para fazer a assinatura
+			
+			
+			String keyStoreFilePath = "${project.build.outputDirectory}/secret.key";
+			
+			//PrivateKey privateKey = getPrivateKeyFromKeystore(keyStoreFilePath,keyStorePassword, keyAlias, keyPassword); 
+			
+			//assinatura.makeDigitalSignature(bytes, privateKey);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			System.in.read();
 						
 

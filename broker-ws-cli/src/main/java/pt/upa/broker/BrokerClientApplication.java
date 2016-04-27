@@ -58,8 +58,6 @@ public class BrokerClientApplication {
 		BindingProvider bindingProvider = (BindingProvider) port;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
 		requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
-
-
 		
 		// create a scanner so we can read the command-line input
 	    Scanner scanner = new Scanner(System.in);
