@@ -11,15 +11,6 @@
 
     <name>${project.artifactId}</name>
 
-    <dependencies>
-        <!-- UDDI Naming -->
-        <dependency>
-            <groupId>pt.ulisboa.tecnico.sdis</groupId>
-            <artifactId>uddi-naming</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -37,7 +28,19 @@
         <ws.name>CertificateFileInterface</ws.name>
     </properties>
 
-    <build>
+
+
+    <dependencies>
+        <!-- UDDI Naming -->
+        <dependency>
+            <groupId>pt.ulisboa.tecnico.sdis</groupId>
+            <artifactId>uddi-naming</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+
+ <build>
         <plugins>
             <plugin>
                 <groupId>org.jvnet.jax-ws-commons</groupId>

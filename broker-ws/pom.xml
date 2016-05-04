@@ -57,6 +57,7 @@
         	<artifactId>uddi-naming</artifactId>
         	<version>1.0</version>
         </dependency>
+        
         <!-- TransporterClient -->
         <dependency>
             <groupId>pt.upa.t38</groupId>
@@ -70,6 +71,17 @@
             <artifactId>cripto</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <!-- Cas-ws -->
+        <dependency>
+            <groupId>pt.upa.t38</groupId>
+            <artifactId>cas-ws-cli</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        
+
+
         
     </dependencies>
 
