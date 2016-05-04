@@ -7,9 +7,17 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
 // classes generated from WSDL
-import pt.upa.ws.CertificateFileInterface; // está certo??
-import pt.upa.ws.CertificateImplService; // está certo???
+import pt.upa.ws.CertificateFileInterface; 
+import pt.upa.ws.CertificateImplService; 
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
+
+
+// não vai existir main - isto vai ser chamado pelo broker ou trasporter
+// adicionar dependencias disto aos transporter e broker ?)
+// fazer construtor
+// os argumentos do construtor sao os args
+
+
 
 public class CertificateClient {
 
@@ -47,7 +55,7 @@ public class CertificateClient {
 		requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
 
 		System.out.println("Remote call ...");
-		String result = port.sayHello("friend");
+		String result = port.sayHello("friend");  ///////// Alterar
 		System.out.println(result);
 	}
 
