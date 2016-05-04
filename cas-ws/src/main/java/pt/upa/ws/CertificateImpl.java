@@ -5,12 +5,12 @@ import javax.jws.WebService;
 @WebService(endpointInterface = "pt.upa.ws.CertificateFileInterface")
 public class CertificateImpl implements CertificateFileInterface {
 
-	//public String sayHello(String name) {
-	//	return "Hello " + name + "!";
-	//}
+	public String sayHello(String name) {
+		return "Hello " + name + "!";
+	}
 
 
-
+	/*
 
 	// deve receber uma string apenas com o nome e deve retornar um array de bytes com o certificado
 
@@ -20,6 +20,9 @@ public class CertificateImpl implements CertificateFileInterface {
 	 * @return
 	 * @throws Exception
 	 */
+
+
+	/*
 	public static Certificate readCertificateFile(String certificateFilePath) throws Exception {
 		
 
@@ -49,5 +52,5 @@ public class CertificateImpl implements CertificateFileInterface {
 		return null;
 	}
 
-
+	*/
 }

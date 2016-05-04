@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <!-- http://maven.apache.org/pom.html#Quick_Overview -->
 
-    <groupId>example</groupId>
-    <artifactId>hello-ws_juddi</artifactId>
+    <groupId>pt.upa.t38</groupId>
+    <artifactId>cas-ws</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>pt.ulisboa.tecnico.sdis</groupId>
             <artifactId>uddi-naming</artifactId>
-            <version>1.1</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
@@ -27,11 +27,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <mainclass>example.ws.HelloMain</mainclass>
+        <mainclass>pt.upa.ws.CertificateMain</mainclass>
 
         <uddi.url>http://localhost:9090</uddi.url>
-        <ws.name>Hello</ws.name>
-        <ws.url>http://localhost:8080/hello-ws/endpoint</ws.url>
+        <ws.name>CertificateFileInterface</ws.name>
+        <ws.url>http://localhost:8080/CertificateFileInterface/endpoint</ws.url>
     </properties>
 
     <build>

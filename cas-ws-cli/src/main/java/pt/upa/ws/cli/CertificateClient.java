@@ -7,8 +7,8 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
 // classes generated from WSDL
-import pt.upa.ws.Hello; // está certo??
-import pt.upa.ws.HelloImplService; // está certo???
+import pt.upa.ws.CertificateFileInterface; // está certo??
+import pt.upa.ws.CertificateImplService; // está certo???
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 
 public class CertificateClient {
@@ -38,8 +38,8 @@ public class CertificateClient {
 		}
 
 		System.out.println("Creating stub ...");
-		HelloImplService service = new HelloImplService();
-		Hello port = service.getHelloImplPort();
+		CertificateImplService service = new CertificateImplService();
+		CertificateFileInterface port = service.getCertificateImplPort();
 
 		System.out.println("Setting endpoint address ...");
 		BindingProvider bindingProvider = (BindingProvider) port;
