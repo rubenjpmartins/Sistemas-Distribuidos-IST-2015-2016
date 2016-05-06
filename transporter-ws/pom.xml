@@ -67,7 +67,7 @@
         <dependency>
             <groupId>pt.upa.t38</groupId>
             <artifactId>cas-ws-cli</artifactId>
-            <version>1.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         

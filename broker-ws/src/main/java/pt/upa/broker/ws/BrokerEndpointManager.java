@@ -16,6 +16,7 @@ import pt.upa.cripto.*;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
+import pt.upa.ws.cli.CertificateClient;
 
 public class BrokerEndpointManager {
 	private String uddiURL;
@@ -29,7 +30,11 @@ public class BrokerEndpointManager {
 		name = args[1];
 		url = args[2];
 	}
-
+	
+	
+	
+	
+	
 	public void serverConnect() {
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
@@ -104,7 +109,17 @@ public class BrokerEndpointManager {
 			
 			
 			
+			System.out.print("saca certificado");
 			
+			// saca certificados
+			
+			CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
+			
+			
+			System.out.print("saca certificado2/n");
+
+			String resultado = badjoras.serverConnect();
+			System.out.println(resultado);
 			
 			
 			// adicionado para fazer a assinatura

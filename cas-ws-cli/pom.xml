@@ -19,7 +19,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- WSDL is required for client code generation -->
-        <ws.url>http://localhost:8080/CertificateFileInterface/endpoint</ws.url>
+        <ws.url>http://localhost:8095/CertificateFileInterface/endpoint</ws.url>
         <wsdl.url>${ws.url}?WSDL</wsdl.url>
 
         <mainclass>pt.upa.ws.cli.CertificateClient</mainclass>

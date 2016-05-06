@@ -31,7 +31,7 @@
 
         <uddi.url>http://localhost:9090</uddi.url>
         <ws.name>CertificateFileInterface</ws.name>
-        <ws.url>http://localhost:8080/CertificateFileInterface/endpoint</ws.url>
+        <ws.url>http://localhost:8095/CertificateFileInterface/endpoint</ws.url>
     </properties>
 
     <build>

@@ -42,7 +42,22 @@ import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 
 	//public static void main(String[] args) throws Exception {
 	
-	public void serverConnect() {
+	
+	
+	
+	//Martelado
+	public CertificateClient(String URL, String nome) {
+
+		uddiURL = URL;
+		name = nome;
+	
+	}
+
+
+
+	public String serverConnect() {
+		
+		String result = null;
 
 		try{
 
@@ -54,7 +69,7 @@ import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 	
 			if (endpointAddress == null) {
 				System.out.println("Not found!");
-				return;
+				return "null";
 			} else {
 				System.out.printf("Found %s%n", endpointAddress);
 			}
@@ -71,8 +86,9 @@ import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 		
 
 			System.out.println("Remote call ...");
-			String result = port.sayHello("friend");  ///////// Alterar
+			result = port.sayHello("friend");  ///////// Alterar
 			System.out.println(result);
+			
 			
 
 			
@@ -82,6 +98,9 @@ import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 		
 	
 		}
+		
+		// para depois eliminar
+		return result;
 
 	}
 }	

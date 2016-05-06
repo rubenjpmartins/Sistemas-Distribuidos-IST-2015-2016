@@ -25,8 +25,6 @@ import pt.upa.transporter.ws.TransporterPortType;
 )
 
 @HandlerChain(file="/handler-chain.xml")
-
-
 public class BrokerPort implements BrokerPortType{	
 	
 
