@@ -11,6 +11,10 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 
 
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+
 
 import pt.upa.cripto.*;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
@@ -106,20 +110,25 @@ public class BrokerEndpointManager {
 			System.out.println("Press enter to shutdown");
 			
 			
-			
-			
-			
-			System.out.print("saca certificado");
-			
 			// saca certificados
 			
+			//liga ao servidor
 			CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
 			
 			
-			System.out.print("saca certificado2/n");
-
-			String resultado = badjoras.serverConnect();
-			System.out.println(resultado);
+			System.out.println("recebi1");
+			badjoras.serverConnect("UpaTransporter1");
+			
+			System.out.println("recebi2");
+			
+			
+			
+			//testa 
+			//System.out.println(cert.toString());
+			
+			
+			
+			
 			
 			
 			// adicionado para fazer a assinatura
