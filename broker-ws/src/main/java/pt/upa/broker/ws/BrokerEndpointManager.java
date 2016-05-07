@@ -110,18 +110,15 @@ public class BrokerEndpointManager {
 			System.out.println("Press enter to shutdown");
 			
 			
-			// saca certificados
+
 			
-			//liga ao servidor
+			//liga ao servidor de CA e vai buscar as chaves públicas dos transporter1 e transporter2
 			CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
+
 			
-			
-			System.out.println("recebi1");
-			badjoras.serverConnect("UpaTransporter1");
-			
-			System.out.println("recebi2");
-			
-			
+			//saca o certificado/com chave pública do emissor
+			Certificate certUpaTransporter1 = badjoras.serverConnect("UpaTransporter1");
+			Certificate certUpaTransporter2 = badjoras.serverConnect("UpaTransporter2");
 			
 			//testa 
 			//System.out.println(cert.toString());

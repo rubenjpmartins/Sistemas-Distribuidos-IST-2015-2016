@@ -9,8 +9,10 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 // classes generated from WSDL
 import pt.upa.ws.CertificateFileInterface;
@@ -18,7 +20,7 @@ import pt.upa.ws.CertificateImplService;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 
 /**
- * @author rubenmartins
+ * @author rubenjpmartins
  *
  */
 public class CertificateClient {
@@ -53,13 +55,6 @@ public class CertificateClient {
 		name = nome;
 	}
 
-	
-	
-
-
-	
-	
-	
 	
 	public Certificate serverConnect(String entidade) {
 
@@ -103,22 +98,27 @@ public class CertificateClient {
 			Map<String, Object> requestContext = bindingProvider.getRequestContext();
 			requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
 
+
 			System.out.println("Getting Public Key...");
-
-			// result = port.sayHello("friend"); ///////// Alterar
-			// System.out.println(result);
-
+						
 			
+			//saca o certificado/com chave pública do emissor
 			
-			
-			//////////////////////////////////////////// provavel problema de marshalling/serialzable
-			port.readCertificateFile(filepath);
-			System.out.println("consegui enviar o certificate");
+			//converte para inputStream
+			InputStream is = new ByteArrayInputStream(port.download(filepath));
+			// gera o certificado
+			CertificateFactory cf = CertificateFactory.getInstance("X.509");
+			Certificate cert = cf.generateCertificate(is);
+			// comfirmação
+			//System.out.println(cert.toString());
+			return cert;
 
 			
 		} catch (Exception e) {
 			System.out.printf("Caught exception: %s%n", e);
 			e.printStackTrace();
+			
+
 		}
 		return null;
 	}
