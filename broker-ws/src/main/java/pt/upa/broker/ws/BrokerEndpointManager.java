@@ -10,13 +10,13 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 
-
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 
 
-import pt.upa.cripto.*;
+import pt.upa.cripto.DigitalSignatureX509;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
@@ -29,6 +29,14 @@ public class BrokerEndpointManager {
 	private String transporterServername="UpaTransporter";
 	private static Map<String, TransporterPortType> transporterPorts;
 	
+	
+	// Relativo ao getPrivateKeyFromKeystore
+	private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
+	private final String keyStorePassword = "1nsecure";	 
+	private final String keyAlias = "ins3cur3"; 
+    private final String keyPassword = "example";
+	
+  
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
 		name = args[1];
@@ -42,7 +50,7 @@ public class BrokerEndpointManager {
 	public void serverConnect() {
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
-		DigitalSignatureX509 assinatura = null;
+		DigitalSignatureX509 assinaturaX509 = null;
 		
 		transporterPorts = new HashMap<String,TransporterPortType>();
 		
@@ -126,6 +134,10 @@ public class BrokerEndpointManager {
 			
 			
 			
+			//Saca a Private key do broker --------> passworderrada --> ver a passowrd certa da keystore
+			//PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
+			
+			
 			
 			
 			// adicionado para fazer a assinatura
@@ -134,6 +146,16 @@ public class BrokerEndpointManager {
 			String keyStoreFilePath = "${project.build.outputDirectory}/secret.key";
 			
 			//PrivateKey privateKey = getPrivateKeyFromKeystore(keyStoreFilePath,keyStorePassword, keyAlias, keyPassword); 
+
+			
+			
+			
+			
+			
+			
+			// tenta ver isto Duarte
+			
+			/////////// sacar a mensagem soap e transformar em array de bites
 			
 			//assinatura.makeDigitalSignature(bytes, privateKey);
 			

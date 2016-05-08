@@ -40,6 +40,7 @@ public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     public boolean handleMessage(SOAPMessageContext smc) {
         System.out.println("AddHeaderHandler: Handling message.");
+        
 
         Boolean outboundElement = (Boolean) smc
                 .get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
@@ -51,7 +52,8 @@ public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 // get SOAP envelope
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
-                SOAPEnvelope se = sp.getEnvelope();
+                SOAPEnvelope se = sp.getEnvelope();     
+                
 
                 // add header
                 SOAPHeader sh = se.getHeader();
