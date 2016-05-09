@@ -34,7 +34,7 @@ public class BrokerEndpointManager {
 	private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
 	private final String keyStorePassword = "ins3cur3";	 
 	private final String keyAlias = "upabroker"; 
-    private final String keyPassword = "1ns3cur3"; //    private final String keyPassword = "example";
+    private final String keyPassword = "1nsecure"; //    private final String keyPassword = "example";
 	
   
 	public BrokerEndpointManager(String[] args){
@@ -136,7 +136,7 @@ public class BrokerEndpointManager {
 			
 			
 			//Saca a Private key do broker --------> key alias certo?
-			PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
+			//PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
 			System.out.println("Private Key");
 			
 			

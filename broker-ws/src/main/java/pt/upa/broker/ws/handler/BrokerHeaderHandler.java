@@ -28,6 +28,7 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
  *  is placed in a SOAP message context property
  *  that can be accessed by other handlers or by the application.
  */
+
 public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 	public static final String CONTEXT_PROPERTY = "my.property";
 
@@ -49,6 +50,7 @@ public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (outboundElement.booleanValue()) {
                 System.out.println("Writing header in outbound SOAP message...");
 
+                
                 // get SOAP envelope
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
@@ -64,11 +66,18 @@ public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 Name name = se.createName("myHeader", "d", "http://demo");
                 SOAPHeaderElement element = sh.addHeaderElement(name);
 
+                
                 // add header element value
                 int value = 22;
                 String valueString = Integer.toString(value);
                 element.addTextNode(valueString);
-
+                
+                //System.out.print("\n\n\n\n\n\n\n\n\n");
+                //msg.writeTo(System.out);
+                //System.out.print("\n\n\n\n\n\n\n\n\n");
+                
+                
+                
             } else {
                 System.out.println("Reading header in inbound SOAP message...");
 
@@ -101,6 +110,8 @@ public class BrokerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 // print received header
                 System.out.println("Header value is " + value);
 
+                
+                
                 // put header in a property context
                 smc.put(CONTEXT_PROPERTY, value);
                 // set property scope to application client/server class can access it
