@@ -1,5 +1,7 @@
 package pt.upa.broker.ws.handler;
 
+import java.io.ByteArrayOutputStream;
+import java.security.PrivateKey;
 import java.util.Set;
 
 import javax.jws.HandlerChain;
@@ -9,12 +11,21 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
+import pt.upa.cripto.DigitalSignatureX509;
+
 /**
  * This SOAPHandler outputs the contents of inbound and outbound messages.
  */
 @HandlerChain(file="/handler-chain.xml")
 public class BrokerLogHandler implements SOAPHandler<SOAPMessageContext> {
 
+	// Relativo ao getPrivateKeyFromKeystore
+		private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
+		private final String keyStorePassword = "ins3cur3";	 
+		private final String keyAlias = "upabroker"; 
+	    private final String keyPassword = "1ns3cur3"; //    private final String keyPassword = "example";
+		
+	
 	public Set<QName> getHeaders() {
 		return null;
 	}
@@ -48,7 +59,41 @@ public class BrokerLogHandler implements SOAPHandler<SOAPMessageContext> {
 			System.out.println("Inbound SOAP message:");
 		}
 
+
+		
+		//original
 		SOAPMessage message = smc.getMessage();
+		
+		/*
+		// converte messageto bitearray
+		SOAPMessage message = smc.getMessage();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		message.writeTo(out);
+		
+		// testa a ver se foi feito o bitearryok
+		String strMsg = new String(out.toByteArray());
+		
+		
+		
+		
+		System.out.println("Platform Encoding : " + System.getProperty("file.encoding"));
+		
+		
+
+		
+		
+		
+		DigitalSignatureX509 assinaturaX509 = null;
+
+		PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
+
+		assinaturaX509.makeDigitalSignature(out, chavePrivadaBroker);
+
+		
+		*/
+		
+		
+		
 		try {
 			message.writeTo(System.out);
 			System.out.println(); // just to add a newline to output

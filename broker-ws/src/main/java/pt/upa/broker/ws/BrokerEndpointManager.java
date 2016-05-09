@@ -32,9 +32,9 @@ public class BrokerEndpointManager {
 	
 	// Relativo ao getPrivateKeyFromKeystore
 	private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
-	private final String keyStorePassword = "1nsecure";	 
-	private final String keyAlias = "ins3cur3"; 
-    private final String keyPassword = "example";
+	private final String keyStorePassword = "ins3cur3";	 
+	private final String keyAlias = "upabroker"; 
+    private final String keyPassword = "1ns3cur3"; //    private final String keyPassword = "example";
 	
   
 	public BrokerEndpointManager(String[] args){
@@ -63,7 +63,6 @@ public class BrokerEndpointManager {
 			endpoint.publish(url);
 
 			// publish to UDDI
-			//????Object uddiURL;
 			System.out.printf("Publishing '%s' to UDDI at %s%n", name, uddiURL);
 			uddiNaming = new UDDINaming(uddiURL);
 			uddiNaming.rebind(name, url);
@@ -112,7 +111,9 @@ public class BrokerEndpointManager {
 				System.out.println("There are no active transporters");
 				return;
 			}
-						
+				
+			
+			
 			// wait
 			System.out.println("Broker Server is awaiting connections");
 			System.out.println("Press enter to shutdown");
@@ -134,9 +135,9 @@ public class BrokerEndpointManager {
 			
 			
 			
-			//Saca a Private key do broker --------> passworderrada --> ver a passowrd certa da keystore
-			//PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
-			
+			//Saca a Private key do broker --------> key alias certo?
+			PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
+			System.out.println("Private Key");
 			
 			
 			
@@ -152,22 +153,9 @@ public class BrokerEndpointManager {
 			
 			
 			
-			
-			// tenta ver isto Duarte
-			
 			/////////// sacar a mensagem soap e transformar em array de bites
 			
 			//assinatura.makeDigitalSignature(bytes, privateKey);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			
