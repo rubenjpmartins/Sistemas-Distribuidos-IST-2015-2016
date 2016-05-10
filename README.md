@@ -45,6 +45,15 @@ utilizador: uddiadmin
 senha: da_password1
 ```
 
+CERTIFICATE AUTHORITY SERVICE:
+```
+cd cas-ws
+mvn clean
+mvn generate-sources
+mvn compile
+mvn exec:java
+```
+
 [2] Criar pasta temporária
 
 ```
@@ -68,6 +77,16 @@ cd T_38-project
 ```
 cd uddi-naming
 mvn clean install
+```
+
+```
+cd cripto
+mvn clean install
+```
+
+```
+cd cas-ws-cli
+mvn clean install 
 ```
 
 ```

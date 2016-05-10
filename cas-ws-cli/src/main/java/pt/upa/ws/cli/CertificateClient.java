@@ -67,7 +67,7 @@ public class CertificateClient {
 		} else if (entidade == "UpaTransporter2") {
 			filepath = pathtrasporter2;
 
-		} else if (entidade == "UpaTransporter1") {
+		} else if (entidade == "UpaBroker") {
 			filepath = pathbrokerserver;
 
 		} else {
@@ -76,24 +76,24 @@ public class CertificateClient {
 
 		try {
 
-			System.out.printf("Contacting UDDI at %s%n", uddiURL);
+			//System.out.printf("Contacting UDDI at %s%n", uddiURL);
 			UDDINaming uddiNaming = new UDDINaming(uddiURL);
 
-			System.out.printf("Looking for '%s'%n", name);
+			//System.out.printf("Looking for '%s'%n", name);
 			String endpointAddress = uddiNaming.lookup(name);
 
 			if (endpointAddress == null) {
-				System.out.println("Not found!");
+				//System.out.println("Not found!");
 				//// return "null"; //////////// throws exception aqui
 			} else {
-				System.out.printf("Found %s%n", endpointAddress);
+				//System.out.printf("Found %s%n", endpointAddress);
 			}
 
-			System.out.println("Creating stub ...");
+			//System.out.println("Creating stub ...");
 			CertificateImplService service = new CertificateImplService();
 			CertificateFileInterface port = service.getCertificateImplPort();
 
-			System.out.println("Setting endpoint address ...");
+			//System.out.println("Setting endpoint address ...");
 			BindingProvider bindingProvider = (BindingProvider) port;
 			Map<String, Object> requestContext = bindingProvider.getRequestContext();
 			requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);

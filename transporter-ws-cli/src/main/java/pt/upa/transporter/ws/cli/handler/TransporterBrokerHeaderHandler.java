@@ -1,7 +1,10 @@
 package pt.upa.transporter.ws.cli.handler;
 
 
-import java.util.Base64;
+import static javax.xml.bind.DatatypeConverter.printBase64Binary;
+import static javax.xml.bind.DatatypeConverter.printHexBinary;
+import static javax.xml.bind.DatatypeConverter.parseHexBinary;
+import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -86,13 +89,20 @@ public class TransporterBrokerHeaderHandler implements SOAPHandler<SOAPMessageCo
                 .get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 
         try {
+        	
+        	
+        	//
+        	//
             //
             // MENSAGEM A ENVIAR!
         	//
+        	//
+        	//
+        	
+        	
             if (outboundElement.booleanValue()) {
                 System.out.println("Writing header in outbound SOAP message...");
-
-                
+ 
                 // get SOAP envelope
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
@@ -106,7 +116,7 @@ public class TransporterBrokerHeaderHandler implements SOAPHandler<SOAPMessageCo
                 //System.out.println("\n\n\n\n\n\n\n\n");
 
                 DigitalSignatureX509 assinaturaX509 = null;
-
+                
                 PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath,
                         keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
 
@@ -119,8 +129,10 @@ public class TransporterBrokerHeaderHandler implements SOAPHandler<SOAPMessageCo
          
                 
                 
-                String bytesAsString = new String(assinaturaByte, StandardCharsets.UTF_8);
-
+                //String bytesAsString = assinaturaByte.toString();
+                String bytesAsString = printBase64Binary(assinaturaByte);
+                
+               
                 
                 
                 // add header
