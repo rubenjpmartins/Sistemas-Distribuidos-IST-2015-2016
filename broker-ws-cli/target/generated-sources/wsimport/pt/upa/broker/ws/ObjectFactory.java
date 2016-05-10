@@ -30,10 +30,12 @@ public class ObjectFactory {
     private final static QName _ViewTransportResponse_QNAME = new QName("http://ws.broker.upa.pt/", "viewTransportResponse");
     private final static QName _UnknownLocationFault_QNAME = new QName("http://ws.broker.upa.pt/", "UnknownLocationFault");
     private final static QName _ViewTransport_QNAME = new QName("http://ws.broker.upa.pt/", "viewTransport");
+    private final static QName _PingToBroker_QNAME = new QName("http://ws.broker.upa.pt/", "pingToBroker");
     private final static QName _Ping_QNAME = new QName("http://ws.broker.upa.pt/", "ping");
     private final static QName _RequestTransport_QNAME = new QName("http://ws.broker.upa.pt/", "requestTransport");
     private final static QName _ClearTransports_QNAME = new QName("http://ws.broker.upa.pt/", "clearTransports");
     private final static QName _InvalidPriceFault_QNAME = new QName("http://ws.broker.upa.pt/", "InvalidPriceFault");
+    private final static QName _PingToBrokerResponse_QNAME = new QName("http://ws.broker.upa.pt/", "pingToBrokerResponse");
     private final static QName _ClearTransportsResponse_QNAME = new QName("http://ws.broker.upa.pt/", "clearTransportsResponse");
     private final static QName _ListTransports_QNAME = new QName("http://ws.broker.upa.pt/", "listTransports");
     private final static QName _RequestTransportResponse_QNAME = new QName("http://ws.broker.upa.pt/", "requestTransportResponse");
@@ -117,6 +119,22 @@ public class ObjectFactory {
      */
     public InvalidPriceFault createInvalidPriceFault() {
         return new InvalidPriceFault();
+    }
+
+    /**
+     * Create an instance of {@link PingToBrokerResponse }
+     * 
+     */
+    public PingToBrokerResponse createPingToBrokerResponse() {
+        return new PingToBrokerResponse();
+    }
+
+    /**
+     * Create an instance of {@link PingToBroker }
+     * 
+     */
+    public PingToBroker createPingToBroker() {
+        return new PingToBroker();
     }
 
     /**
@@ -230,6 +248,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PingToBroker }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.broker.upa.pt/", name = "pingToBroker")
+    public JAXBElement<PingToBroker> createPingToBroker(PingToBroker value) {
+        return new JAXBElement<PingToBroker>(_PingToBroker_QNAME, PingToBroker.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Ping }{@code >}}
      * 
      */
@@ -263,6 +290,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.broker.upa.pt/", name = "InvalidPriceFault")
     public JAXBElement<InvalidPriceFault> createInvalidPriceFault(InvalidPriceFault value) {
         return new JAXBElement<InvalidPriceFault>(_InvalidPriceFault_QNAME, InvalidPriceFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PingToBrokerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.broker.upa.pt/", name = "pingToBrokerResponse")
+    public JAXBElement<PingToBrokerResponse> createPingToBrokerResponse(PingToBrokerResponse value) {
+        return new JAXBElement<PingToBrokerResponse>(_PingToBrokerResponse_QNAME, PingToBrokerResponse.class, null, value);
     }
 
     /**

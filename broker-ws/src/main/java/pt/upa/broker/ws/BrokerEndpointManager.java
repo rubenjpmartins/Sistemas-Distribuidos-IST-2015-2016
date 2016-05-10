@@ -28,6 +28,7 @@ public class BrokerEndpointManager {
 	private String url;
 	private String transporterServername="UpaTransporter";
 	private static Map<String, TransporterPortType> transporterPorts;
+	private BrokerPortType secondaryPort;
 	
 	
 	// Relativo ao getPrivateKeyFromKeystore
@@ -36,21 +37,27 @@ public class BrokerEndpointManager {
 	private final String keyAlias = "upabroker"; 
     private final String keyPassword = "1nsecure"; //    private final String keyPassword = "example";
 	
-    
-    //Relativo ao handler para receber context
-    public static final String TOKEN = "UpaBroker1"; //alterar depois  
-    public static final String CLASS_NAME = BrokerEndpointManager.class.getSimpleName(); 
-    
-    
+  
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
 		name = args[1];
 		url = args[2];
 	}
 	
-	
-	
-	
+	public class Timer extends Thread{
+		public void run(){
+			while(true){
+				secondaryPort.pingToBroker("I'm alive");
+				
+				try{
+					Thread.sleep(5000);
+				} catch(InterruptedException e){
+					Thread.currentThread().interrupt();
+					return;
+				}
+			}
+		}
+	}
 	
 	public void serverConnect() {
 		Endpoint endpoint = null;
@@ -60,6 +67,7 @@ public class BrokerEndpointManager {
 		transporterPorts = new HashMap<String,TransporterPortType>();
 		
 		try {
+			
 			BrokerPort teste = new BrokerPort(transporterPorts);
 			endpoint = Endpoint.create(teste);
 
@@ -96,47 +104,13 @@ public class BrokerEndpointManager {
 					// endpoint setting for Transporter
 					BindingProvider bindingProvider = (BindingProvider) port;
 					Map<String, Object> requestContext = bindingProvider.getRequestContext();
-					
-					
-
-
-
-
-
-					
-					///ALTERAR
-					//String initialValue = TOKEN;
-					//requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
-					
-					
-
-
-
-
-
-
-
-
-
-					
-					
-					
-					
 					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
 										
 					// add Transporter name and port to map
 					transporterPorts.put(transporterName, port);						
-				}
-				
-				
-				
-				/*
-				// Print de todos os transporter ports disponiveis
-				
-				for (String s : transporterPorts.keySet()){
-					System.out.println(s);
-				}*/				
+				}				
 			}
+
 			
 			if(transporterPorts.isEmpty()){
 				System.out.println("There are no active transporters");
@@ -144,6 +118,38 @@ public class BrokerEndpointManager {
 			}
 				
 			
+			// If it is the Primary Broker Server
+			if (name.equals("UpaBroker1")){
+				
+			
+				String secondaryBrokerName = "UpaBroker2";
+				String secondaryBrokerURL = uddiNaming.lookup(secondaryBrokerName);
+				
+				// Secondary Broker Found
+				if (secondaryBrokerURL != null){		
+					
+					System.out.println(secondaryBrokerName + " was Found at:");
+					urlTransporterEndpoint.add(secondaryBrokerURL);
+					System.out.println(secondaryBrokerURL);
+															
+					// stubs creation for Secondary Broker
+					BrokerService secondaryService = new BrokerService();
+					secondaryPort = secondaryService.getBrokerPort();
+
+					// endpoint setting for Secondary Broker
+					BindingProvider bindingProvider = (BindingProvider) secondaryPort;
+					Map<String, Object> requestContext = bindingProvider.getRequestContext();
+					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, secondaryBrokerURL);
+					
+					secondaryPort.pingToBroker("Ping Teste");
+					
+					
+					Timer t1 = new Timer();
+					t1.start();
+				}
+			}
+			
+
 			
 			// wait
 			System.out.println("Broker Server is awaiting connections");
@@ -164,33 +170,21 @@ public class BrokerEndpointManager {
 			//System.out.println(cert.toString());
 			
 			
-			
-			
 			//Saca a Private key do broker --------> key alias certo?
 			//PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
-			System.out.println("Private Key");
-			
-			
+			System.out.println("Private Key");			
 			
 			// adicionado para fazer a assinatura
-			
 			
 			String keyStoreFilePath = "${project.build.outputDirectory}/secret.key";
 			
 			//PrivateKey privateKey = getPrivateKeyFromKeystore(keyStoreFilePath,keyStorePassword, keyAlias, keyPassword); 
 
-			
-			
-			
-			
+
 			
 			/////////// sacar a mensagem soap e transformar em array de bites
 			
-			//assinatura.makeDigitalSignature(bytes, privateKey);
-			
-			
-			
-			
+			//assinatura.makeDigitalSignature(bytes, privateKey);	
 			
 			System.in.read();
 						

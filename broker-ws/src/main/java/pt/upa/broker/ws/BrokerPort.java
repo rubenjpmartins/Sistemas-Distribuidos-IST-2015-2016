@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jws.WebService;
+import javax.xml.ws.Holder;
+
 import pt.upa.transporter.ws.BadJobFault_Exception;
 import pt.upa.transporter.ws.BadLocationFault_Exception;
 import pt.upa.transporter.ws.BadPriceFault_Exception;
@@ -16,7 +18,7 @@ import pt.upa.transporter.ws.TransporterPortType;
 
 @WebService(
 		endpointInterface="pt.upa.broker.ws.BrokerPortType",
-		wsdlLocation="broker.1_0.wsdl",
+		wsdlLocation="broker.1_1.wsdl",
 		name="UpaBroker",
 		portName="BrokerPort",
 		targetNamespace="http://ws.broker.upa.pt/",
@@ -70,6 +72,12 @@ public class BrokerPort implements BrokerPortType{
 		}else{
 			return "Ping Fail ";
 		}	
+	}
+	
+	@Override
+	public String pingToBroker(String name) {
+		System.out.println("I'm alive");
+		return "Im alive";
 	}
 
 	
@@ -378,4 +386,6 @@ public class BrokerPort implements BrokerPortType{
 			transportersViews.get(IDBroker).setState(TransportStateView.COMPLETED);
 		}		
 	}
+
+
 }

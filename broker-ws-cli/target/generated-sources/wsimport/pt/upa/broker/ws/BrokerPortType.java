@@ -43,15 +43,30 @@ public interface BrokerPortType {
 
     /**
      * 
+     * @param name
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "pingToBroker", targetNamespace = "http://ws.broker.upa.pt/", className = "pt.upa.broker.ws.PingToBroker")
+    @ResponseWrapper(localName = "pingToBrokerResponse", targetNamespace = "http://ws.broker.upa.pt/", className = "pt.upa.broker.ws.PingToBrokerResponse")
+    @Action(input = "http://ws.broker.upa.pt/BrokerPort/pingToBrokerRequest", output = "http://ws.broker.upa.pt/BrokerPort/pingToBrokerResponse")
+    public String pingToBroker(
+        @WebParam(name = "name", targetNamespace = "")
+        String name);
+
+    /**
+     * 
      * @param price
      * @param origin
      * @param destination
      * @return
      *     returns java.lang.String
      * @throws UnavailableTransportFault_Exception
+     * @throws UnknownLocationFault_Exception
      * @throws UnavailableTransportPriceFault_Exception
      * @throws InvalidPriceFault_Exception
-     * @throws UnknownLocationFault_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")

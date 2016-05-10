@@ -13,7 +13,7 @@ import pt.upa.broker.ws.UnknownTransportFault_Exception;
 
 @WebService(
 		endpointInterface="pt.upa.broker.ws.BrokerPortType",
-		wsdlLocation="broker.1_0.wsdl",
+		wsdlLocation="broker.1_1.wsdl",
 		name="UpaBroker",
 		portName="BrokerPort",
 		targetNamespace="http://ws.broker.upa.pt/",
@@ -24,6 +24,12 @@ public class BrokerClient implements BrokerPortType{
 	
 	@Override
 	public String ping(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String pingToBroker(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -53,4 +59,5 @@ public class BrokerClient implements BrokerPortType{
 		// TODO Auto-generated method stub
 		
 	}
+
 }
