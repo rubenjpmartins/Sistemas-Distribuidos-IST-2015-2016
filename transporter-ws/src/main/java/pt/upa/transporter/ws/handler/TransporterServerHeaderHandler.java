@@ -1,5 +1,27 @@
 package pt.upa.transporter.ws.handler;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.security.PrivateKey;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
+import javax.xml.soap.Name;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPHeaderElement;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.SOAPPart;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.MessageContext.Scope;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
+
+import pt.upa.cripto.DigitalSignatureX509;
+
+
 import java.util.Iterator;
 import java.util.Set;
 
@@ -27,8 +49,12 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
  *  is placed in a SOAP message context property
  *  that can be accessed by other handlers or by the application.
  */
-public class TransporterHeaderHandler implements SOAPHandler<SOAPMessageContext> {
-	public static final String CONTEXT_PROPERTY = "my.property";
+
+public class TransporterServerHeaderHandler implements SOAPHandler<SOAPMessageContext> {
+	
+	
+	
+    public static final String CONTEXT_PROPERTY = "my.property";
 
     //
     // Handler interface methods
@@ -93,13 +119,15 @@ public class TransporterHeaderHandler implements SOAPHandler<SOAPMessageContext>
 
                 // get header element value
                 String valueString = element.getValue();
-                int value = Integer.parseInt(valueString);
+                //int value = Integer.parseInt(valueString);
 
                 // print received header
-                System.out.println("Header value is " + value);
-
+                //System.out.println("Header value is " + value);
+                System.out.println("\n\n\n\n " + valueString);
                 // put header in a property context
-                smc.put(CONTEXT_PROPERTY, value);
+                 //smc.put(CONTEXT_PROPERTY, value);
+                smc.put(CONTEXT_PROPERTY, valueString);
+                
                 // set property scope to application client/server class can access it
                 smc.setScope(CONTEXT_PROPERTY, Scope.APPLICATION);
 

@@ -57,6 +57,14 @@
         	<artifactId>uddi-naming</artifactId>
         	<version>1.0</version>
         </dependency>
+
+        <!-- Cripto -->
+        <dependency>
+            <groupId>pt.upa.t38</groupId>
+            <artifactId>cripto</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

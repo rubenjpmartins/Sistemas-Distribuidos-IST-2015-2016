@@ -1,17 +1,35 @@
 package pt.upa.transporter.ws.handler;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.security.PrivateKey;
 import java.util.Set;
 
+import javax.jws.HandlerChain;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
+import pt.upa.cripto.DigitalSignatureX509;
+
+
+import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
 /**
  * This SOAPHandler outputs the contents of inbound and outbound messages.
  */
-public class TransporterLogHandler implements SOAPHandler<SOAPMessageContext> {
+@HandlerChain(file = "/handler-chain.xml")
+public class TransporterServerLogHandler implements SOAPHandler<SOAPMessageContext> {
+
+
+
+
+
 
     public Set<QName> getHeaders() {
         return null;
@@ -49,7 +67,7 @@ public class TransporterLogHandler implements SOAPHandler<SOAPMessageContext> {
 
         SOAPMessage message = smc.getMessage();
         try {
-            message.writeTo(System.out);
+           // message.writeTo(System.out);
             System.out.println(); // just to add a newline to output
         } catch (Exception e) {
             System.out.printf("Exception in handler: %s%n", e);

@@ -3,7 +3,6 @@ package pt.upa.transporter.ws;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.jws.HandlerChain;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -19,7 +18,6 @@ import javax.xml.ws.WebServiceFeature;
  * 
  */
 @WebServiceClient(name = "TransporterService", targetNamespace = "http://ws.transporter.upa.pt/", wsdlLocation = "file:/Users/rubenmartins/git/T_38-project/transporter-ws/src/main/resources/transporter.1_0.wsdl")
-@HandlerChain(file = "TransporterService_handler.xml")
 public class TransporterService
     extends Service
 {

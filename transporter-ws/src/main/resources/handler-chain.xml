@@ -6,10 +6,12 @@
             <handler-class>example.ws.handler.MessageContextHandler</handler-class>
         </handler-->
         <handler>
-            <handler-class>pt.upa.broker.ws.handler.BrokerHeaderHandler</handler-class>
+            <handler-class>pt.upa.transporter.ws.handler.TransporterServerHeaderHandler</handler-class>
         </handler>
         <handler>
-            <handler-class>pt.upa.broker.ws.handler.BrokerLogHandler</handler-class>
+            <handler-class>pt.upa.transporter.ws.handler.TransporterServerLogHandler</handler-class>
         </handler>
     </handler-chain>
 </handler-chains>
+
+

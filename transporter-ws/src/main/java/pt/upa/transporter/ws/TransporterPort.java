@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+
+import javax.jws.HandlerChain;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +22,7 @@ import javax.jws.WebService;
 		serviceName="TransporterService"
 )
 
+@HandlerChain(file="/handler-chain.xml")
 
 public class TransporterPort implements TransporterPortType {
 	

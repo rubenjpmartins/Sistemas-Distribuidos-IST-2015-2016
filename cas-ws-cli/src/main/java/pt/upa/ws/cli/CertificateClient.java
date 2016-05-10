@@ -109,7 +109,7 @@ public class CertificateClient {
 			// gera o certificado
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			Certificate cert = cf.generateCertificate(is);
-			// comfirmação
+			// confirmação
 			//System.out.println(cert.toString());
 			return cert;
 
