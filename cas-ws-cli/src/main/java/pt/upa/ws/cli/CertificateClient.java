@@ -72,6 +72,10 @@ public class CertificateClient {
 
 		} else {
 			// throws exception; ///////////////////// ??????
+			//
+			//
+			//
+			//
 		}
 
 		try {

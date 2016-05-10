@@ -36,7 +36,12 @@ public class BrokerEndpointManager {
 	private final String keyAlias = "upabroker"; 
     private final String keyPassword = "1nsecure"; //    private final String keyPassword = "example";
 	
-  
+    
+    //Relativo ao handler para receber context
+    public static final String TOKEN = "UpaBroker1"; //alterar depois  
+    public static final String CLASS_NAME = BrokerEndpointManager.class.getSimpleName(); 
+    
+    
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
 		name = args[1];
@@ -91,6 +96,32 @@ public class BrokerEndpointManager {
 					// endpoint setting for Transporter
 					BindingProvider bindingProvider = (BindingProvider) port;
 					Map<String, Object> requestContext = bindingProvider.getRequestContext();
+					
+					
+
+
+
+
+
+					
+					///ALTERAR
+					//String initialValue = TOKEN;
+					//requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
+					
+					
+
+
+
+
+
+
+
+
+
+					
+					
+					
+					
 					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
 										
 					// add Transporter name and port to map

@@ -1,10 +1,20 @@
 <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
 	<handler-chain>
-		<handler>
+		<!--handler>
 			<handler-class>pt.upa.transporter.ws.cli.handler.TransporterBrokerLogHandler</handler-class>
-		</handler>
+		</handler-->
+
+
 		<handler>
+            <handler-class>example.ws.handler.UpaHeaderHandler</handler-class>
+        </handler>
+
+
+		<!--handler>
 			<handler-class>pt.upa.transporter.ws.cli.handler.TransporterBrokerHeaderHandler</handler-class>
-		</handler>
+		</handler-->
+
+
+		
 	</handler-chain>
 </handler-chains>   

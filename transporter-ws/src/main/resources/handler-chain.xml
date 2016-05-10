@@ -5,12 +5,17 @@
         <!--handler>
             <handler-class>example.ws.handler.MessageContextHandler</handler-class>
         </handler-->
+        
         <handler>
-            <handler-class>pt.upa.transporter.ws.handler.TransporterServerHeaderHandler</handler-class>
+            <handler-class>example.ws.handler.UpaHeaderHandler</handler-class>
         </handler>
-        <handler>
+
+
+        <!--handler mal!!!!!!!!!!!!!!!>
             <handler-class>pt.upa.transporter.ws.handler.TransporterServerLogHandler</handler-class>
-        </handler>
+        </handler-->
+
+
     </handler-chain>
 </handler-chains>
 
