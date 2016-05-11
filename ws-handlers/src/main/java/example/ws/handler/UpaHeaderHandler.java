@@ -143,16 +143,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 		if(propertyValue == "UpaBroker1"){
 			propertyValue = "UpaBroker";
 		}
-		
-		
-		
-		if(propertyValue == null){
-			propertyValue = "UpaTransporter1";
-		}
-        
-		
-		
-		
+	
 		String keyStoreFilePath = null;
 	    String keyStorePassword = null;
 	    String keyAlias = null;
@@ -161,9 +152,6 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         
 
         try {
-
-
-
             //
             // 
             //
@@ -200,15 +188,13 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         		    keyPassword = "1nsecure"; 
 
         		} else {
-        			// throws exception; ///////////////////// ??????
+        			// throws exception
         			//
-        			//
-        			System.out.print("NÂO APANHEI NADA BADJORAS");
-        			
+        			System.out.print("Error - No name received in MESSAGE_OUTBOUND_PROPERTY");
+                	return false;
         			//
         			//
         		}
-                
                 
                 
                 // get SOAP envelope
@@ -269,12 +255,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //System.out.println("-------------------");
                 //System.out.println(propertyValue);
                 //System.out.println("-------------------");
-                
-                
-                
-                
-                
-                
+
                 String soapMessagefinal = soapMessageToString(msg);
 
                 //System.out.println("\n\n\n\n\n\n\n\n");
@@ -347,19 +328,20 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //System.out.println("\n\n\n\n "+"UUID :" + valueStringUUID+ "\n\n\n");
 
 
-                
                 //Verifica se o UUID recebido está na lista
                 if(queueUUID.contains(valueStringUUID)){
                     //trowsexception
                     //
+                    System.out.println("Bad UUID");
+                    return false;
                     //
                     //
                 }
                 
                 //adiciona na lista
                 queueUUID.add(valueStringUUID);
-                //remove o ultimo se tiver mais que 20 elementos
-                if(queueUUID.size()==20){
+                //remove o ultimo se tiver mais que 200 elementos
+                if(queueUUID.size()==200){
                     queueUUID.removeFirst();
                 }
                   

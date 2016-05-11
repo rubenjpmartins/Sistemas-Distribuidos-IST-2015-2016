@@ -2,6 +2,7 @@ package pt.upa.ws.cli;
 
 import static javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
 
+import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
@@ -38,9 +39,7 @@ public class CertificateClient {
 	private String pathtrasporter2 = "cakeystore/UpaTransporter2.cer";
 	private String pathbrokerserver = "cakeystore/UpaBroker.cer";
 
-	public CertificateClient(String[] args) { //////////////////////////////// a
-												//////////////////////////////// eliminiar?????
-
+	public CertificateClient(String[] args) { 
 		// Check arguments
 		if (args.length < 2) {
 			System.err.println("Argument(s) missing!");
@@ -113,7 +112,6 @@ public class CertificateClient {
 
 			System.out.println("Getting Public Key...");
 						
-			
 			//saca o certificado/com chave pública do emissor
 			
 			//converte para inputStream
@@ -123,43 +121,18 @@ public class CertificateClient {
 			Certificate cert = cf.generateCertificate(is);
 			// confirmação
 			//System.out.println(cert.toString());
-			
-			
-			
-			
-			/*
+
 			// Verifica se um certificado foi devidamente assinado pela CA
 			DigitalSignatureX509 assinaturaX509 = null;
 			X509CertificateCheck checkCertificateX509 = null;
 			
-			
-
-			
-			
-			Certificate chavePublicaCaServer = readCertificateFile();
-			
-			
-			
-			PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
-			
+			//Verifica se recebeu o certificado correcto da CASERVER
+			String pathcertificate= "caPublickey/ca-certificate.pem.txt";
+			Certificate chavePublicaCaServer = assinaturaX509.readCertificateFile(pathcertificate);
+			PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( chavePublicaCaServer );
 			// Verifica se um certificado foi devidamente assinado pela CA
-			checkCertificateX509.verifySignedCertificate(cert, publicUpaKey );
-			
-			
-			
-			
-			
-			
-			DigitalSignatureX509 assinaturaX509 = null;
-            //Public Key Broker
-            // FALTA GUARDAR PARA NÂO ESTAR SEMPRE A IR BUSCAR A CERTIFICATE
-			PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
-			
-			
-			*/
-			
-			
-			
+			Boolean asd = checkCertificateX509.verifySignedCertificate(cert, publicUpaKey );
+			//System.out.println("verifica certificado" + asd);
 			
 			return cert;
 

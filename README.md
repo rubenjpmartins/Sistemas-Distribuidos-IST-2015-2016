@@ -45,15 +45,6 @@ utilizador: uddiadmin
 senha: da_password1
 ```
 
-CERTIFICATE AUTHORITY SERVICE:
-```
-cd cas-ws
-mvn clean
-mvn generate-sources
-mvn compile
-mvn exec:java
-```
-
 [2] Criar pasta temporária
 
 ```
@@ -72,7 +63,17 @@ git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 cd T_38-project
 ```
 
-[4] Instalar módulos de bibliotecas auxiliares
+[4] Iniciar CERTIFICATE AUTHORITY SERVICE:
+
+```
+cd cas-ws
+mvn clean
+mvn generate-sources
+mvn compile
+mvn exec:java
+```
+
+[5] Instalar módulos de bibliotecas auxiliares
 
 ```
 cd uddi-naming
@@ -86,6 +87,11 @@ mvn clean install
 
 ```
 cd cas-ws-cli
+mvn clean install 
+```
+
+```
+cd ws-handlers
 mvn clean install 
 ```
 
@@ -127,7 +133,7 @@ mvn verify
 
 ### Serviço BROKER
 
-[1] Construir e executar **servidor**
+[1] Construir e executar **servidor primário**
 
 ```
 cd broker-ws
@@ -137,7 +143,17 @@ mvn compile
 mvn exec:java
 ```
 
-[2] Construir **cliente** e executar testes
+[2] Construir e executar **servidor secundário**
+
+```
+cd broker-ws
+mvn clean 
+mvn generate-sources
+mvn compile
+mvn -Dw.i=2 exec:java
+```
+
+[3] Construir **cliente** e executar testes
 
 ```
 cd broker-ws-cli
