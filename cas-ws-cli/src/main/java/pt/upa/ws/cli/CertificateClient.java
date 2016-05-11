@@ -58,24 +58,27 @@ public class CertificateClient {
 	
 	public Certificate serverConnect(String entidade) {
 
-		String filepath = null;
+		System.out.println("--------Certificate Cliente recebe----------");
+		System.out.println(entidade);
+		System.out.println("-------------------");
+
+		String filepath = "";
 
 		// verifica se recebe a entidade certa e atribui o filepath certo
-		if (entidade == "UpaTransporter1") {
+		if (entidade.equals( "UpaTransporter1")) {
 			filepath = pathtrasporter1;
 
-		} else if (entidade == "UpaTransporter2") {
+		} else if (entidade.equals( "UpaTransporter2")) {
 			filepath = pathtrasporter2;
 
-		} else if (entidade == "UpaBroker") {
+		} else if (entidade.equals("UpaBroker")) {
 			filepath = pathbrokerserver;
 
 		} else {
 			// throws exception; ///////////////////// ??????
 			//
-			//
-			//
-			//
+			System.out.println("\n\nQue raio de merda e que recebo????");
+			System.out.println(entidade+"\n\n");
 		}
 
 		try {

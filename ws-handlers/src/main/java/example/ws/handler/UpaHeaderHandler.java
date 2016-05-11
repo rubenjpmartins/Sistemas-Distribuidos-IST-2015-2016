@@ -104,13 +104,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     LinkedList<String> queueUUID = new LinkedList<String>();
 
 
-
-    // Relativo ao getPrivateKeyFromKeystore
-    private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
-    private final String keyStorePassword = "ins3cur3";
-    private final String keyAlias = "upabroker";
-    private final String keyPassword = "1nsecure"; 
-
+    public static final String CLASS_NAME = UpaHeaderHandler.class.getSimpleName();
 
     //Tranforma a Message para uma String
     public String soapMessageToString(SOAPMessage message) {
@@ -141,23 +135,80 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
         Boolean outboundElement = (Boolean) smc
                 .get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+        
+        String propertyValue = (String) smc.get(CONTEXT_PROPERTY);
+		System.out.printf("%s received '%s'%n", CLASS_NAME, propertyValue);
+		if(propertyValue == "UpaBroker1"){
+			propertyValue = "UpaBroker";
+		}
+		
+		
+		
+		if(propertyValue == null){
+			propertyValue = "UpaTransporter1";
+		}
+        
+		
+		
+		
+		String keyStoreFilePath = null;
+	    String keyStorePassword = null;
+	    String keyAlias = null;
+	    String keyPassword = null; 
+
+        
 
         try {
 
 
 
             //
+            // 
             //
-            //
-            // MENSAGEM A ENVIAR PARA TRANSPORTER
-            // RESUMO CIFRADO COM CHAVE PRIVADA DO BROKER  
+            // MENSAGEM A ENVIAR
+            // RESUMO CIFRADO COM CHAVE PRIVADA   
             //
             //
             //
             if (outboundElement.booleanValue()) {
 
-                System.out.println("Writing header in outbound SOAP message...");
+                System.out.println("Writing header in outbound SOAP message... - MENSAGEM A ENVIAR");
  
+
+        		// verifica se recebe a entidade certa e atribui o filepath certo
+        		if (propertyValue.equals("UpaTransporter1")) {
+        			// Relativo ao getPrivateKeyFromKeystore
+        		    keyStoreFilePath = "UpaTransporter1keystore/UpaTransporter1.jks";
+        		    keyStorePassword = "ins3cur3";
+        		    keyAlias = "UpaTransporter1";
+        		    keyPassword = "1nsecure"; 
+
+        		} else if (propertyValue.equals("UpaTransporter2")) {
+        			// Relativo ao getPrivateKeyFromKeystore
+        		    keyStoreFilePath = "UpaTransporter2keystore/UpaTransporter2.jks";
+        		    keyStorePassword = "ins3cur3";
+        		    keyAlias = "UpaTransporter2";
+        		    keyPassword = "1nsecure"; 
+
+        		} else if (propertyValue.equals("UpaBroker")) {
+        			// Relativo ao getPrivateKeyFromKeystore
+        		    keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
+        		    keyStorePassword = "ins3cur3";
+        		    keyAlias = "upabroker";
+        		    keyPassword = "1nsecure"; 
+
+        		} else {
+        			// throws exception; ///////////////////// ??????
+        			//
+        			//
+        			System.out.print("NÂO APANHEI NADA BADJORAS");
+        			
+        			//
+        			//
+        		}
+                
+                
+                
                 // get SOAP envelope
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
@@ -171,10 +222,10 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
                 DigitalSignatureX509 assinaturaX509 = null;
                 //CHAVE PRIVADA DO BROKER
-                PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath,
+                PrivateKey chavePrivada = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath,
                         keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
                 //Faz a assinatura com a chave pricava do Broker
-                byte[]assinaturaByte = assinaturaX509.makeDigitalSignature(soapMessage.getBytes(), chavePrivadaBroker);
+                byte[]assinaturaByte = assinaturaX509.makeDigitalSignature(soapMessage.getBytes(), chavePrivada);
                 // Converte PARA STRING PARA DEPOIS INSERIR NO HEADER
                 String bytesAsString = printBase64Binary(assinaturaByte);
                 
@@ -197,12 +248,36 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 UUID idOne = UUID.randomUUID();
                 elementUUID.addTextNode(idOne.toString());
                 System.out.println(idOne);
+
+                
+                // add header
+                //SOAPHeader sh2 = se.getHeader();
+                //if (sh2 == null)
+                 //   sh2 = se.addHeader();
+
+                // add header element (name, namespace prefix, namespace)
+                Name name2 = se.createName("nome", "n", "http://nome");
+                SOAPHeaderElement element2 = sh.addHeaderElement(name2);
+
+
+
+                
+                // add header element value
+                element2.addTextNode(propertyValue);
+                //System.out.println("-------------------");
+                //System.out.println(propertyValue);
+                //System.out.println("-------------------");
+                
+                
+                
+                
+                
                 
                 String soapMessagefinal = soapMessageToString(msg);
 
-                System.out.println("\n\n\n\n\n\n\n\n");
-                System.out.print(soapMessagefinal);
-                System.out.println("\n\n\n\n\n\n\n\n");
+                //System.out.println("\n\n\n\n\n\n\n\n");
+                //System.out.print(soapMessagefinal);
+                //System.out.println("\n\n\n\n\n\n\n\n");
 
 
 
@@ -215,11 +290,11 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //
                 //
                 //
-                // MENSAGEM RECEBIDA DO BROKER
+                // MENSAGEM RECEBIDA
                 //
                 //
                 //
-                System.out.println("Reading header in inbound SOAP message...");
+                System.out.println("Reading header in inbound SOAP message... - MENSAGEM RECEBIDA");
                 // get SOAP envelope header
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
@@ -239,20 +314,6 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                     return true;
                 }
                 
-
-                //Vai buscar o certificado do broker
-                //liga ao servidor de CA e vai buscar as chaves públicas do broker
-                CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
-                //saca o certificado/com chave pública do emissor
-                Certificate certUpaBroker = badjoras.serverConnect("UpaBroker");
-                //testa 
-                //System.out.println(cert.toString());
-                DigitalSignatureX509 assinaturaX509 = null;
-                //Public Key Broker
-                // FALTA GUARDAR PARA NÂO ESTAR SEMPRE A IR BUSCAR A CERTIFICATE
-                PublicKey publicBrokerKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
-                
-                
                 // get first header element
                 Name name = se.createName("myHeader", "d", "http://demo");
                 Iterator it = sh.getChildElements(name);
@@ -268,7 +329,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 System.out.println("\n\n\n\n "+"UUID :" + valueString+ "\n\n\n");
                 byte[] assRecebida = parseBase64Binary(valueString);
                 
-                
+
                 //get UUID
                 Name nameUUID = se.createName("myHeaderUUID", "dUUID", "http://demoUUID");
                 Iterator itUUID= sh.getChildElements(nameUUID);
@@ -279,7 +340,8 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPElement elementUUID = (SOAPElement) itUUID.next();
                 String valueStringUUID= elementUUID.getValue();
 
-                System.out.println("\n\n\n\n "+"UUID :" + valueStringUUID+ "\n\n\n");
+                //System.out.println("\n\n\n\n "+"UUID :" + valueStringUUID+ "\n\n\n");
+
 
                 
                 //Verifica se o UUID recebido está na lista
@@ -296,20 +358,32 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 if(queueUUID.size()==20){
                     queueUUID.removeFirst();
                 }
+                  
+                //System.out.println(queueUUID.toString());
+                //System.out.println("size:");
+                //System.out.println(queueUUID.size());
                 
-                
-                System.out.println(queueUUID.toString());
-                System.out.println("size:");
-                System.out.println(queueUUID.size());
                 
                 //System.out.println("\n\n\n\n\nSOAP MESSAGEM\n\n");
                 //System.out.println(soapMessage);
                 //System.out.println("\n\n\n\n\n\n");
-        
+
+                //get NOME DO UPA
+                Name name2 = se.createName("nome", "n", "http://nome");
+                Iterator it2= sh.getChildElements(name2);
+                if (!it2.hasNext()) {
+                    System.out.println("Header element not found.");
+                    return true;
+                }
+                SOAPElement element2 = (SOAPElement) it2.next();
+                String valueStringNomeUPA= element2.getValue();
+                //System.out.println("------RECEBE NULL?-------------");
+                //System.out.println(valueStringNomeUPA);
+                //System.out.println("-------------------");
+                String serverConnectString= valueStringNomeUPA.toString();
                 
-                
-                
-                
+               
+           
                 
                 
                 
@@ -319,9 +393,9 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 String soapMessagefinal = soapMessageToString(msg);
 
-                System.out.println("\n\n\n\n\n\n\n\n");
-                System.out.print(soapMessagefinal);
-                System.out.println("\n\n\n\n\n\n\n\n");
+                //System.out.println("\n\n\n\n\n\n\n\n");
+                //System.out.print(soapMessagefinal);
+                //System.out.println("\n\n\n\n\n\n\n\n");
                 
                 
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -329,15 +403,31 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 
                 
-                //Verificação de mensagens
-                Boolean X = assinaturaX509.verifyDigitalSignature(assRecebida, out.toByteArray(), publicBrokerKey);
-                //if(X){
-                //  Tem de retornar uma execepcao
-                //  System.out.println("BAD VERIFY - SOAP MESSAGE IS NO EQUAL");
-                //}
-                System.out.println("\n\nValor: TRUE OU FALSE\n");             
                 
-                System.out.println(X);
+                //Vai buscar o certificado do broker
+                //liga ao servidor de CA e vai buscar as chaves públicas do broker
+                CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
+                //saca o certificado/com chave pública do emissor
+                
+                //Certificate certUpaBroker = badjoras.serverConnect("UpaBroker");
+                Certificate certUpaBroker = badjoras.serverConnect(serverConnectString);
+                //testa 
+                //System.out.println(cert.toString());
+                DigitalSignatureX509 assinaturaX509 = null;
+                //Public Key Broker
+                // FALTA GUARDAR PARA NÂO ESTAR SEMPRE A IR BUSCAR A CERTIFICATE
+				PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
+                
+                
+                
+                //Verificação de mensagens
+                Boolean X = assinaturaX509.verifyDigitalSignature(assRecebida, out.toByteArray(), publicUpaKey);
+                if(X){
+                //  Tem de retornar uma execepcao
+                	System.out.println("BAD VERIFY - SOAP MESSAGE IS NO EQUAL");
+                }
+                System.out.println("\n\nValor: Verificacao TRUE OU FALSE" + X+" \n");             
+                
 
                 
                 // put header in a property context
@@ -346,17 +436,6 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 // set property scope to application client/server class can access it
                 smc.setScope(CONTEXT_PROPERTY, Scope.APPLICATION);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

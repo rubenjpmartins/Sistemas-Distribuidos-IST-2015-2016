@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 
+import example.ws.handler.UpaHeaderHandler;
+
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -29,6 +31,14 @@ public class BrokerEndpointManager {
 	private String transporterServername="UpaTransporter";
 	private static Map<String, TransporterPortType> transporterPorts;
 	private BrokerPortType secondaryPort;
+	
+	
+	//Relativo ao handler
+	public static final String TOKEN = "UpaBroker1";
+	public static final String CLASS_NAME = BrokerEndpointManager.class.getSimpleName();
+	
+	
+	
 	
 	
 	// Relativo ao getPrivateKeyFromKeystore
@@ -104,6 +114,11 @@ public class BrokerEndpointManager {
 					// endpoint setting for Transporter
 					BindingProvider bindingProvider = (BindingProvider) port;
 					Map<String, Object> requestContext = bindingProvider.getRequestContext();
+					
+					//ADICIONADO HANDLER CONTEXT
+					String initialValue = TOKEN;
+					requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
+					
 					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
 										
 					// add Transporter name and port to map

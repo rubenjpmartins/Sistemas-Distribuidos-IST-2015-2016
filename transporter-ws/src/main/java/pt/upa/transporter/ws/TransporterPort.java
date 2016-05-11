@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-
+import javax.annotation.Resource;
 import javax.jws.HandlerChain;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import example.ws.handler.UpaHeaderHandler;
 
 @WebService(
 		endpointInterface="pt.upa.transporter.ws.TransporterPortType",
@@ -25,6 +29,13 @@ import javax.jws.WebService;
 @HandlerChain(file="/handler-chain.xml")
 
 public class TransporterPort implements TransporterPortType {
+	
+	//ADICIONADO HANDLER
+	public static final String CLASS_NAME = TransporterPort.class.getSimpleName();
+	
+	@Resource
+	private WebServiceContext webServiceContext;
+	
 	
 	// Estrutura que contem as Regioes todas sobre as quais as Transportadoras Operam
 	private static HashMap<String,String> transportersByRegion;	
@@ -123,6 +134,12 @@ public class TransporterPort implements TransporterPortType {
 	
 	@Override
 	public String ping(String name) {
+		
+		MessageContext messageContext = webServiceContext.getMessageContext();
+		messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+		
+		
+		
 		String retorno = name + " ok";
 		return retorno;
 	}
