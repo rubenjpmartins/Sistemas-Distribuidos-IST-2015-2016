@@ -14,6 +14,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import pt.upa.cripto.DigitalSignatureX509;
+import pt.upa.cripto.X509CertificateCheck;
+
+
 // classes generated from WSDL
 import pt.upa.ws.CertificateFileInterface;
 import pt.upa.ws.CertificateImplService;
@@ -58,9 +62,9 @@ public class CertificateClient {
 	
 	public Certificate serverConnect(String entidade) {
 
-		System.out.println("--------Certificate Cliente recebe----------");
-		System.out.println(entidade);
-		System.out.println("-------------------");
+		//System.out.println("--------Certificate Cliente recebe----------");
+		//System.out.println(entidade);
+		//System.out.println("-------------------");
 
 		String filepath = "";
 
@@ -77,8 +81,9 @@ public class CertificateClient {
 		} else {
 			// throws exception; ///////////////////// ??????
 			//
-			System.out.println("\n\nQue raio de merda e que recebo????");
+			System.out.println("\n\n recebo????");
 			System.out.println(entidade+"\n\n");
+			return null;
 		}
 
 		try {
@@ -118,6 +123,44 @@ public class CertificateClient {
 			Certificate cert = cf.generateCertificate(is);
 			// confirmação
 			//System.out.println(cert.toString());
+			
+			
+			
+			
+			/*
+			// Verifica se um certificado foi devidamente assinado pela CA
+			DigitalSignatureX509 assinaturaX509 = null;
+			X509CertificateCheck checkCertificateX509 = null;
+			
+			
+
+			
+			
+			Certificate chavePublicaCaServer = readCertificateFile();
+			
+			
+			
+			PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
+			
+			// Verifica se um certificado foi devidamente assinado pela CA
+			checkCertificateX509.verifySignedCertificate(cert, publicUpaKey );
+			
+			
+			
+			
+			
+			
+			DigitalSignatureX509 assinaturaX509 = null;
+            //Public Key Broker
+            // FALTA GUARDAR PARA NÂO ESTAR SEMPRE A IR BUSCAR A CERTIFICATE
+			PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
+			
+			
+			*/
+			
+			
+			
+			
 			return cert;
 
 			

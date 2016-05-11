@@ -131,8 +131,10 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     
 
     public boolean handleMessage(SOAPMessageContext smc) {
+    	
+    	System.out.println("\n\n----------------------------------");
         System.out.println("AddHeaderHandler: Handling message.");
-
+        
         Boolean outboundElement = (Boolean) smc
                 .get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         
@@ -173,7 +175,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (outboundElement.booleanValue()) {
 
                 System.out.println("Writing header in outbound SOAP message... - MENSAGEM A ENVIAR");
- 
+                System.out.println("----------------------------------");
 
         		// verifica se recebe a entidade certa e atribui o filepath certo
         		if (propertyValue.equals("UpaTransporter1")) {
@@ -247,7 +249,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPHeaderElement elementUUID = sh.addHeaderElement(nameUUID);
                 UUID idOne = UUID.randomUUID();
                 elementUUID.addTextNode(idOne.toString());
-                System.out.println(idOne);
+                //System.out.println(idOne);
 
                 
                 // add header
@@ -295,6 +297,8 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //
                 //
                 System.out.println("Reading header in inbound SOAP message... - MENSAGEM RECEBIDA");
+                System.out.println("----------------------------------");
+                
                 // get SOAP envelope header
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
@@ -326,7 +330,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPElement element = (SOAPElement) it.next();
                 // get header element value
                 String valueString = element.getValue();
-                System.out.println("\n\n\n\n "+"UUID :" + valueString+ "\n\n\n");
+                //System.out.println("\n\n\n\n "+"UUID :" + valueString+ "\n\n\n");
                 byte[] assRecebida = parseBase64Binary(valueString);
                 
 
@@ -422,11 +426,12 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 //Verificação de mensagens
                 Boolean X = assinaturaX509.verifyDigitalSignature(assRecebida, out.toByteArray(), publicUpaKey);
-                if(X){
+                if(!X){
                 //  Tem de retornar uma execepcao
                 	System.out.println("BAD VERIFY - SOAP MESSAGE IS NO EQUAL");
+                	return false;
                 }
-                System.out.println("\n\nValor: Verificacao TRUE OU FALSE" + X+" \n");             
+                System.out.println("\n\nVerificacao certificado TRUE OU FALSE: " + X+" \n");             
                 
 
                 
