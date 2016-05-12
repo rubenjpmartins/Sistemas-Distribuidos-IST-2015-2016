@@ -13,7 +13,6 @@ import javax.xml.ws.Endpoint;
 
 import example.ws.handler.UpaHeaderHandler;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
-import pt.upa.cripto.DigitalSignatureX509;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
 
@@ -29,17 +28,8 @@ public class BrokerEndpointManager {
 	//Relativo ao handler
 	public static final String TOKEN = "UpaBroker1";
 	public static final String CLASS_NAME = BrokerEndpointManager.class.getSimpleName();
-	
-	
-	
-	
-	
-	// Relativo ao getPrivateKeyFromKeystore
-	private final String keyStoreFilePath = "UpaBrokerkeystore/UpaBroker.jks";
-	private final String keyStorePassword = "ins3cur3";	 
-	private final String keyAlias = "upabroker"; 
-    private final String keyPassword = "1nsecure"; //    private final String keyPassword = "example";
-	
+
+	private Timer t1;
   
 	public BrokerEndpointManager(String[] args){
 		uddiURL = args[0];
@@ -99,7 +89,7 @@ public class BrokerEndpointManager {
 					secondaryPort.pingToBroker("Ping Teste");
 					
 					
-					Timer t1 = new Timer();
+					t1 = new Timer();
 					t1.start();
 				}
 				
@@ -157,13 +147,7 @@ public class BrokerEndpointManager {
 					
 			}
 			
-			
-			
-			
-			
-			
-			
-			
+
 			// Broker Secundario
 			else{
 			
@@ -225,23 +209,32 @@ public class BrokerEndpointManager {
 				//Ciclo para procurar a provadevida
 				
 				boolean b = true;
+				try{
+					Thread.sleep(10000);
+					
+				} catch(InterruptedException ex) {
+					Thread.currentThread().interrupt();
+					return;
+				}
 				while(true){
 					
+					// espera no caso em que a variavel nao foi actualizada pelo primario
 					if(teste.provaDeVida == false){
 						
-						try{
-							Thread.sleep(1000);
-						} catch(InterruptedException ex) {
-							Thread.currentThread().interrupt();
-							return;
-						}
+						// caso nao seja actualizada em 10s, passa a primario
+						b=false;
+						
 					}
+					
+					// caso exista um broker server primario
 					else{
 						System.out.println("Primary Broker Connected");
 						while(true){
+							// altera o valor do atributo para verificar a sua actualizacao periodica pelo primario
 							if(teste.provaDeVida == true){
 								teste.provaDeVida = false;
 							}
+							// falha e altera o valor sentinela para sair
 							else{
 								System.out.println("WARNING: Primary Broker Failed");
 								b = false;
@@ -263,20 +256,15 @@ public class BrokerEndpointManager {
 				
 				Thread.sleep(2000);
 				// publica o servidor secundario para substituir o primario
-				System.out.printf("Re-Publishing UpaBroker to UDDI at %s%n", uddiURL);
+				System.out.printf("Re-Publishing UpaBroker1 to UDDI at %s%n", uddiURL);
 				try{
 					uddiNaming.rebind("UpaBroker1", url);
 		
 				} catch(JAXRException e) {
 					e.printStackTrace();
 				}
-				
-							
-				
-				
+	
 			}
-			
-
 			
 
 			// wait
@@ -296,6 +284,7 @@ public class BrokerEndpointManager {
 					// stop endpoint
 					endpoint.stop();
 					System.out.printf("Stopped %s%n", url);
+					t1.interrupt();
 				}
 			} catch (Exception e) {
 				System.out.printf("Caught exception when stopping: %s%n", e);
@@ -303,8 +292,8 @@ public class BrokerEndpointManager {
 			try {
 				if (uddiNaming != null) {
 					// delete from UDDI
-					uddiNaming.unbind(name);
-					System.out.printf("Deleted '%s' from UDDI%n", name);
+					uddiNaming.unbind("UpaBroker1");
+					System.out.printf("Deleted '%s' from UDDI%n", "UpaBroker1");
 				}
 			} catch (Exception e) {
 				System.out.printf("Caught exception when deleting: %s%n", e);
@@ -312,6 +301,4 @@ public class BrokerEndpointManager {
 		}
 	}
 }
-
-
 

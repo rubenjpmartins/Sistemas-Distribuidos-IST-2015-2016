@@ -384,6 +384,10 @@ public class BrokerPort implements BrokerPortType{
 		for (TransporterPortType value : ports.values()){
 			value.clearJobs();	
 		}
+		// caso exista servidor secundario actualiza a informacao
+		if((secondaryPort)!=null){
+			secondaryPort.clearTransports();
+		}
 	}
 	
 	
@@ -424,6 +428,11 @@ public class BrokerPort implements BrokerPortType{
 	public String update(int counter, TransportView transportView, String idTransportadoraMin) {
 		System.out.println(counter+" "+transportView+" "+idTransportadoraMin);
 		
+		counterId = counter;
+		
+		transportersViews.put(Integer.toString(counterId), transportView);
+		associateIdentifiers.put(Integer.toString(counterId), idTransportadoraMin);
+
 		return "Success";
 	}
 

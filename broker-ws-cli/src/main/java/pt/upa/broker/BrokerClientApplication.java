@@ -43,6 +43,8 @@ public class BrokerClientApplication {
 		String targetServer = name;
 		System.out.printf("Looking for '%s'%n", targetServer);
 		String endpointAddress = uddiNaming.lookup(targetServer);
+		
+		String endpointAddressCmp = endpointAddress;
 
 		if (endpointAddress == null) {
 			System.out.println("Not found!");
@@ -81,10 +83,23 @@ public class BrokerClientApplication {
 	    	//Deixa apenas inserir um Inteiro
 	   		while(!scanner.hasNextInt()) scanner.next();
 	   		int userNumber = scanner.nextInt();
-
 	   		
-	   		
-	   		//try{
+	   		endpointAddress = uddiNaming.lookup(targetServer);
+	   		if (!endpointAddress.equals(endpointAddressCmp)){
+	   			
+	   			// creating stubs
+	   			System.out.println("Client is connecting to secondary broker ...");
+	   			service = new BrokerService();
+	   			port = service.getBrokerPort();
+	   			
+	   			// setting endpoint address
+	   			bindingProvider = (BindingProvider) port;
+	   			requestContext = bindingProvider.getRequestContext();
+	   			requestContext.put(ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
+	   			
+	   			endpointAddressCmp = endpointAddress;
+	   		}
+	   		try{
 	        switch (userNumber) {
 	        
 	        	//PING
@@ -194,12 +209,12 @@ public class BrokerClientApplication {
 	            	System.out.println("Invalid choice");
 	                break;
 	        }
-	        /*
+	        
 	        } catch(Exception e){
 	    	System.out.printf("Caught exception: %s%n", e);
 			e.printStackTrace();
 			return; 
-	    } */
+	    } 
 	        
 	    } 
 	    
