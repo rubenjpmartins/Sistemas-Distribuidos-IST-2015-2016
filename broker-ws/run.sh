@@ -1,4 +1,4 @@
 mvn clean
 mvn generate-sources
 mvn compile
-mvn exec:java
+mvn -Dws.i=2 exec:java

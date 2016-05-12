@@ -70,7 +70,7 @@ public class BrokerEndpointManager {
 	}
 	
 	public void serverConnect() {
-		Endpoint endpoint = null;
+		Endpoint endpoint = null; 
 		UDDINaming uddiNaming = null;
 		DigitalSignatureX509 assinaturaX509 = null;
 		

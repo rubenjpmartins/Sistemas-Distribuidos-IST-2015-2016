@@ -200,7 +200,8 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 // get SOAP envelope
                 SOAPMessage msg = smc.getMessage();
                 SOAPPart sp = msg.getSOAPPart();
-                SOAPEnvelope se = sp.getEnvelope();     
+                SOAPEnvelope se = sp.getEnvelope(); 
+                
                 
                 // conversao para string
                 String soapMessage = soapMessageToString(msg);

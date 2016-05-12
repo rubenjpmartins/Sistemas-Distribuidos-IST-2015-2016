@@ -134,6 +134,11 @@ public class CertificateClient {
 			Boolean asd = checkCertificateX509.verifySignedCertificate(cert, publicUpaKey );
 			//System.out.println("verifica certificado" + asd);
 			
+			// se recebeu um certificado errado ou modificado da CA
+			if (!asd){
+				return null;
+			}
+			
 			return cert;
 
 			
