@@ -30,7 +30,6 @@ public class BrokerClient implements BrokerPortType{
 	
 	@Override
 	public String pingToBroker(String name) {
-		
 		return null;
 	}
 
@@ -58,6 +57,12 @@ public class BrokerClient implements BrokerPortType{
 	public void clearTransports() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String update(int counter, TransportView transportView, String idTransportadoraMin) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

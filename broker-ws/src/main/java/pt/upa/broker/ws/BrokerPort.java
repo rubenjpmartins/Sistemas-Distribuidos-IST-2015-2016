@@ -40,13 +40,13 @@ public class BrokerPort implements BrokerPortType{
 	protected boolean provaDeVida;
 	
 	//Port do secundary
-	private BrokerPortType secundaryPort;
+	private BrokerPortType secondaryPort;
 	
 	
 	
 	//Construtor do Primario
 		public BrokerPort(Map<String,TransporterPortType> transporterPorts, BrokerPortType secund){
-			secundaryPort = secund;
+			secondaryPort = secund;
 			
 			// Map com a sequencia (Upatransporter1, Port desse transporter)
 			ports = transporterPorts;
@@ -102,7 +102,7 @@ public class BrokerPort implements BrokerPortType{
 		//System.out.println("I'm alive");
 		provaDeVida = true;
 
-		return "Im alive";
+		return "I'm alive";
 	}
 
 	
@@ -273,8 +273,14 @@ public class BrokerPort implements BrokerPortType{
 								}	
 							}
 						}// fim for para 1 e fail para o resto
-					}//acaba o ciclo for
-
+					} //acaba o ciclo for
+					
+					
+					// caso exista servidor secundario actualiza a informacao
+					if((secondaryPort)!=null){
+						secondaryPort.update(counterId, clientRequest, idTransportadoraMin);
+					}
+					
 					//return "TransportRequest Sucessful"
 					return Integer.toString(counterId);
 
@@ -377,7 +383,7 @@ public class BrokerPort implements BrokerPortType{
 		// for para fazer clear a cada uma
 		for (TransporterPortType value : ports.values()){
 			value.clearJobs();	
-			}
+		}
 	}
 	
 	
@@ -410,6 +416,15 @@ public class BrokerPort implements BrokerPortType{
 		if (recebido.getJobState().compareTo(JobStateView.COMPLETED) == 0){
 			transportersViews.get(IDBroker).setState(TransportStateView.COMPLETED);
 		}		
+	}
+
+
+
+	@Override
+	public String update(int counter, TransportView transportView, String idTransportadoraMin) {
+		System.out.println(counter+" "+transportView+" "+idTransportadoraMin);
+		
+		return "Success";
 	}
 
 

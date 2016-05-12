@@ -130,6 +130,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Update }
+     * 
+     */
+    public Update createUpdate() {
+        return new Update();
+    }
+
+    /**
+     * Create an instance of {@link TransportView }
+     * 
+     */
+    public TransportView createTransportView() {
+        return new TransportView();
+    }
+
+    /**
      * Create an instance of {@link PingToBroker }
      * 
      */
@@ -186,11 +202,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TransportView }
+     * Create an instance of {@link UpdateResponse }
      * 
      */
-    public TransportView createTransportView() {
-        return new TransportView();
+    public UpdateResponse createUpdateResponse() {
+        return new UpdateResponse();
     }
 
     /**

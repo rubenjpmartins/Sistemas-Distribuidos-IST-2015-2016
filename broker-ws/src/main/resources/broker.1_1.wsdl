@@ -180,6 +180,25 @@
             </xs:complexType>
             <xs:element name="UnknownTransportFault" type="tns:UnknownTransportFault"/>
         
+            <xs:element name="update">
+            	<xs:complexType>
+            		<xs:sequence>
+            			<xs:element name="counter" type="xs:int"></xs:element>
+            			<xs:element name="transportView"
+            				type="tns:transportView">
+            			</xs:element>
+            			<xs:element name="idTransportadoraMin" type="xs:string">
+            			</xs:element>
+            		</xs:sequence>
+            	</xs:complexType>
+            </xs:element>
+            <xs:element name="updateResponse">
+            	<xs:complexType>
+            		<xs:sequence>
+            			<xs:element name="out" type="xs:string"></xs:element>
+            		</xs:sequence>
+            	</xs:complexType>
+            </xs:element>
         </xs:schema>
     </types>
 
@@ -264,6 +283,12 @@
 
          Next, read the message definitions #( 5 )
     -->
+    <message name="updateRequest">
+    	<part name="parameters" element="tns:update"></part>
+    </message>
+    <message name="updateResponse">
+    	<part name="parameters" element="tns:updateResponse"></part>
+    </message>
     <portType name="BrokerPortType">
 
         <operation name="ping">
@@ -300,6 +325,11 @@
         <operation name="clearTransports">
             <input wsam:Action="http://ws.broker.upa.pt/BrokerPort/clearTransportsRequest" message="tns:clearTransports"/>
             <output wsam:Action="http://ws.broker.upa.pt/BrokerPort/clearTransportsResponse" message="tns:clearTransportsResponse"/>
+        </operation>
+
+        <operation name="update">
+        	<input message="tns:updateRequest"></input>
+        	<output message="tns:updateResponse"></output>
         </operation>
     </portType>
 
@@ -395,6 +425,17 @@
             <output>
                 <soap:body use="literal"/>
             </output>
+        </operation>
+
+        <operation name="update">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+
         </operation>
     </binding>
 

@@ -64,9 +64,9 @@ public interface BrokerPortType {
      * @return
      *     returns java.lang.String
      * @throws UnavailableTransportFault_Exception
-     * @throws UnknownLocationFault_Exception
-     * @throws UnavailableTransportPriceFault_Exception
      * @throws InvalidPriceFault_Exception
+     * @throws UnavailableTransportPriceFault_Exception
+     * @throws UnknownLocationFault_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -128,5 +128,25 @@ public interface BrokerPortType {
     @ResponseWrapper(localName = "clearTransportsResponse", targetNamespace = "http://ws.broker.upa.pt/", className = "pt.upa.broker.ws.ClearTransportsResponse")
     @Action(input = "http://ws.broker.upa.pt/BrokerPort/clearTransportsRequest", output = "http://ws.broker.upa.pt/BrokerPort/clearTransportsResponse")
     public void clearTransports();
+
+    /**
+     * 
+     * @param idTransportadoraMin
+     * @param transportView
+     * @param counter
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(name = "out", targetNamespace = "")
+    @RequestWrapper(localName = "update", targetNamespace = "http://ws.broker.upa.pt/", className = "pt.upa.broker.ws.Update")
+    @ResponseWrapper(localName = "updateResponse", targetNamespace = "http://ws.broker.upa.pt/", className = "pt.upa.broker.ws.UpdateResponse")
+    public String update(
+        @WebParam(name = "counter", targetNamespace = "")
+        int counter,
+        @WebParam(name = "transportView", targetNamespace = "")
+        TransportView transportView,
+        @WebParam(name = "idTransportadoraMin", targetNamespace = "")
+        String idTransportadoraMin);
 
 }
