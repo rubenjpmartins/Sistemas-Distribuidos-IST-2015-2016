@@ -149,6 +149,9 @@ public class TransporterPort implements TransporterPortType {
 	public JobView requestJob(String origin, String destination, int price)
 			throws BadLocationFault_Exception, BadPriceFault_Exception {
 
+			MessageContext messageContext = webServiceContext.getMessageContext();
+			messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+			
 			int precoProposto = 0;
 			String jobIdBuilder = transporterName.concat(":") ;
 			
@@ -286,6 +289,9 @@ public class TransporterPort implements TransporterPortType {
 	@Override
 	public JobView decideJob(String id, boolean accept) throws BadJobFault_Exception {
 
+		MessageContext messageContext = webServiceContext.getMessageContext();
+		messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+		
 		JobView jobChoosen = jobStatus(id); //searchJobs - procura pelo job
 
 		if(jobChoosen == null){
@@ -328,6 +334,9 @@ public class TransporterPort implements TransporterPortType {
 	@Override
 	public JobView jobStatus(String id) {
 		
+		MessageContext messageContext = webServiceContext.getMessageContext();
+		messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+		
 		for(JobView j : jobViewsList ){
 			if ((j.getJobIdentifier()).equals(id)){
 				return j;
@@ -338,11 +347,19 @@ public class TransporterPort implements TransporterPortType {
 
 	@Override
 	public List<JobView> listJobs() {
+		
+		MessageContext messageContext = webServiceContext.getMessageContext();
+		messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+		
 		return jobViewsList;
 	}
 
 	@Override
 	public void clearJobs() {
+		
+		MessageContext messageContext = webServiceContext.getMessageContext();
+		messageContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, transporterName);
+		
 		jobViewsList.clear();
 		contadorID=1;
 	}
