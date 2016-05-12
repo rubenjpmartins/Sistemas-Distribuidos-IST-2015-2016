@@ -1,5 +1,6 @@
 package example.ws.handler;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -89,6 +90,10 @@ import pt.upa.cripto.DigitalSignatureX509;
  */
 public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
+	
+	private static HashMap<String,Certificate> certificateCache = new HashMap<String, Certificate>();	
+
+	
     public static final String CONTEXT_PROPERTY = "my.property";
 
     //
@@ -367,8 +372,8 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //System.out.println("------RECEBE NULL?-------------");
                 //System.out.println(valueStringNomeUPA);
                 //System.out.println("-------------------");
-                String serverConnectString= valueStringNomeUPA.toString();
-                
+                //String valueStringNomeUPA= valueStringNomeUPA.toString();
+
                
            
                 
@@ -390,14 +395,29 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 
                 
+                // Vai verificar se o certificado esta na cache
+                Certificate certUpaBroker;
                 
-                //Vai buscar o certificado do broker
-                //liga ao servidor de CA e vai buscar as chaves públicas do broker
-                CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
-                //saca o certificado/com chave pública do emissor
+
+                if( !certificateCache.containsKey(valueStringNomeUPA)){
+
+                	//System.out.print("certificado não esta em cache cache");
+                	//Se não tiver - Vai buscar o certificado do broker
+                    //liga ao servidor de CA e vai buscar as chaves públicas do broker
+                    CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
+                    //saca o certificado/com chave pública do emissor                    
+                    certUpaBroker = badjoras.serverConnect(valueStringNomeUPA);
+                	//adiciona na cache
+                    certificateCache.put(valueStringNomeUPA, certUpaBroker);        
+                			
+                }else{
+                	//System.out.print("certificado em cache");
+            		certUpaBroker = certificateCache.get(valueStringNomeUPA);
+                	        	
+                }
                 
-                //Certificate certUpaBroker = badjoras.serverConnect("UpaBroker");
-                Certificate certUpaBroker = badjoras.serverConnect(serverConnectString);
+                
+                
                 //testa 
                 //System.out.println(cert.toString());
                 DigitalSignatureX509 assinaturaX509 = null;
