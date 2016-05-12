@@ -37,7 +37,30 @@ public class BrokerPort implements BrokerPortType{
 	// Contador de ID ID (1 ,2, 3 etc .. )
 	private int counterId;
 	
-	//Construtor
+	protected boolean provaDeVida;
+	
+	//Port do secundary
+	private BrokerPortType secundaryPort;
+	
+	
+	
+	//Construtor do Primario
+		public BrokerPort(Map<String,TransporterPortType> transporterPorts, BrokerPortType secund){
+			secundaryPort = secund;
+			
+			// Map com a sequencia (Upatransporter1, Port desse transporter)
+			ports = transporterPorts;
+					
+			// inicializa lista para guardar estados transportadoras
+			associateIdentifiers = new HashMap<>();
+			transportersViews = new HashMap<>();
+			
+			int counterId = 0;	
+		}
+	
+
+	
+	//Construtor do Secundario
 	public BrokerPort(Map<String,TransporterPortType> transporterPorts){
 		
 		// Map com a sequencia (Upatransporter1, Port desse transporter)
@@ -76,7 +99,9 @@ public class BrokerPort implements BrokerPortType{
 	
 	@Override
 	public String pingToBroker(String name) {
-		System.out.println("I'm alive");
+		//System.out.println("I'm alive");
+		provaDeVida = true;
+
 		return "Im alive";
 	}
 

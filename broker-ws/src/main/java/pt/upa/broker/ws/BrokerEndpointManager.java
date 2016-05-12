@@ -7,22 +7,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.registry.JAXRException;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 
 import example.ws.handler.UpaHeaderHandler;
-
-import java.security.PrivateKey;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-
-
-import pt.upa.cripto.DigitalSignatureX509;
 import pt.ulisboa.tecnico.sdis.ws.uddi.UDDINaming;
+import pt.upa.cripto.DigitalSignatureX509;
 import pt.upa.transporter.ws.TransporterPortType;
 import pt.upa.transporter.ws.TransporterService;
-import pt.upa.ws.cli.CertificateClient;
 
 public class BrokerEndpointManager {
 	private String uddiURL;
@@ -70,69 +63,17 @@ public class BrokerEndpointManager {
 	}
 	
 	public void serverConnect() {
-		Endpoint endpoint = null; 
+		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
 		DigitalSignatureX509 assinaturaX509 = null;
 		
 		transporterPorts = new HashMap<String,TransporterPortType>();
 		
 		try {
-			
-			BrokerPort teste = new BrokerPort(transporterPorts);
-			endpoint = Endpoint.create(teste);
-
-			// publish endpoint
-			System.out.printf("Starting %s%n", url);
-			endpoint.publish(url);
-
-			// publish to UDDI
-			System.out.printf("Publishing '%s' to UDDI at %s%n", name, uddiURL);
 			uddiNaming = new UDDINaming(uddiURL);
-			uddiNaming.rebind(name, url);
-			
-			
-			// searching for transporters
-			int i;
-			Collection<String> urlTransporterEndpoint= new ArrayList<String>();
-			
-			System.out.println("Looking for Transporters...");
-			for (i=1; i < 10; i++){
-				String transporterName = transporterServername+Integer.toString(i) ;				
-				String transporterURL = uddiNaming.lookup(transporterName);
-				
-				// Transporter Found
-				if (transporterURL != null){		
-					
-					System.out.println(transporterName + " was Found at:");
-					urlTransporterEndpoint.add(transporterURL);
-					System.out.println(transporterURL);
-															
-					// stubs creation for Transporter
-					TransporterService service = new TransporterService();
-					TransporterPortType port = service.getTransporterPort();
-
-					// endpoint setting for Transporter
-					BindingProvider bindingProvider = (BindingProvider) port;
-					Map<String, Object> requestContext = bindingProvider.getRequestContext();
-					
-					//ADICIONADO HANDLER CONTEXT
-					String initialValue = TOKEN;
-					requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
-					
-					requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
-										
-					// add Transporter name and port to map
-					transporterPorts.put(transporterName, port);						
-				}				
-			}
 
 			
-			if(transporterPorts.isEmpty()){
-				System.out.println("There are no active transporters");
-				return;
-			}
-				
-			
+			//distinção
 			// If it is the Primary Broker Server
 			if (name.equals("UpaBroker1")){
 				
@@ -144,7 +85,7 @@ public class BrokerEndpointManager {
 				if (secondaryBrokerURL != null){		
 					
 					System.out.println(secondaryBrokerName + " was Found at:");
-					urlTransporterEndpoint.add(secondaryBrokerURL);
+					//urlTransporterEndpoint.add(secondaryBrokerURL);
 					System.out.println(secondaryBrokerURL);
 															
 					// stubs creation for Secondary Broker
@@ -162,44 +103,186 @@ public class BrokerEndpointManager {
 					Timer t1 = new Timer();
 					t1.start();
 				}
+				
+				//Publicaçao do seu serviço
+				
+				BrokerPort teste = new BrokerPort(transporterPorts, secondaryPort);
+				endpoint = Endpoint.create(teste);
+
+				// publish endpoint
+				System.out.printf("Starting %s%n", url);
+				endpoint.publish(url);
+
+				// publish to UDDI
+				System.out.printf("Publishing '%s' to UDDI at %s%n", name, uddiURL);
+				uddiNaming.rebind(name, url);
+					
+				// searching for transporters
+				int i;
+				Collection<String> urlTransporterEndpoint= new ArrayList<String>();
+				
+				System.out.println("Looking for Transporters...");
+				for (i=1; i < 10; i++){
+					String transporterName = transporterServername+Integer.toString(i) ;				
+					String transporterURL = uddiNaming.lookup(transporterName);
+					
+					// Transporter Found
+					if (transporterURL != null){		
+						
+						System.out.println(transporterName + " was Found at:");
+						urlTransporterEndpoint.add(transporterURL);
+						System.out.println(transporterURL);
+																
+						// stubs creation for Transporter
+						TransporterService service = new TransporterService();
+						TransporterPortType port = service.getTransporterPort();
+
+						// endpoint setting for Transporter
+						BindingProvider bindingProvider = (BindingProvider) port;
+						Map<String, Object> requestContext = bindingProvider.getRequestContext();
+						
+						//ADICIONADO HANDLER CONTEXT
+						String initialValue = TOKEN;
+						requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
+						
+						requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
+											
+						// add Transporter name and port to map
+						transporterPorts.put(transporterName, port);						
+					}				
+				}		
+				if(transporterPorts.isEmpty()){
+					System.out.println("There are no active transporters");
+					return;
+				}
+					
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			// Broker Secundario
+			else{
+			
+				//Publicaçao do serviço
+				BrokerPort teste = new BrokerPort(transporterPorts);
+				endpoint = Endpoint.create(teste);
+
+				// publish endpoint
+				System.out.printf("Starting %s%n", url);
+				endpoint.publish(url);
+
+				// publish to UDDI
+				System.out.printf("Publishing '%s' to UDDI at %s%n", name, uddiURL);
+				uddiNaming.rebind(name, url);
+				
+				
+				// searching for transporters
+				int i;
+				Collection<String> urlTransporterEndpoint= new ArrayList<String>();
+				
+				System.out.println("Looking for Transporters...");
+				for (i=1; i < 10; i++){
+					String transporterName = transporterServername+Integer.toString(i) ;				
+					String transporterURL = uddiNaming.lookup(transporterName);
+					
+					// Transporter Found
+					if (transporterURL != null){		
+						
+						System.out.println(transporterName + " was Found at:");
+						urlTransporterEndpoint.add(transporterURL);
+						System.out.println(transporterURL);
+																
+						// stubs creation for Transporter
+						TransporterService service = new TransporterService();
+						TransporterPortType port = service.getTransporterPort();
+
+						// endpoint setting for Transporter
+						BindingProvider bindingProvider = (BindingProvider) port;
+						Map<String, Object> requestContext = bindingProvider.getRequestContext();
+						
+						//ADICIONADO HANDLER CONTEXT
+						String initialValue = TOKEN;
+						requestContext.put(UpaHeaderHandler.CONTEXT_PROPERTY, initialValue);
+						
+						requestContext.put(ENDPOINT_ADDRESS_PROPERTY, transporterURL);
+											
+						// add Transporter name and port to map
+						transporterPorts.put(transporterName, port);						
+					}				
+				}
+
+				
+				if(transporterPorts.isEmpty()){
+					System.out.println("There are no active transporters");
+					return;
+				}
+					
+				
+				//Ciclo para procurar a provadevida
+				
+				boolean b = true;
+				while(true){
+					
+					if(teste.provaDeVida == false){
+						
+						try{
+							Thread.sleep(1000);
+						} catch(InterruptedException ex) {
+							Thread.currentThread().interrupt();
+							return;
+						}
+					}
+					else{
+						System.out.println("Primary Broker Connected");
+						while(true){
+							if(teste.provaDeVida == true){
+								teste.provaDeVida = false;
+							}
+							else{
+								System.out.println("WARNING: Primary Broker Failed");
+								b = false;
+								break;
+							}
+							try{
+								Thread.sleep(7000);
+							} catch(InterruptedException ex) {
+								Thread.currentThread().interrupt();
+								return;
+							}
+						}
+					}
+				if(b==false){
+					break;
+				}
+					
+				}
+				
+				Thread.sleep(2000);
+				// publica o servidor secundario para substituir o primario
+				System.out.printf("Re-Publishing UpaBroker to UDDI at %s%n", uddiURL);
+				try{
+					uddiNaming.rebind("UpaBroker1", url);
+		
+				} catch(JAXRException e) {
+					e.printStackTrace();
+				}
+				
+							
+				
+				
 			}
 			
 
 			
+
 			// wait
 			System.out.println("Broker Server is awaiting connections");
 			System.out.println("Press enter to shutdown");
-			
-			
-
-			
-			//liga ao servidor de CA e vai buscar as chaves públicas dos transporter1 e transporter2
-			CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
-
-			
-			//saca o certificado/com chave pública do emissor
-			Certificate certUpaTransporter1 = badjoras.serverConnect("UpaTransporter1");
-			Certificate certUpaTransporter2 = badjoras.serverConnect("UpaTransporter2");
-			
-			//testa 
-			//System.out.println(cert.toString());
-			
-			
-			//Saca a Private key do broker --------> key alias certo?
-			//PrivateKey chavePrivadaBroker = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath, keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
-			System.out.println("Private Key");			
-			
-			// adicionado para fazer a assinatura
-			
-			String keyStoreFilePath = "${project.build.outputDirectory}/secret.key";
-			
-			//PrivateKey privateKey = getPrivateKeyFromKeystore(keyStoreFilePath,keyStorePassword, keyAlias, keyPassword); 
-
-
-			
-			/////////// sacar a mensagem soap e transformar em array de bites
-			
-			//assinatura.makeDigitalSignature(bytes, privateKey);	
 			
 			System.in.read();
 						

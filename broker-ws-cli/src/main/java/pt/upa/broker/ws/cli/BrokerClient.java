@@ -30,7 +30,7 @@ public class BrokerClient implements BrokerPortType{
 	
 	@Override
 	public String pingToBroker(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

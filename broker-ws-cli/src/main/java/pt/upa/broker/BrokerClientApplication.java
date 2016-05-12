@@ -6,6 +6,7 @@ import pt.upa.broker.ws.cli.BrokerClient;
 
 import static javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +62,12 @@ public class BrokerClientApplication {
 		
 		// create a scanner so we can read the command-line input
 	    Scanner scanner = new Scanner(System.in);
-
-
+	    
+	    // para identificar quando o broker primario falha
+	    
 		// Ciclo principal
 	    while(true){
-
+	    	
 	    	// user choice 
 	    	System.out.print("\n\nEnter your choice:\n");
 	    	System.out.print("1 - Ping\n");
@@ -80,6 +82,9 @@ public class BrokerClientApplication {
 	   		while(!scanner.hasNextInt()) scanner.next();
 	   		int userNumber = scanner.nextInt();
 
+	   		
+	   		
+	   		//try{
 	        switch (userNumber) {
 	        
 	        	//PING
@@ -188,7 +193,15 @@ public class BrokerClientApplication {
 	            default: 
 	            	System.out.println("Invalid choice");
 	                break;
-	        }	           
-	    }       
+	        }
+	        /*
+	        } catch(Exception e){
+	    	System.out.printf("Caught exception: %s%n", e);
+			e.printStackTrace();
+			return; 
+	    } */
+	        
+	    } 
+	    
 	}
 }
