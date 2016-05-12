@@ -65,7 +65,6 @@ public class BrokerEndpointManager {
 	public void serverConnect() {
 		Endpoint endpoint = null;
 		UDDINaming uddiNaming = null;
-		DigitalSignatureX509 assinaturaX509 = null;
 		
 		transporterPorts = new HashMap<String,TransporterPortType>();
 		

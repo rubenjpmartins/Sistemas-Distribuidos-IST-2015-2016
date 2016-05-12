@@ -3,7 +3,6 @@ package example.ws.handler;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.Name;
 import javax.xml.soap.SOAPElement;
@@ -16,66 +15,17 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.MessageContext.Scope;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.MessageContext.Scope;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-
-
 import pt.upa.cripto.DigitalSignatureX509;
-
 import pt.upa.ws.cli.CertificateClient;
-
-
 import static javax.xml.bind.DatatypeConverter.printBase64Binary;
-import static javax.xml.bind.DatatypeConverter.printHexBinary;
-import static javax.xml.bind.DatatypeConverter.parseHexBinary;
 import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
-
-import static javax.xml.bind.DatatypeConverter.printBase64Binary;
-import static javax.xml.bind.DatatypeConverter.printHexBinary;
-import static javax.xml.bind.DatatypeConverter.parseHexBinary;
-import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.UUID;
-
-import javax.xml.namespace.QName;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.MessageContext.Scope;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import pt.upa.cripto.DigitalSignatureX509;
 
 /**
  *  This SOAPHandler shows how to set/get values from headers in
@@ -102,7 +52,6 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     public Set<QName> getHeaders() {
         return null;
     }
-
 
 
     //Lista que contem os UUID
@@ -145,7 +94,10 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         
         String propertyValue = (String) smc.get(CONTEXT_PROPERTY);
 		System.out.printf("%s received '%s'%n", CLASS_NAME, propertyValue);
-		if(propertyValue == "UpaBroker1"){
+		if(propertyValue.equals("UpaBroker1")){
+			propertyValue = "UpaBroker";
+		}
+		if(propertyValue.equals("UpaBroker2")){
 			propertyValue = "UpaBroker";
 		}
 	
@@ -218,7 +170,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //CHAVE PRIVADA DO BROKER
                 PrivateKey chavePrivada = assinaturaX509.getPrivateKeyFromKeystore(keyStoreFilePath,
                         keyStorePassword.toCharArray(), keyAlias, keyPassword.toCharArray());
-                //Faz a assinatura com a chave pricava do Broker
+                //Faz a assinatura com a chave privada do Broker
                 byte[]assinaturaByte = assinaturaX509.makeDigitalSignature(soapMessage.getBytes(), chavePrivada);
                 // Converte PARA STRING PARA DEPOIS INSERIR NO HEADER
                 String bytesAsString = printBase64Binary(assinaturaByte);
@@ -244,6 +196,17 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //System.out.println(idOne);
 
                 
+                
+                //Faz a assinatura com a chave privada do Broker do UUID
+                byte[]assinaturaByteUUID = assinaturaX509.makeDigitalSignature(idOne.toString().getBytes(), chavePrivada);
+                // Converte PARA STRING PARA DEPOIS INSERIR NO HEADER
+                String bytesAsStringUUID = printBase64Binary(assinaturaByteUUID);
+                // add UUID para garantir frescura 
+                Name nameUUIDassinado = se.createName("myHeaderUUIDassinado", "dUUIDassinado", "http://demoUUIDassinado");
+                SOAPHeaderElement elementUUIDassinado = sh.addHeaderElement(nameUUIDassinado);
+                elementUUIDassinado.addTextNode(bytesAsStringUUID);
+                
+             
                 // add header
                 //SOAPHeader sh2 = se.getHeader();
                 //if (sh2 == null)
@@ -252,28 +215,18 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 // add header element (name, namespace prefix, namespace)
                 Name name2 = se.createName("nome", "n", "http://nome");
                 SOAPHeaderElement element2 = sh.addHeaderElement(name2);
-
-
-
-                
                 // add header element value
                 element2.addTextNode(propertyValue);
                 //System.out.println("-------------------");
                 //System.out.println(propertyValue);
-                //System.out.println("-------------------");
-
-                String soapMessagefinal = soapMessageToString(msg);
-
+                //System.out.println("-------------------");                
+                
+                
+                
+                //String soapMessagefinal = soapMessageToString(msg);
                 //System.out.println("\n\n\n\n\n\n\n\n");
                 //System.out.print(soapMessagefinal);
                 //System.out.println("\n\n\n\n\n\n\n\n");
-
-
-
-
-
-
-
 
             } else {
                 //
@@ -293,7 +246,8 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPHeader sh = se.getHeader();
                 
 
-                String soapMessage = soapMessageToString(msg);
+                //String soapMessage = soapMessageToString(msg);
+                
                 //System.out.println("\n\n\n\n\nSOAP MESSAGEM\n\n");
                 //System.out.println(soapMessage);
                 //System.out.println("\n\n\n\n\n\n");
@@ -321,6 +275,57 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 byte[] assRecebida = parseBase64Binary(valueString);
                 
 
+                
+                //get NOME DO UPA
+                Name name2 = se.createName("nome", "n", "http://nome");
+                Iterator it2= sh.getChildElements(name2);
+                if (!it2.hasNext()) {
+                    System.out.println("Header element not found.");
+                    return true;
+                }
+                SOAPElement element2 = (SOAPElement) it2.next();
+                String valueStringNomeUPA= element2.getValue();
+                //System.out.println("------RECEBE NULL?-------------");
+                //System.out.println(valueStringNomeUPA);
+                //System.out.println("-------------------");
+                //String valueStringNomeUPA= valueStringNomeUPA.toString();
+                
+                
+                
+                
+                // Vai verificar se o certificado esta na cache
+                Certificate certUpaBroker;
+                
+
+                if( !certificateCache.containsKey(valueStringNomeUPA)){
+
+                	//System.out.print("certificado não esta em cache cache");
+                	//Se não tiver - Vai buscar o certificado do broker
+                    //liga ao servidor de CA e vai buscar as chaves públicas
+                    CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
+                    //saca o certificado/com chave pública do emissor                    
+                    certUpaBroker = badjoras.serverConnect(valueStringNomeUPA);
+                	//adiciona na cache
+                    certificateCache.put(valueStringNomeUPA, certUpaBroker);        
+                			
+                }else{
+                	//System.out.print("certificado em cache");
+            		certUpaBroker = certificateCache.get(valueStringNomeUPA);
+                	        	
+                }
+                
+                
+                
+                //testa 
+                //System.out.println(cert.toString());
+                DigitalSignatureX509 assinaturaX509 = null;
+                //Public Key Broker
+				PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
+                
+                
+                
+                
+                
                 //get UUID
                 Name nameUUID = se.createName("myHeaderUUID", "dUUID", "http://demoUUID");
                 Iterator itUUID= sh.getChildElements(nameUUID);
@@ -330,10 +335,44 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 }
                 SOAPElement elementUUID = (SOAPElement) itUUID.next();
                 String valueStringUUID= elementUUID.getValue();
-
                 //System.out.println("\n\n\n\n "+"UUID :" + valueStringUUID+ "\n\n\n");
 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                //get UUID assinatura e verifica se o UUDI mantem a integridade
+                Name nameUUIDassinado = se.createName("myHeaderUUIDassinado", "dUUIDassinado", "http://demoUUIDassinado");
 
+                Iterator itUUIDassinado= sh.getChildElements(nameUUIDassinado);
+                if (!itUUIDassinado.hasNext()) {
+                    System.out.println("Header element not found.");
+                    return true;
+                }
+                SOAPElement elementUUIDassinado = (SOAPElement) itUUIDassinado.next();
+                String valueStringUUIDassinado= elementUUIDassinado.getValue();
+
+                
+                //ByteArrayOutputStream outUUDI = new ByteArrayOutputStream();
+                //valueStringUUID.writeTo(outUUDI);
+                
+
+                //Verificação de UUID
+                Boolean XUUID = assinaturaX509.verifyDigitalSignature(parseBase64Binary(valueStringUUIDassinado), valueStringUUID.getBytes()  , publicUpaKey);
+                if(!XUUID){
+                //  Tem de retornar uma execepcao
+                	System.out.println("BAD UUDI VERIFY - UUDI MESSAGE IS NO EQUAL");
+                	return false;
+                }
+                System.out.println("\n\nVerificacao UUDI TRUE OU FALSE: " + XUUID+" \n");             
+                
+
+      
                 //Verifica se o UUID recebido está na lista
                 if(queueUUID.contains(valueStringUUID)){
                     //trowsexception
@@ -360,22 +399,19 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 //System.out.println(soapMessage);
                 //System.out.println("\n\n\n\n\n\n");
 
-                //get NOME DO UPA
-                Name name2 = se.createName("nome", "n", "http://nome");
-                Iterator it2= sh.getChildElements(name2);
-                if (!it2.hasNext()) {
-                    System.out.println("Header element not found.");
-                    return true;
-                }
-                SOAPElement element2 = (SOAPElement) it2.next();
-                String valueStringNomeUPA= element2.getValue();
-                //System.out.println("------RECEBE NULL?-------------");
-                //System.out.println(valueStringNomeUPA);
-                //System.out.println("-------------------");
-                //String valueStringNomeUPA= valueStringNomeUPA.toString();
+                
 
                
            
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -392,40 +428,7 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                 msg.writeTo(out);
-                
-                
-                
-                // Vai verificar se o certificado esta na cache
-                Certificate certUpaBroker;
-                
 
-                if( !certificateCache.containsKey(valueStringNomeUPA)){
-
-                	//System.out.print("certificado não esta em cache cache");
-                	//Se não tiver - Vai buscar o certificado do broker
-                    //liga ao servidor de CA e vai buscar as chaves públicas do broker
-                    CertificateClient badjoras = new CertificateClient("http://localhost:9090","CertificateFileInterface");
-                    //saca o certificado/com chave pública do emissor                    
-                    certUpaBroker = badjoras.serverConnect(valueStringNomeUPA);
-                	//adiciona na cache
-                    certificateCache.put(valueStringNomeUPA, certUpaBroker);        
-                			
-                }else{
-                	//System.out.print("certificado em cache");
-            		certUpaBroker = certificateCache.get(valueStringNomeUPA);
-                	        	
-                }
-                
-                
-                
-                //testa 
-                //System.out.println(cert.toString());
-                DigitalSignatureX509 assinaturaX509 = null;
-                //Public Key Broker
-                // FALTA GUARDAR PARA NÂO ESTAR SEMPRE A IR BUSCAR A CERTIFICATE
-				PublicKey publicUpaKey = assinaturaX509.getPublicKeyFromCertificate( certUpaBroker );
-                
-                
                 
                 //Verificação de mensagens
                 Boolean X = assinaturaX509.verifyDigitalSignature(assRecebida, out.toByteArray(), publicUpaKey);
