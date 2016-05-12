@@ -426,7 +426,7 @@ public class BrokerPort implements BrokerPortType{
 
 	@Override
 	public String update(int counter, TransportView transportView, String idTransportadoraMin) {
-		System.out.println(counter+" "+transportView+" "+idTransportadoraMin);
+		//System.out.println(counter+" "+transportView+" "+idTransportadoraMin);
 		
 		counterId = counter;
 		

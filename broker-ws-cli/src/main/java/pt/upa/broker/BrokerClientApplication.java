@@ -69,7 +69,7 @@ public class BrokerClientApplication {
 	    
 		// Ciclo principal
 	    while(true){
-	    	
+	    	try{
 	    	// user choice 
 	    	System.out.print("\n\nEnter your choice:\n");
 	    	System.out.print("1 - Ping\n");
@@ -99,7 +99,7 @@ public class BrokerClientApplication {
 	   			
 	   			endpointAddressCmp = endpointAddress;
 	   		}
-	   		try{
+	   		
 	        switch (userNumber) {
 	        
 	        	//PING
@@ -211,9 +211,9 @@ public class BrokerClientApplication {
 	        }
 	        
 	        } catch(Exception e){
-	    	System.out.printf("Caught exception: %s%n", e);
-			e.printStackTrace();
-			return; 
+	    	//System.out.printf("Caught exception: %s%n", e.getMessage());
+	    	System.out.printf("Service Unavaliable - Try Again");
+
 	    } 
 	        
 	    } 
