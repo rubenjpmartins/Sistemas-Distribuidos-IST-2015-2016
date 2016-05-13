@@ -6,7 +6,6 @@ Duarte Clara 76832 duartenvclara@gmail.com
 
 Rúben Martins 79532 rubenjpmartins@gmail.com
 
-João Pires 76412 joao_pires_pires@hotmail.com 
 
 Repositório:
 [tecnico-softeng-distsys-2015/T_38-project](https://github.com/tecnico-softeng-distsys-2015/T_38-project/)
@@ -62,6 +61,17 @@ git clone -b SD_R1 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
 
 cd T_38-project
 ```
+
+```
+Versão da entrega da 2ª parte
+
+git clone -b SD_R2 https://github.com/tecnico-softeng-distsys-2015/T_38-project/
+
+cd T_38-project
+```
+
+
+
 
 [4] Iniciar CERTIFICATE AUTHORITY SERVICE:
 
