@@ -38,6 +38,7 @@ public class BrokerPort implements BrokerPortType{
 	private int counterId;
 	
 	protected boolean provaDeVida;
+	protected String falseClearTransports;
 	
 	//Port do secundary
 	private BrokerPortType secondaryPort;
@@ -45,9 +46,9 @@ public class BrokerPort implements BrokerPortType{
 	
 	
 	//Construtor do Primario
-		public BrokerPort(Map<String,TransporterPortType> transporterPorts, BrokerPortType secund){
+		public BrokerPort(Map<String,TransporterPortType> transporterPorts, BrokerPortType secund, String clearTransports){
 			secondaryPort = secund;
-			
+			falseClearTransports=clearTransports;
 			// Map com a sequencia (Upatransporter1, Port desse transporter)
 			ports = transporterPorts;
 					
@@ -64,8 +65,7 @@ public class BrokerPort implements BrokerPortType{
 	public BrokerPort(Map<String,TransporterPortType> transporterPorts){
 		
 		// Map com a sequencia (Upatransporter1, Port desse transporter)
-		ports = transporterPorts;
-				
+		ports = transporterPorts;	
 		// inicializa lista para guardar estados transportadoras
 		associateIdentifiers = new HashMap<>();
 		transportersViews = new HashMap<>();
@@ -380,10 +380,22 @@ public class BrokerPort implements BrokerPortType{
 		associateIdentifiers.clear();	
 		counterId=0;
 		
-		// for para fazer clear a cada uma
-		for (TransporterPortType value : ports.values()){
-			value.clearJobs();	
+		
+		//System.out.println("---------falseClearTransports:" + falseClearTransports);		
+		try{
+			if(falseClearTransports.equals("brokersecundario")){
+				// for para fazer clear a cada uma
+				for (TransporterPortType value : ports.values()){
+					value.clearJobs();	
+					//System.out.println("-----------------------------------limpei transporter");
+				}
+			}
+			
+		}catch (Exception e) {
+			//System.out.println("---------não fiz limpeza para os transporters");
 		}
+		
+		
 		// caso exista servidor secundario actualiza a informacao
 		if((secondaryPort)!=null){
 			secondaryPort.clearTransports();

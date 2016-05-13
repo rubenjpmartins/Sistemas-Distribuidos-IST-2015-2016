@@ -95,7 +95,7 @@ public class BrokerEndpointManager {
 				
 				//Publicaçao do seu serviço
 				
-				BrokerPort teste = new BrokerPort(transporterPorts, secondaryPort);
+				BrokerPort teste = new BrokerPort(transporterPorts, secondaryPort,"brokersecundario");
 				endpoint = Endpoint.create(teste);
 
 				// publish endpoint
@@ -229,6 +229,7 @@ public class BrokerEndpointManager {
 					// caso exista um broker server primario
 					else{
 						System.out.println("Primary Broker Connected");
+						
 						while(true){
 							// altera o valor do atributo para verificar a sua actualizacao periodica pelo primario
 							if(teste.provaDeVida == true){
@@ -259,6 +260,7 @@ public class BrokerEndpointManager {
 				System.out.printf("Re-Publishing UpaBroker1 to UDDI at %s%n", uddiURL);
 				try{
 					uddiNaming.rebind("UpaBroker1", url);
+					teste.falseClearTransports = "brokersecundario";
 		
 				} catch(JAXRException e) {
 					e.printStackTrace();

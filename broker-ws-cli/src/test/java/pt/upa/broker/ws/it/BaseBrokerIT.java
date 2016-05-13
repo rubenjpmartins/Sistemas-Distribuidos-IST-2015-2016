@@ -29,7 +29,7 @@ public abstract class BaseBrokerIT {
 		public static void oneTimeSetup() throws Exception {
 
 			String uddiURL = "http://localhost:9090/";
-			String wsName = "UpaBroker";
+			String wsName = "UpaBroker1";
 			
 			//UpaTransporter1
 			System.out.printf("Contacting UDDI at %s%n", uddiURL);
