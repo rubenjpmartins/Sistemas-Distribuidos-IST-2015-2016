@@ -18,7 +18,7 @@ Repositório:
 
 [0] Iniciar sistema operativo
 ```
-Linux
+Linux/Mac OS
 ```
 
 [1] Iniciar servidores de apoio
