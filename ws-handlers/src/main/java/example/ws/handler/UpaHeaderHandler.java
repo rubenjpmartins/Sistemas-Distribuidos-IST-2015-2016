@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import pt.upa.cripto.DigitalSignatureX509;
 import pt.upa.ws.cli.CertificateClient;
 import static javax.xml.bind.DatatypeConverter.printBase64Binary;
+import static javax.xml.bind.DatatypeConverter.printHexBinary;
 import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
 import java.util.UUID;
 import java.security.PrivateKey;
@@ -162,6 +163,28 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 				// Faz a assinatura com a chave privada do Broker
 				byte[] assinaturaByte = assinaturaX509.makeDigitalSignature(soapMessage.getBytes(), chavePrivada);
 				// Converte PARA STRING PARA DEPOIS INSERIR NO HEADER
+				
+				
+				
+				
+				
+				/*
+				
+				// --------------------------- DEMONSTRACAO ------------------------- //
+				
+				// simula alteracao da mensagem ( teste de integridade )
+				assinaturaByte[3] = 12;
+				
+				System.out.println(printHexBinary(assinaturaByte));
+
+				// ------------------------------------------------------------------ //
+		
+				
+				*/
+			
+				
+				
+		
 				String bytesAsString = printBase64Binary(assinaturaByte);
 
 				// add header
@@ -178,9 +201,41 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 				// add UUID para garantir frescura
 				Name nameUUID = se.createName("myHeaderUUID", "dUUID", "http://demoUUID");
 				SOAPHeaderElement elementUUID = sh.addHeaderElement(nameUUID);
+				
+				
+				
+				
+				
+				
+				
+				// --------------------------- DEMONSTRACAO ------------------------- //
+
+				// trocar na demostraçao
 				UUID idOne = UUID.randomUUID();
 				elementUUID.addTextNode(idOne.toString());
+				
+				
+				
+				
+				
+				
+				/*
+				
+				// --------------------------- DEMONSTRACAO ------------------------- //
+
+				//adicionado uuid conhecido para testar a frescura das mensagens  -- trocar acima
+				String idOne = "553c3eaf-44da-445e-a6ed-17e032ae14dd";
+				elementUUID.addTextNode(idOne);
+
 				// System.out.println(idOne);
+
+				// ------------------------------------------------------------------ //
+
+				*/
+				
+				
+				
+				
 
 				// Faz a assinatura com a chave privada do Broker do UUID
 				byte[] assinaturaByteUUID = assinaturaX509.makeDigitalSignature(idOne.toString().getBytes(),
@@ -223,6 +278,33 @@ public class UpaHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 				System.out.println("Reading header in inbound SOAP message... - MENSAGEM RECEBIDA");
 				System.out.println("----------------------------------");
 
+				
+				
+				
+				
+				
+				
+				/*
+		
+			
+				// --------------------------- DEMONSTRACAO ------------------------- //
+
+				//adicionado uuid conhecido para testar a frescura das mensagens
+				String idOne = "553c3eaf-44da-445e-a6ed-17e032ae14dd";
+				queueUUID.add(idOne);
+
+				// System.out.println(idOne);
+
+				// ------------------------------------------------------------------ //
+				
+				
+				
+				 */
+				
+				
+				
+				
+				
 				// get SOAP envelope header
 				SOAPMessage msg = smc.getMessage();
 				SOAPPart sp = msg.getSOAPPart();
